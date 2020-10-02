@@ -1,0 +1,6 @@
+C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Class Notes\SDLProject\Debug\SDLProject.exe
+C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Class Notes\SDLProject\Debug\SDLProject.pdb
+C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Class Notes\Week4-Inputs\Debug\SDLProject.exe
+C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Class Notes\Week4-Inputs\Debug\SDLProject.pdb
+C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Intro-to-Game-Programming\Project2-Pong\Debug\SDLProject.exe
+C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Intro-to-Game-Programming\Project2-Pong\Debug\SDLProject.pdb
