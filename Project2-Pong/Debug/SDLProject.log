@@ -1,2 +1,8 @@
 ﻿  main.cpp
+C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Intro-to-Game-Programming\Project2-Pong\main.cpp(275,23): warning C4018: '<': signed/unsigned mismatch
+C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Intro-to-Game-Programming\Project2-Pong\main.cpp(315,110): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Intro-to-Game-Programming\Project2-Pong\main.cpp(316,102): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Intro-to-Game-Programming\Project2-Pong\main.cpp(317,112): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Intro-to-Game-Programming\Project2-Pong\main.cpp(320,97): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Intro-to-Game-Programming\Project2-Pong\main.cpp(324,96): warning C4305: 'argument': truncation from 'double' to 'float'
   SDLProject.vcxproj -> C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Intro-to-Game-Programming\Project2-Pong\Debug\SDLProject.exe
