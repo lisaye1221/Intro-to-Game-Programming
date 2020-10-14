@@ -1,0 +1,12 @@
+C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Class Notes\SDLProject\Debug\SDLProject.exe
+C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Class Notes\SDLProject\Debug\SDLProject.pdb
+C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Class Notes\Week4-Inputs\Debug\SDLProject.exe
+C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Class Notes\Week4-Inputs\Debug\SDLProject.pdb
+C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Class Notes\Week5-Sprite Animation\Debug\SDLProject.exe
+C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Class Notes\Week5-Sprite Animation\Debug\SDLProject.pdb
+C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Class Notes\Week5[2]-Organzing Code\Debug\SDLProject.exe
+C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Class Notes\Week5[2]-Organzing Code\Debug\SDLProject.pdb
+C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Class Notes\Week6-Physics\Debug\SDLProject.exe
+C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Class Notes\Week6-Physics\Debug\SDLProject.pdb
+C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Intro-to-Game-Programming\Project3-LunarLander\Debug\SDLProject.exe
+C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Intro-to-Game-Programming\Project3-LunarLander\Debug\SDLProject.pdb
