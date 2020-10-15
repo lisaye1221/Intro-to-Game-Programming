@@ -46,7 +46,8 @@ GLuint leftPlayerTextureID;
 GLuint rightPlayerTextureID;
 GLuint ballTextureID;
 
-float pauseTicks;
+float lastTicks = 0.0f;
+float pauseTicks = 0.0f;
 
 // function prototypes
 void DrawText(ShaderProgram* program, GLuint fontTextureID, const std::string& text,
@@ -138,7 +139,7 @@ void ProcessInput() {
 				// press space bar = starts the game
 				startGame = true;
                 // to subtract from deltaTime: we don't want to count the amount of time when game hasn't start
-                pauseTicks = (float)SDL_GetTicks() / 1000.0f;
+                pauseTicks = (float)SDL_GetTicks() / 1000.0f - lastTicks;
 				break;
 			}
 			break; // SDL_KEYDOWN
@@ -181,7 +182,6 @@ void ProcessInput() {
     }
 }
 
-float lastTicks = 0.0f;
 
 void Update() {
 

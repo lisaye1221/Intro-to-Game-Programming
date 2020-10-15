@@ -10,6 +10,9 @@
 #include "glm/mat4x4.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 #include "ShaderProgram.h"
+#include <vector>
+
+enum EntityType {PLAYER, PLATFORM, WALL, NONE};
 
 class Entity {
 public:
@@ -28,7 +31,8 @@ public:
 
     glm::mat4 modelMatrix;
 
-    Entity* lastCollided = nullptr;
+    EntityType entityType;
+    std::vector<EntityType> lastCollided;
 
     bool isActive = true;
     bool collidedTop = false;
@@ -41,7 +45,7 @@ public:
     bool CheckCollision(Entity* other);
     void CheckCollisionsY(Entity* objects, int objectCount);
     void CheckCollisionsX(Entity* objects, int objectCount);
-    void Update(float deltaTime, Entity* platform, int platformCount);
+    void Update(float deltaTime, const std::vector<std::pair<Entity*, int>>& objectSets);
     void Render(ShaderProgram* program);
     //void DrawSpriteFromTextureAtlas(ShaderProgram* program, GLuint textureID, int index);
 };

@@ -15,13 +15,11 @@ Entity::Entity()
 bool Entity::CheckCollision(Entity* other) {
     if (!isActive || !other->isActive) { return false; }
 
-    
-
     float xdist = fabs(position.x - other->position.x) - ((width + other->width) / 2.0f);
     float ydist = fabs(position.y - other->position.y) - ((height + other->height) / 2.0f);
 
     if (xdist < 0 && ydist < 0) {
-        lastCollided = other;
+        lastCollided.push_back(other->entityType);
     }
 
     return (xdist < 0 && ydist < 0);
@@ -73,7 +71,7 @@ void Entity::CheckCollisionsX(Entity* objects, int objectCount)
     }
 }
 
-void Entity::Update(float deltaTime, Entity* platforms, int platformCount)
+void Entity::Update(float deltaTime, const std::vector<std::pair<Entity*, int>>& objectSets)
 {
     collidedTop = false;
     collidedBottom = false;
@@ -87,10 +85,15 @@ void Entity::Update(float deltaTime, Entity* platforms, int platformCount)
     velocity += acceleration * deltaTime;
 
     position.y += velocity.y * deltaTime; // Move on Y
-    CheckCollisionsY(platforms, platformCount);// Fix if needed
+
+    for (const std::pair<Entity*, int>& platforms : objectSets) {
+        CheckCollisionsY(platforms.first, platforms.second);// Fix if needed
+    }
 
     position.x += velocity.x * deltaTime; // Move on X
-    CheckCollisionsX(platforms, platformCount);// Fix if needed
+    for (const std::pair<Entity*, int>& platforms: objectSets) {
+        CheckCollisionsX(platforms.first, platforms.second);// Fix if needed
+    }
 
     modelMatrix = glm::mat4(1.0f);
     modelMatrix = glm::translate(modelMatrix, position);

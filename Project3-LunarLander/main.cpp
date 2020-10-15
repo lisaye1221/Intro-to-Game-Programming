@@ -4,6 +4,8 @@
 #include <GL/glew.h>
 #endif
 #include<vector>
+#include<algorithm>
+#include <string>
 #define GL_GLEXT_PROTOTYPES 1
 #include <SDL.h>
 #include <SDL_opengl.h>
@@ -23,6 +25,7 @@ struct GameState {
     Entity* player;
     Entity* wall;
     Entity* platform;
+    std::vector<std::pair<Entity*,int>> nonPlayer;
 };
 
 GameState state;
@@ -100,38 +103,43 @@ void Initialize() {
 
     // Initialize Player
     state.player = new Entity();
-    state.player->position = glm::vec3(-0.5, 3.5f, 0);
+    state.player->entityType = PLAYER;
+    state.player->position = glm::vec3(0, 3.5f, 0);
     state.player->movement = glm::vec3(0);
     state.player->acceleration = glm::vec3(0, -0.5f, 0);
     state.player->textureID = LoadTexture("rocket.png");
 
-    state.player->enginePower = 0.05f;
+    state.player->enginePower = 0.06f;
+    state.player->height = 0.8f;
 
     state.platform = new Entity[PLATFORM_COUNT];
     GLuint platformTextureID = LoadTexture("platform.png");
     state.platform[0].textureID = platformTextureID;
-    state.platform[0].position = glm::vec3(3.5f, -3.5, 0);
+    state.platform[0].entityType = PLATFORM;
+    state.platform[0].position = glm::vec3(3.5f, -3.7, 0);
 
     state.platform[1].textureID = platformTextureID;
-    state.platform[1].position = glm::vec3(4.5f, -3.5, 0);
+    state.platform[1].entityType = PLATFORM;
+    state.platform[1].position = glm::vec3(4.5f, -3.7, 0);
 
-    for (int i = 0; i < PLATFORM_COUNT; i++) {
-        state.platform[i].Update(0, NULL, 0);
-    }
+    state.nonPlayer.push_back(std::make_pair(state.platform, PLATFORM_COUNT));
 
     state.wall = new Entity[WALL_COUNT];
     GLuint wallTextureID = LoadTexture("wall.png");
     for (int i = 0; i < WALL_COUNT; i++) {
         state.wall[i].textureID = wallTextureID;
+        state.wall[i].entityType = WALL;
     }
 
     placeWallTile();
+    state.nonPlayer.push_back(std::make_pair(state.wall, WALL_COUNT));
+
 
     for (int i = 0; i < PLATFORM_COUNT; i++) {
-        state.platform[i].Update(0, NULL, 0);
+        state.platform[i].Update(0, {});
     }
     for (int i = 0; i < WALL_COUNT; i++) {
-        state.wall[i].Update(0, NULL, 0);
+        state.wall[i].Update(0, {});
     }
 
 
@@ -189,16 +197,16 @@ void Update() {
     }
     while (deltaTime >= FIXED_TIMESTEP) {
         // Update. Notice it's FIXED_TIMESTEP. Not deltaTime
-        state.player->Update(FIXED_TIMESTEP, state.platform, PLATFORM_COUNT);
+        state.player->Update(FIXED_TIMESTEP, state.nonPlayer);
         deltaTime -= FIXED_TIMESTEP;
     }
     accumulator = deltaTime;
 
     // check game logic
-    if (state.player->lastCollided == state.wall) {
+    if ( std::find(state.player->lastCollided.begin(), state.player->lastCollided.end(),WALL) != state.player->lastCollided.end()) {
         gameLost = true;
     }
-    else if (state.player->lastCollided == state.platform) {
+    else if (std::find(state.player->lastCollided.begin(), state.player->lastCollided.end(), PLATFORM) != state.player->lastCollided.end()) {
        gameWon = true;
     }
 }
@@ -255,16 +263,16 @@ void placeWallTile() {
     for (int i = 16; i < 24; i++) {
         state.wall[i].position = glm::vec3(-4.5f + (i - 16), -3.5f, 0);
     }
-    state.wall[24].position = glm::vec3(2.5f, -0.5f, 0);
-    state.wall[25].position = glm::vec3(4.5f, -0.5f, 0);
-    state.wall[26].position = glm::vec3(3.5f, -0.5f, 0);
+    state.wall[24].position = glm::vec3(2.5f, 0, 0);
+    state.wall[25].position = glm::vec3(4.5f, 0, 0);
+    state.wall[26].position = glm::vec3(3.5f, 0, 0);
 
     state.wall[27].position = glm::vec3(-4.5f, 0.5f, 0);
     state.wall[28].position = glm::vec3(-3.5f, 0.5f, 0);
     state.wall[29].position = glm::vec3(-2.5f, 0.5f, 0);
 
-    state.wall[30].position = glm::vec3(0.0f, 1.5f, 0);
-    state.wall[31].position = glm::vec3(1.0f, 2.5f, 0);
+    state.wall[30].position = glm::vec3(0.5f, 1.5f, 0);
+    state.wall[31].position = glm::vec3(1.5f, 2.5f, 0);
 }
 
 void DrawText(ShaderProgram* program, GLuint fontTextureID, const std::string& text,
@@ -312,13 +320,19 @@ void DrawText(ShaderProgram* program, GLuint fontTextureID, const std::string& t
 }
 
 void textDisplay() {
-    if (gameWon) {
-        DrawText(&program, fontTextureID, "Mission Successful", 0.7, -0.35, glm::vec3(-2.5, 0.5, 0));
-        
-    }
-    else if (gameLost) {
+    
+
+
+    DrawText(&program, fontTextureID, "Acceleration: " + std::to_string(int(state.player->acceleration.x)), 0.4, -0.2, glm::vec3(-5, 3.5, 0));
+
+
+    if (gameLost) {
         DrawText(&program, fontTextureID, "Mission Failed", 0.7, -0.35, glm::vec3(-2.5, 0.5, 0));
         DrawText(&program, fontTextureID, "Press Space Bar to Try Again", 0.5, -0.3, glm::vec3(-2.8, -0.5, 0));
+    }
+    else if (gameWon) {
+        DrawText(&program, fontTextureID, "Mission Successful", 0.7, -0.35, glm::vec3(-2.5, 0.5, 0));
+
     }
 }
 
@@ -327,6 +341,7 @@ void reset() {
     gameWon = false;
     state.player->position = glm::vec3(-0.5, 3.5f, 0);
     state.player->acceleration = glm::vec3(0, -0.5f, 0);
+    state.player->velocity = glm::vec3(0);
     state.player->movement = glm::vec3(0);
-    state.player->lastCollided = nullptr;
+    state.player->lastCollided = {};
 }
