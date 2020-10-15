@@ -111,6 +111,7 @@ void Initialize() {
 
     state.player->enginePower = 0.06f;
     state.player->height = 0.8f;
+    state.player->width = 0.9f;
 
     state.platform = new Entity[PLATFORM_COUNT];
     GLuint platformTextureID = LoadTexture("platform.png");
