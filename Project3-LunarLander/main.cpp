@@ -117,11 +117,11 @@ void Initialize() {
     GLuint platformTextureID = LoadTexture("platform.png");
     state.platform[0].textureID = platformTextureID;
     state.platform[0].entityType = PLATFORM;
-    state.platform[0].position = glm::vec3(3.5f, -3.7, 0);
+    state.platform[0].position = glm::vec3(3.5f, -3.8, 0);
 
     state.platform[1].textureID = platformTextureID;
     state.platform[1].entityType = PLATFORM;
-    state.platform[1].position = glm::vec3(4.5f, -3.7, 0);
+    state.platform[1].position = glm::vec3(4.5f, -3.8, 0);
 
     state.nonPlayer.push_back(std::make_pair(state.platform, PLATFORM_COUNT));
 
