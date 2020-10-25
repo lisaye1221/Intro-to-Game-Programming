@@ -1,0 +1,7 @@
+﻿  main.cpp
+C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Intro-to-Game-Programming\Project3-LunarLander\main.cpp(286,23): warning C4018: '<': signed/unsigned mismatch
+C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Intro-to-Game-Programming\Project3-LunarLander\main.cpp(327,141): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Intro-to-Game-Programming\Project3-LunarLander\main.cpp(331,96): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Intro-to-Game-Programming\Project3-LunarLander\main.cpp(332,110): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Intro-to-Game-Programming\Project3-LunarLander\main.cpp(335,100): warning C4305: 'argument': truncation from 'double' to 'float'
+  SDLProject.vcxproj -> C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Intro-to-Game-Programming\Project3-LunarLander\Debug\SDLProject.exe
