@@ -1,3 +1,5 @@
+#pragma once
+
 #define GL_SILENCE_DEPRECATION
 
 #ifdef _WINDOWS
@@ -68,6 +70,6 @@ public:
     void CheckCollisionsY(Entity* object);
     void CheckCollisionsX(Entity* object);
     virtual void Update(float deltaTime, const std::vector<Entity*>& entitySets);
-    void Render(ShaderProgram* program);
+    virtual void Render(ShaderProgram* program);
     void DrawSpriteFromTextureAtlas(ShaderProgram* program, GLuint textureID, int index);
 };

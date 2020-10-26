@@ -10,3 +10,5 @@ C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Class Notes\Week6-P
 C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Class Notes\Week6-Physics\Debug\SDLProject.pdb
 C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Intro-to-Game-Programming\Project3-LunarLander\Debug\SDLProject.exe
 C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Intro-to-Game-Programming\Project3-LunarLander\Debug\SDLProject.pdb
+C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Intro-to-Game-Programming\Project4-RiseOfTheAI\Debug\Project4-RiseOfTheAI.exe
+C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Intro-to-Game-Programming\Project4-RiseOfTheAI\Debug\Project4-RiseOfTheAI.pdb

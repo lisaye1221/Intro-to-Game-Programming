@@ -29,7 +29,7 @@ void Entity::AIWaitAndGo(Entity* player) {
 }
 */
 
-NPC::NPC(GLuint textID, const glm::vec3& pos, float speed, AIType type, AIState state = IDLE)
+NPC::NPC(GLuint textID, const glm::vec3& pos, float speed, AIType type, AIState state)
     : Entity(EntityType::ENEMY, textID, pos, speed), aiType(type), aiState(state) {
 
 }

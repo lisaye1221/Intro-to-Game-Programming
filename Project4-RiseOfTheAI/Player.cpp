@@ -4,33 +4,31 @@
 
 
 Player::Player(GLuint textID, glm::vec3 position, float speed):
-    Entity(EntityType::PLAYER, textID, position, speed) {}
+    Entity(EntityType::PLAYER, textID, position, speed),jump(false), jumpPower(5.0f) {}
 
 
-void Player::ProcessPlayerInput() {
+void Player::ProcessPlayerInput(SDL_Event event) {
         movement = glm::vec3(0);
 
-        SDL_Event event;
-        while (SDL_PollEvent(&event)) {
-            switch (event.type) {
-            case SDL_KEYDOWN:
-                switch (event.key.keysym.sym) {
-                case SDLK_LEFT:
-                    // Move the player left
-                    break;
+        switch (event.type) {
+        case SDL_KEYDOWN:
+            switch (event.key.keysym.sym) {
+            case SDLK_LEFT:
+                // Move the player left
+                break;
 
-                case SDLK_RIGHT:
-                    // Move the player right
-                    break;
+            case SDLK_RIGHT:
+                // Move the player right
+                break;
 
-                case SDLK_SPACE:
-                    // Some sort of action
-                    if (collidedBottom) { jump = true; }
-                    break;
-                }
-                break; // SDL_KEYDOWN
+            case SDLK_SPACE:
+                // Some sort of action
+                if (collidedBottom) { jump = true; }
+                break;
             }
+            break; // SDL_KEYDOWN
         }
+        
 
         const Uint8* keys = SDL_GetKeyboardState(NULL);
 
@@ -42,8 +40,6 @@ void Player::ProcessPlayerInput() {
             movement.x = 1.0f;
             animIndices = animRight;
         }
-
-
         if (glm::length(movement) > 1.0f) {
             movement = glm::normalize(movement);
         }

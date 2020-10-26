@@ -96,14 +96,16 @@ void Initialize() {
     // Initialize Game Objects
 
     // Initialize Player
-    GLuint textID = LoadTexture("george_0.png");
-    glm::vec3 initialPos = glm::vec3(-4, -1, 0);
+    GLuint textID = LoadTexture("assets/george_0.png");
+    glm::vec3 initialPos = glm::vec3(-4, 5, 0);
     float speed = 1.5f;
 
     state.player = new Player(textID, initialPos, speed);
     state.allEntities.push_back(state.player);
 
-    /*state.player->animRight = new int[4]{ 3, 7, 11, 15 };
+    state.player->setSize(0.6f,0.8f);
+
+    state.player->animRight = new int[4]{ 3, 7, 11, 15 };
     state.player->animLeft = new int[4]{ 1, 5, 9, 13 };
     state.player->animUp = new int[4]{ 2, 6, 10, 14 };
     state.player->animDown = new int[4]{ 0, 4, 8, 12 };
@@ -113,18 +115,17 @@ void Initialize() {
     state.player->animIndex = 0;
     state.player->animTime = 0;
     state.player->animCols = 4;
-    state.player->animRows = 4;*/
+    state.player->animRows = 4;
 
-    textID = LoadTexture("platform.png");
+    textID = LoadTexture("assets/platform.png");
     initialPos = glm::vec3(0);
 
     for (int i = 0; i < PLATFORM_COUNT; i++) {
         Entity* newEntity = new Entity(EntityType::PLATFORM, textID, initialPos, 0);
+        newEntity->setPosition(glm::vec3(-5 + i, -3.25f, 0));
         state.platform.push_back(newEntity);
         state.allEntities.push_back(newEntity);
-        state.platform[i]->setPosition(glm::vec3(-5 + i, -3.25f, 0));
     }
-
     for (Entity* block : state.platform) {
         block->Update(0, {});
     }
@@ -140,9 +141,11 @@ void ProcessInput() {
             case SDL_WINDOWEVENT_CLOSE:
                 gameIsRunning = false;
                 break;
+            default:
+                state.player->ProcessPlayerInput(event);
         }
     }
-    state.player->ProcessPlayerInput();
+    //state.player->ProcessPlayerInput();
 
 }
 
@@ -179,9 +182,9 @@ void Render() {
         state.platform[i]->Render(&program);
     }
 
-    for (int i = 0; i < ENEMY_COUNT; i++) {
+   /* for (int i = 0; i < ENEMY_COUNT; i++) {
         state.enemies[i]->Render(&program);
-    }
+    }*/
 
     state.player->Render(&program);
 
