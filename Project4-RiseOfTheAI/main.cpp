@@ -22,11 +22,13 @@
 #define PLATFORM_COUNT 11
 #define ENEMY_COUNT 1
 
+using namespace std;
+
 struct GameState {
-    Entity* player;
-    Entity* platform;
-    NPC* enemies;
-    std::vector<std::pair<Entity*, int>> allEntities;
+    Player* player;
+    vector<Entity*> platform;
+    vector<NPC*> enemies;
+    vector<Entity*> allEntities;
 };
 
 GameState state;
@@ -98,8 +100,8 @@ void Initialize() {
     glm::vec3 initialPos = glm::vec3(-4, -1, 0);
     float speed = 1.5f;
 
-    state.player = new Entity(EntityType::PLAYER, textID, initialPos, speed);
-    state.allEntities.push_back(std::make_pair(state.player, 1));
+    state.player = new Player(textID, initialPos, speed);
+    state.allEntities.push_back(state.player);
 
     /*state.player->animRight = new int[4]{ 3, 7, 11, 15 };
     state.player->animLeft = new int[4]{ 1, 5, 9, 13 };
@@ -112,6 +114,20 @@ void Initialize() {
     state.player->animTime = 0;
     state.player->animCols = 4;
     state.player->animRows = 4;*/
+
+    textID = LoadTexture("platform.png");
+    initialPos = glm::vec3(0);
+
+    for (int i = 0; i < PLATFORM_COUNT; i++) {
+        Entity* newEntity = new Entity(EntityType::PLATFORM, textID, initialPos, 0);
+        state.platform.push_back(newEntity);
+        state.allEntities.push_back(newEntity);
+        state.platform[i]->setPosition(glm::vec3(-5 + i, -3.25f, 0));
+    }
+
+    for (Entity* block : state.platform) {
+        block->Update(0, {});
+    }
 
 }
 
@@ -126,7 +142,7 @@ void ProcessInput() {
                 break;
         }
     }
-    //state.player->ProcessPlayerInput();
+    state.player->ProcessPlayerInput();
 
 }
 
@@ -146,9 +162,9 @@ void Update() {
         // Update. Notice it's FIXED_TIMESTEP. Not deltaTime
         state.player->Update(FIXED_TIMESTEP, state.allEntities);
 
-        for (int i = 0; i < ENEMY_COUNT; i++) {
+       /* for (int i = 0; i < ENEMY_COUNT; i++) {
             state.enemies[i].Update(FIXED_TIMESTEP,state.player, state.allEntities);
-        }
+        }*/
 
         deltaTime -= FIXED_TIMESTEP;
     }
@@ -160,11 +176,11 @@ void Render() {
     glClear(GL_COLOR_BUFFER_BIT);
 
     for (int i = 0; i < PLATFORM_COUNT; i++) {
-        state.platform[i].Render(&program);
+        state.platform[i]->Render(&program);
     }
 
     for (int i = 0; i < ENEMY_COUNT; i++) {
-        state.enemies[i].Render(&program);
+        state.enemies[i]->Render(&program);
     }
 
     state.player->Render(&program);
@@ -174,6 +190,13 @@ void Render() {
 
 
 void Shutdown() {
+    // free memory of all entities
+    for (Entity* entity : state.allEntities) {
+        delete entity;
+    }
+
+    // free memory of music
+
     SDL_Quit();
 }
 

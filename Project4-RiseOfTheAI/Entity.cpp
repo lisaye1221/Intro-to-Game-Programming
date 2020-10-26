@@ -5,6 +5,26 @@ Entity::Entity(EntityType type, GLuint textID, glm::vec3 position, float speed)
     movement(glm::vec3(0)), acceleration(glm::vec3(0, -9.81f, 0)), velocity(glm::vec3(0)),
     modelMatrix(glm::mat4(1.0f)) {}
 
+
+// getters
+EntityType Entity::getType()const { return entityType; }
+glm::vec3 Entity::getPosition() const { return position; }
+glm::vec3 Entity::getMovement() const { return movement; }
+glm::vec3 Entity::getVelocity() const { return velocity; }
+int Entity::getSpeed() const { return speed; }
+
+// setters
+void Entity::resetMovement() { movement = glm::vec3(0); }
+void Entity::setPosition(glm::vec3 pos) { position = pos; }
+void Entity::setSize(float w, float h) {
+    width = w;
+    height = h;
+}
+void Entity::setSpeed(float spd) {
+    speed = spd;
+}
+
+
 bool Entity::CheckCollision(Entity* other) {
     if (!isActive || !other->isActive || other == this) { return false; }
 
@@ -18,55 +38,47 @@ bool Entity::CheckCollision(Entity* other) {
     return (xdist < 0 && ydist < 0);
 }
 
-void Entity::CheckCollisionsY(Entity* objects, int objectCount)
+void Entity::CheckCollisionsY(Entity* object)
 {
-    for (int i = 0; i < objectCount; i++)
+    if (CheckCollision(object))
     {
-        Entity* object = &objects[i];
-        if (CheckCollision(object))
-        {
-            float ydist = fabs(position.y - object->position.y);
-            float penetrationY = fabs(ydist - (height / 2.0f) - (object->height / 2.0f));
-            if (velocity.y > 0) {
-                position.y -= penetrationY;
-                velocity.y = 0;
-                collidedTop = true;
-            }
-            else if (velocity.y < 0) {
-                position.y += penetrationY;
-                velocity.y = 0;
-                collidedBottom = true;
-            }
+        float ydist = fabs(position.y - object->position.y);
+        float penetrationY = fabs(ydist - (height / 2.0f) - (object->height / 2.0f));
+        if (velocity.y > 0) {
+            position.y -= penetrationY;
+            velocity.y = 0;
+            collidedTop = true;
+        }
+        else if (velocity.y < 0) {
+            position.y += penetrationY;
+            velocity.y = 0;
+            collidedBottom = true;
         }
     }
+    
 }
 
-void Entity::CheckCollisionsX(Entity* objects, int objectCount)
+void Entity::CheckCollisionsX(Entity* object)
 {
-    for (int i = 0; i < objectCount; i++)
+    if (CheckCollision(object))
     {
-        Entity* object = &objects[i];
-        if (CheckCollision(object))
-        {
-            float xdist = fabs(position.x - object->position.x);
-            float penetrationX = fabs(xdist - (width / 2.0f) - (object->width / 2.0f));
-            if (velocity.x > 0) {
-                position.x -= penetrationX;
-                velocity.x = 0;
-                collidedRight = true;
-            }
-            else if (velocity.x < 0) {
-                position.x += penetrationX;
-                velocity.x = 0;
-                collidedLeft = true;
-            }
+        float xdist = fabs(position.x - object->position.x);
+        float penetrationX = fabs(xdist - (width / 2.0f) - (object->width / 2.0f));
+        if (velocity.x > 0) {
+            position.x -= penetrationX;
+            velocity.x = 0;
+            collidedRight = true;
+        }
+        else if (velocity.x < 0) {
+            position.x += penetrationX;
+            velocity.x = 0;
+            collidedLeft = true;
         }
     }
+    
 }
 
-
-
-void Entity::Update(float deltaTime, const std::vector<std::pair<Entity*, int>>& entitySets)
+void Entity::Update(float deltaTime, const std::vector<Entity*>& entitySets)
 {
     if (!isActive) { return; }
 
@@ -101,13 +113,13 @@ void Entity::Update(float deltaTime, const std::vector<std::pair<Entity*, int>>&
     lastCollided.clear();
 
     position.y += velocity.y * deltaTime; // Move on Y
-    for (const std::pair<Entity*, int>& platforms : entitySets) {
-        CheckCollisionsY(platforms.first, platforms.second);// Fix if needed
+    for (Entity* entity : entitySets) {
+        CheckCollisionsY(entity);// Fix if needed
     }
 
     position.x += velocity.x * deltaTime; // Move on X
-    for (const std::pair<Entity*, int>& platforms : entitySets) {
-        CheckCollisionsX(platforms.first, platforms.second);// Fix if needed
+    for (Entity* entity : entitySets) {
+        CheckCollisionsX(entity);// Fix if needed
     }
 
     modelMatrix = glm::mat4(1.0f);

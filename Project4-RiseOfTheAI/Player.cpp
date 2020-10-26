@@ -49,7 +49,7 @@ void Player::ProcessPlayerInput() {
         }
 	}
 
-void Player::Update(float deltaTime, const std::vector<std::pair<Entity*, int>>& entitySets) {
+void Player::Update(float deltaTime, const std::vector<Entity*>& entitySets) {
     if (jump) {
         jump = false;
         velocity.y += jumpPower;

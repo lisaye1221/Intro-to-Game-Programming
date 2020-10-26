@@ -9,7 +9,7 @@ public:
 
     void ProcessPlayerInput();
 
-	void Update(float deltaTime, const std::vector<std::pair<Entity*, int>>& entitySets);
+	void Update(float deltaTime, const std::vector<Entity*>& entitySets);
 
 private:
 	bool jump = false;

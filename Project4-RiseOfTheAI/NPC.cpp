@@ -29,6 +29,21 @@ void Entity::AIWaitAndGo(Entity* player) {
 }
 */
 
+NPC::NPC(GLuint textID, const glm::vec3& pos, float speed, AIType type, AIState state = IDLE)
+    : Entity(EntityType::ENEMY, textID, pos, speed), aiType(type), aiState(state) {
+
+}
+
+AIType NPC::getType() const { return aiType; }
+AIState NPC::getState() const { return aiState; }
+
+void NPC::setState(AIState state) { aiState = state; }
+
+void NPC::Update(float deltaTime, Entity* player, const std::vector<Entity*>& entitySets) {
+    AI(player);
+    Entity::Update(deltaTime, entitySets);
+}
+
 void NPC::AI(Entity* player) {
 
     switch (aiType) {

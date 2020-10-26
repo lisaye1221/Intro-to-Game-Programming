@@ -52,26 +52,22 @@ public:
     Entity(EntityType type, GLuint textID, glm::vec3 position, float speed);
 
     // getters
-    EntityType getType()const { return entityType; }
-    glm::vec3 getPosition() const { return position; }
-    glm::vec3 getMovement() const { return movement; }
-    glm::vec3 getVelocity() const { return velocity; }
-    int getSpeed() const { return speed; }
+    EntityType getType() const;
+    glm::vec3 getPosition() const;
+    glm::vec3 getMovement() const;
+    glm::vec3 getVelocity() const;
+    int getSpeed() const;
 
     // setters
-    void resetMovement() { movement = glm::vec3(0); }
-    void setSize(float w, float h) {
-        width = w;
-        height = h;
-    }
-    void setSpeed(float spd) {
-        speed = spd;
-    }
+    void resetMovement();
+    void setPosition(glm::vec3 pos);
+    void setSize(float w, float h);
+    void setSpeed(float spd);
 
     bool CheckCollision(Entity* other);
-    void CheckCollisionsY(Entity* objects, int objectCount);
-    void CheckCollisionsX(Entity* objects, int objectCount);
-    virtual void Update(float deltaTime, const std::vector<std::pair<Entity*, int>>& entitySets);
+    void CheckCollisionsY(Entity* object);
+    void CheckCollisionsX(Entity* object);
+    virtual void Update(float deltaTime, const std::vector<Entity*>& entitySets);
     void Render(ShaderProgram* program);
     void DrawSpriteFromTextureAtlas(ShaderProgram* program, GLuint textureID, int index);
 };
