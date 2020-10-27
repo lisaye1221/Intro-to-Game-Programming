@@ -14,5 +14,5 @@ public:
 private:
 	bool jump;
 	float jumpPower;
-
+	bool onLadder() const;
 };

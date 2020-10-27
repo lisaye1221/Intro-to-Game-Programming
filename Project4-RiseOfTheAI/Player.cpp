@@ -6,6 +6,14 @@
 Player::Player(GLuint textID, glm::vec3 position, float speed):
     Entity(EntityType::PLAYER, textID, position, speed),jump(false), jumpPower(5.0f) {}
 
+bool Player::onLadder() const {
+    for (Entity* entity : lastCollided) {
+        if (entity->getType() == EntityType::LADDER) {
+            return true;
+        }
+    }
+    return false;
+}
 
 void Player::ProcessPlayerInput(SDL_Event event) {
         movement = glm::vec3(0);
@@ -40,6 +48,18 @@ void Player::ProcessPlayerInput(SDL_Event event) {
             movement.x = 1.0f;
             animIndices = animRight;
         }
+        else if (keys[SDL_SCANCODE_UP]) {
+            if (onLadder()) { 
+                movement.y = 1.0f; 
+                animIndices = animUp;
+            }
+        }
+        else if (keys[SDL_SCANCODE_DOWN]) {
+            if (onLadder()) { 
+                movement.y = -1.0f; 
+                animIndices = animDown;
+            }
+        }
         if (glm::length(movement) > 1.0f) {
             movement = glm::normalize(movement);
         }
@@ -50,5 +70,16 @@ void Player::Update(float deltaTime, const std::vector<Entity*>& entitySets) {
         jump = false;
         velocity.y += jumpPower;
     }
+    if (onLadder()) {
+        ignorePlatform = true;
+        acceleration = glm::vec3(0);
+        velocity.y = movement.y * speed;
+    }
+    else {
+        acceleration = glm::vec3(0, -9.81f, 0);
+        ignorePlatform = false;
+    }
     Entity::Update(deltaTime, entitySets);
+
+
 }

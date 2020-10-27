@@ -2,7 +2,7 @@
 
 #include "Entity.h"
 
-enum AIType { SHOOTER, RUNNER, COPIER, SLEEPER };
+enum AIType { RUNNER, COPIER, SLEEPER };
 enum AIState { IDLE, RUNNING_AWAY, COPYING, ALARMED };
 
 class NPC : public Entity {
@@ -16,6 +16,8 @@ public:
 	void setState(AIState state);
 
 	virtual void Update(float deltaTime, Entity* player, const std::vector<Entity*>& entitySets);
+
+	void AIRunner(Entity* player);
 
 private:
 	void AI(Entity*);

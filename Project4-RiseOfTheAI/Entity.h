@@ -27,6 +27,7 @@ protected:
     float speed;
     float width = 1;
     float height = 1;
+    bool ignorePlatform;
 
     std::vector<Entity*> lastCollided;
 

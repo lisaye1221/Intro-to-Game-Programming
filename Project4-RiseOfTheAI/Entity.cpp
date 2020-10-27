@@ -3,7 +3,7 @@
 Entity::Entity(EntityType type, GLuint textID, glm::vec3 position, float speed)
     :entityType(type), textureID(textID),position(position), speed(speed),
     movement(glm::vec3(0)), acceleration(glm::vec3(0, -9.81f, 0)), velocity(glm::vec3(0)),
-    modelMatrix(glm::mat4(1.0f)) {}
+    modelMatrix(glm::mat4(1.0f)), ignorePlatform(false) {}
 
 
 // getters
@@ -42,17 +42,19 @@ void Entity::CheckCollisionsY(Entity* object)
 {
     if (CheckCollision(object))
     {
-        float ydist = fabs(position.y - object->position.y);
-        float penetrationY = fabs(ydist - (height / 2.0f) - (object->height / 2.0f));
-        if (velocity.y > 0) {
-            position.y -= penetrationY;
-            velocity.y = 0;
-            collidedTop = true;
-        }
-        else if (velocity.y < 0) {
-            position.y += penetrationY;
-            velocity.y = 0;
-            collidedBottom = true;
+        if (object->entityType == EntityType::PLATFORM) {
+            float ydist = fabs(position.y - object->position.y);
+            float penetrationY = fabs(ydist - (height / 2.0f) - (object->height / 2.0f));
+            if (velocity.y > 0) {
+                position.y -= penetrationY;
+                velocity.y = 0;
+                collidedTop = true;
+            }
+            else if (velocity.y < 0) {
+                position.y += penetrationY;
+                velocity.y = 0;
+                collidedBottom = true;
+            }
         }
     }
     
@@ -62,17 +64,19 @@ void Entity::CheckCollisionsX(Entity* object)
 {
     if (CheckCollision(object))
     {
-        float xdist = fabs(position.x - object->position.x);
-        float penetrationX = fabs(xdist - (width / 2.0f) - (object->width / 2.0f));
-        if (velocity.x > 0) {
-            position.x -= penetrationX;
-            velocity.x = 0;
-            collidedRight = true;
-        }
-        else if (velocity.x < 0) {
-            position.x += penetrationX;
-            velocity.x = 0;
-            collidedLeft = true;
+        if (object->entityType == EntityType::PLATFORM) {
+            float xdist = fabs(position.x - object->position.x);
+            float penetrationX = fabs(xdist - (width / 2.0f) - (object->width / 2.0f));
+            if (velocity.x > 0) {
+                position.x -= penetrationX;
+                velocity.x = 0;
+                collidedRight = true;
+            }
+            else if (velocity.x < 0) {
+                position.x += penetrationX;
+                velocity.x = 0;
+                collidedLeft = true;
+            }
         }
     }
     
@@ -108,6 +112,7 @@ void Entity::Update(float deltaTime, const std::vector<Entity*>& entitySets)
 
     velocity.x = movement.x * speed; 
     velocity += acceleration * deltaTime;
+
 
     // clear collisions from last frame 
     lastCollided.clear();
