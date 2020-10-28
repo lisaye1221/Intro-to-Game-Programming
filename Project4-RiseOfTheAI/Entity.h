@@ -13,9 +13,11 @@
 #include "glm/gtc/matrix_transform.hpp"
 #include "ShaderProgram.h"
 
+#include <algorithm>
 #include <vector>
 
 enum class EntityType {PLAYER, PLATFORM, LADDER, ENEMY};
+enum Direction {LEFT, RIGHT, UP, DOWN};
 
 class Entity {
 protected:
@@ -28,6 +30,7 @@ protected:
     float width = 1;
     float height = 1;
     bool ignorePlatform;
+    Direction facing;
 
     std::vector<Entity*> lastCollided;
 
@@ -60,6 +63,7 @@ public:
     glm::vec3 getMovement() const;
     glm::vec3 getVelocity() const;
     int getSpeed() const;
+    Direction getFacing() const;
 
     // setters
     void resetMovement();

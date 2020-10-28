@@ -42,21 +42,25 @@ void Player::ProcessPlayerInput(SDL_Event event) {
 
         if (keys[SDL_SCANCODE_LEFT]) {
             movement.x = -1.0f;
+            facing = LEFT;
             animIndices = animLeft;
         }
         else if (keys[SDL_SCANCODE_RIGHT]) {
             movement.x = 1.0f;
+            facing = RIGHT;
             animIndices = animRight;
         }
         else if (keys[SDL_SCANCODE_UP]) {
             if (onLadder()) { 
                 movement.y = 1.0f; 
+                facing = UP;
                 animIndices = animUp;
             }
         }
         else if (keys[SDL_SCANCODE_DOWN]) {
             if (onLadder()) { 
                 movement.y = -1.0f; 
+                facing = DOWN;
                 animIndices = animDown;
             }
         }

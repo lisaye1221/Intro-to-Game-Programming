@@ -47,6 +47,9 @@ bool gameIsRunning = true;
 ShaderProgram program;
 glm::mat4 viewMatrix, modelMatrix, projectionMatrix;
 
+void makePlatform();
+void makeLadder();
+
 GLuint LoadTexture(const char* filePath) {
     int w, h, n;
     unsigned char* image = stbi_load(filePath, &w, &h, &n, STBI_rgb_alpha);
@@ -71,7 +74,7 @@ GLuint LoadTexture(const char* filePath) {
 
 void Initialize() {
     SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
-    displayWindow = SDL_CreateWindow("Slimes", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 500, 600, SDL_WINDOW_OPENGL);
+    displayWindow = SDL_CreateWindow("Bunnies", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 500, 600, SDL_WINDOW_OPENGL);
     SDL_GLContext context = SDL_GL_CreateContext(displayWindow);
     SDL_GL_MakeCurrent(displayWindow, context);
 
@@ -125,67 +128,14 @@ void Initialize() {
     state.player->animCols = 4;
     state.player->animRows = 4;
 
-    textID = LoadTexture("assets/platform.png");
-    initialPos = glm::vec3(0);
+    makePlatform();
+    makeLadder();
 
-    for (int i = 0; i < PLATFORM_COUNT; i++) {
-        Entity* newEntity = new Entity(EntityType::PLATFORM, textID, initialPos, 0);
-        newEntity->setPosition(glm::vec3(-5 + i, -5.5f, 0));
-        state.platform.push_back(newEntity);
-        state.allEntities.push_back(newEntity);
-        newEntity->Update(0, {});
-    }
-
-    for (int i = 0; i < PLATFORML1_COUNT; i++) {
-        
-        Entity* newEntity = new Entity(EntityType::PLATFORM, textID, initialPos, 0);
-        newEntity->setPosition(glm::vec3(-5 + i, -2.5f, 0));
-        state.platformL1.push_back(newEntity);
-        state.allEntities.push_back(newEntity);
-        if (-5 + i == -1) { newEntity->isActive = false; }
-        newEntity->Update(0, {});
-    }
-
-    for (int i = 0; i < PLATFORML2_COUNT; i++) {
-        Entity* newEntity = new Entity(EntityType::PLATFORM, textID, initialPos, 0);
-        newEntity->setPosition(glm::vec3(-5 + i, 0.5f, 0));
-        state.platformL2.push_back(newEntity);
-        state.allEntities.push_back(newEntity);
-        if (-5 + i == 3 || -5 + i == -3) { newEntity->isActive = false; }
-        newEntity->Update(0, {});
-    }
-
-    for (int i = 0; i < PLATFORML3_COUNT; i++) {
-        Entity* newEntity = new Entity(EntityType::PLATFORM, textID, initialPos, 0);
-        newEntity->setPosition(glm::vec3(-2 + i, 4.5f, 0));
-        state.platformL3.push_back(newEntity);
-        state.allEntities.push_back(newEntity);
-        newEntity->Update(0, {});
-    }
-
-    vector<vector<float>> ladderPos{ {-1.0f, -4.5f},{3.0f,-1.5f},{-3.0f,-1.5f} };
-    for (int i = 0; i < LADDER_COUNT; i++) {
-        textID = LoadTexture("assets/ladder_down.png");
-        initialPos = glm::vec3(ladderPos[i][0], ladderPos[i][1], 0);
-        int j = 0;
-        // make ladder bottom
-        for (; j < 2; j++) {
-            glm::vec3 pos = initialPos;
-            pos.y += j;
-            Entity* newEntity = new Entity(EntityType::LADDER, textID, pos, 0);
-            state.ladder.push_back(newEntity);
-            state.allEntities.push_back(newEntity);
-            newEntity->Update(0, {});
-        }
-        textID = LoadTexture("assets/ladder_up.png");
-        glm::vec3 pos = initialPos;
-        pos.y += j;
-        Entity* newEntity = new Entity(EntityType::LADDER, textID, pos, 0);
-        state.ladder.push_back(newEntity);
-        state.allEntities.push_back(newEntity);
-        newEntity->Update(0, {});
-    }
-
+    textID = LoadTexture("assets/bunny1.png");
+    initialPos = glm::vec3(3, -4, 0);
+    speed = 1.0f;
+    NPC* newNPC = new NPC(textID, initialPos, speed, RUNNER, IDLE);
+    state.enemies.push_back(newNPC);
 
 }
 
@@ -222,6 +172,9 @@ void Update() {
         // Update. Notice it's FIXED_TIMESTEP. Not deltaTime
         state.player->Update(FIXED_TIMESTEP, state.allEntities);
 
+        for (NPC* npc : state.enemies) {
+            npc->Update(FIXED_TIMESTEP, state.player, state.allEntities);
+        }
        /* for (int i = 0; i < ENEMY_COUNT; i++) {
             state.enemies[i].Update(FIXED_TIMESTEP,state.player, state.allEntities);
         }*/
@@ -251,9 +204,9 @@ void Render() {
     for (Entity* entity : state.ladder) {
         entity -> Render(&program);
     }
-   /* for (int i = 0; i < ENEMY_COUNT; i++) {
-        state.enemies[i]->Render(&program);
-    }*/
+    for (NPC* npc : state.enemies) {
+        npc->Render(&program);
+   }
 
     state.player->Render(&program);
 
@@ -283,4 +236,73 @@ int main(int argc, char* argv[]) {
 
     Shutdown();
     return 0;
+}
+
+
+void makePlatform() {
+    GLuint textID = LoadTexture("assets/platform.png");
+    glm::vec3 initialPos = glm::vec3(0);
+
+    for (int i = 0; i < PLATFORM_COUNT; i++) {
+        Entity* newEntity = new Entity(EntityType::PLATFORM, textID, initialPos, 0);
+        newEntity->setPosition(glm::vec3(-5 + i, -5.5f, 0));
+        state.platform.push_back(newEntity);
+        state.allEntities.push_back(newEntity);
+        newEntity->Update(0, {});
+    }
+
+    for (int i = 0; i < PLATFORML1_COUNT; i++) {
+
+        Entity* newEntity = new Entity(EntityType::PLATFORM, textID, initialPos, 0);
+        newEntity->setPosition(glm::vec3(-5 + i, -2.5f, 0));
+        state.platformL1.push_back(newEntity);
+        state.allEntities.push_back(newEntity);
+        if (-5 + i == -1) { newEntity->isActive = false; }
+        newEntity->Update(0, {});
+    }
+
+    for (int i = 0; i < PLATFORML2_COUNT; i++) {
+        Entity* newEntity = new Entity(EntityType::PLATFORM, textID, initialPos, 0);
+        newEntity->setPosition(glm::vec3(-5 + i, 0.5f, 0));
+        state.platformL2.push_back(newEntity);
+        state.allEntities.push_back(newEntity);
+        if (-5 + i == 3 || -5 + i == -3) { newEntity->isActive = false; }
+        newEntity->Update(0, {});
+    }
+
+    for (int i = 0; i < PLATFORML3_COUNT; i++) {
+        Entity* newEntity = new Entity(EntityType::PLATFORM, textID, initialPos, 0);
+        newEntity->setPosition(glm::vec3(-2 + i, 4.5f, 0));
+        state.platformL3.push_back(newEntity);
+        state.allEntities.push_back(newEntity);
+        newEntity->Update(0, {});
+    }
+}
+
+void makeLadder() {
+    GLuint textID;
+    glm::vec3 initialPos;
+    vector<vector<float>> ladderPos{ {-1.0f, -4.5f},{3.0f,-1.5f},{-3.0f,-1.5f} };
+    for (int i = 0; i < LADDER_COUNT; i++) {
+        textID = LoadTexture("assets/ladder_down.png");
+        initialPos = glm::vec3(ladderPos[i][0], ladderPos[i][1], 0);
+        int j = 0;
+        // make ladder bottom
+        for (; j < 2; j++) {
+            glm::vec3 pos = initialPos;
+            pos.y += j;
+            Entity* newEntity = new Entity(EntityType::LADDER, textID, pos, 0);
+            state.ladder.push_back(newEntity);
+            state.allEntities.push_back(newEntity);
+            newEntity->Update(0, {});
+        }
+        textID = LoadTexture("assets/ladder_up.png");
+        glm::vec3 pos = initialPos;
+        pos.y += j;
+        Entity* newEntity = new Entity(EntityType::LADDER, textID, pos, 0);
+        state.ladder.push_back(newEntity);
+        state.allEntities.push_back(newEntity);
+        newEntity->Update(0, {});
+    }
+
 }

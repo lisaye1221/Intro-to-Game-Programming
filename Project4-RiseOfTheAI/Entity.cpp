@@ -12,6 +12,7 @@ glm::vec3 Entity::getPosition() const { return position; }
 glm::vec3 Entity::getMovement() const { return movement; }
 glm::vec3 Entity::getVelocity() const { return velocity; }
 int Entity::getSpeed() const { return speed; }
+Direction Entity::getFacing() const { return facing; }
 
 // setters
 void Entity::resetMovement() { movement = glm::vec3(0); }
@@ -125,6 +126,15 @@ void Entity::Update(float deltaTime, const std::vector<Entity*>& entitySets)
     position.x += velocity.x * deltaTime; // Move on X
     for (Entity* entity : entitySets) {
         CheckCollisionsX(entity);// Fix if needed
+    }
+
+
+    // warping
+    if (position.x > 5.5f) {
+        position.x -= 10.5;
+    }
+    if (position.x < -5.5f) {
+        position.x += 10.5;
     }
 
     modelMatrix = glm::mat4(1.0f);

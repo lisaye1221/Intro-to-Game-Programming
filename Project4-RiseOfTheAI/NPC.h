@@ -18,6 +18,8 @@ public:
 	virtual void Update(float deltaTime, Entity* player, const std::vector<Entity*>& entitySets);
 
 	void AIRunner(Entity* player);
+	void AICopier(Entity* player);
+	void AISleeper(Entity* player);
 
 private:
 	void AI(Entity*);

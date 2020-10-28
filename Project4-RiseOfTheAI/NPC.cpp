@@ -32,22 +32,68 @@ void NPC::AI(Entity* player) {
 }
 
 void NPC::AIRunner(Entity* player) {
+
+    float leftDistance;
+    float rightDistance;
+
+    if (position.x > player->getPosition().x) {
+        leftDistance = abs(position.x - player->getPosition().x);
+        rightDistance = 10 - abs(position.x - player->getPosition().x);
+    }
+    else {
+        rightDistance = abs(position.x - player->getPosition().x);
+        leftDistance = 10 - abs(position.x - player->getPosition().x);
+    }
+    float dist;
+    Direction run;
+
+    if (leftDistance < rightDistance) {
+        dist = leftDistance;
+        run = RIGHT;
+    }
+    else {
+        dist = rightDistance;
+        run = LEFT;
+    }
+
     switch (aiState) {
     case IDLE:
-        if (glm::distance(position, player->getPosition()) < 3.0f) {
+        if (dist < 2) {
             aiState = RUNNING_AWAY;
         }
         break;
     case RUNNING_AWAY:
-        // if player is to left of AI
-        if (player->getPosition().x < position.x) {
+        if (dist >= 2) {
+            movement = glm::vec3(0);
+            aiState = IDLE;
+            break;
+        }
+        else if (run == RIGHT) {
             // move right
             movement = glm::vec3(1, 0, 0);
         }
-        else { // if player is to the right
+        else if(run == LEFT) {
             // move left
             movement = glm::vec3(-1, 0, 0);
         }
         break;
     }
+}
+
+void NPC::AICopier(Entity* player) {
+    switch (aiState) {
+    case IDLE:
+        // if player is on second level
+        if (player->getPosition().y >= -2.5f && player->getPosition().y < 0.5f) {
+            aiState = COPYING;
+        }
+        break;
+    case COPYING:
+        movement.x = player->getMovement().x;
+        break;
+    }
+}
+
+void NPC::AISleeper(Entity* player) {
+
 }
