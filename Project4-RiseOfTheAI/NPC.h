@@ -10,7 +10,7 @@ class NPC : public Entity {
 public:
 	NPC(GLuint textID, const glm::vec3& pos, float speed, AIType type, AIState state = IDLE);
 
-	AIType getType() const;
+	AIType getAIType() const;
 	AIState getState() const;
 
 	void setState(AIState state);

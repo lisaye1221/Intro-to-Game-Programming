@@ -139,9 +139,16 @@ void Initialize() {
 
     textID = LoadTexture("assets/bunny1.png");
     initialPos = glm::vec3(3, -4, 0);
-    speed = 0.7f;
+    speed = 0.8f;
     NPC* newNPC = new NPC(textID, initialPos, speed, RUNNER, IDLE);
     state.enemies.push_back(newNPC);
+    state.allEntities.push_back(newNPC);
+
+    initialPos = glm::vec3(2, -1, 0);
+    speed = state.player->getSpeed();
+    newNPC = new NPC(textID, initialPos, speed, COPIER, IDLE);
+    state.enemies.push_back(newNPC);
+    state.allEntities.push_back(newNPC);
 
 }
 
@@ -249,6 +256,7 @@ int main(int argc, char* argv[]) {
 
 void displayText() {
     DrawText(&program, fontTextureID, "Time Left: " + to_string(int(timeLeft)), 0.45, -0.23, glm::vec3(-4.5, 5.5, 0));
+    DrawText(&program, fontTextureID, "Bunnies:" + to_string(state.player->getBunniesCaptured()) + "/4", 0.45, -0.23, glm::vec3(2.5, 5.5, 0));
 }
 
 
@@ -267,7 +275,7 @@ void makePlatform() {
     for (int i = 0; i < PLATFORML1_COUNT; i++) {
 
         Entity* newEntity = new Entity(EntityType::PLATFORM, textID, initialPos, 0);
-        newEntity->setPosition(glm::vec3(-5 + i, -2.5f, 0));
+        newEntity->setPosition(glm::vec3(-5 + i, -2.52f, 0));
         state.platformL1.push_back(newEntity);
         state.allEntities.push_back(newEntity);
         if (-5 + i == -1) { newEntity->isActive = false; }
@@ -276,10 +284,10 @@ void makePlatform() {
 
     for (int i = 0; i < PLATFORML2_COUNT; i++) {
         Entity* newEntity = new Entity(EntityType::PLATFORM, textID, initialPos, 0);
-        newEntity->setPosition(glm::vec3(-5 + i, 0.5f, 0));
+        newEntity->setPosition(glm::vec3(-5 + i, 0.48f, 0));
         state.platformL2.push_back(newEntity);
         state.allEntities.push_back(newEntity);
-        if (-5 + i == 3 || -5 + i == -3) { newEntity->isActive = false; }
+        if (-5 + i == 3 || -5 + i == -4) { newEntity->isActive = false; }
         newEntity->Update(0, {});
     }
 
@@ -295,7 +303,7 @@ void makePlatform() {
 void makeLadder() {
     GLuint textID;
     glm::vec3 initialPos;
-    vector<vector<float>> ladderPos{ {-1.0f, -4.5f},{3.0f,-1.5f},{-3.0f,-1.5f} };
+    vector<vector<float>> ladderPos{ {-1.0f, -4.5f},{3.0f,-1.5f},{-4.0f,-1.5f} };
     for (int i = 0; i < LADDER_COUNT; i++) {
         textID = LoadTexture("assets/ladder_down.png");
         initialPos = glm::vec3(ladderPos[i][0], ladderPos[i][1], 0);

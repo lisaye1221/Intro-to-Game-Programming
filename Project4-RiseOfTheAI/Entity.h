@@ -50,10 +50,10 @@ public:
     int animRows = 0;
 
     bool isActive = true;
-    bool collidedTop = false;
-    bool collidedBottom = false;
-    bool collidedLeft = false;
-    bool collidedRight = false;
+    Entity* collidedTop = nullptr;
+    Entity* collidedBottom = nullptr;
+    Entity* collidedLeft = nullptr;
+    Entity* collidedRight = nullptr;
 
     Entity(EntityType type, GLuint textID, glm::vec3 position, float speed);
 
@@ -62,7 +62,7 @@ public:
     glm::vec3 getPosition() const;
     glm::vec3 getMovement() const;
     glm::vec3 getVelocity() const;
-    int getSpeed() const;
+    float getSpeed() const;
     Direction getFacing() const;
 
     // setters

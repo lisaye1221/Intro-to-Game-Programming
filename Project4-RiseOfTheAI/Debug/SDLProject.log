@@ -1,5 +1,6 @@
 ﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(491,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (SDLProject.vcxproj).  This can lead to incorrect clean and rebuild behavior.
   main.cpp
-C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Intro-to-Game-Programming\Project4-RiseOfTheAI\main.cpp(251,117): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Intro-to-Game-Programming\Project4-RiseOfTheAI\main.cpp(330,23): warning C4018: '<': signed/unsigned mismatch
+C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Intro-to-Game-Programming\Project4-RiseOfTheAI\main.cpp(258,117): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Intro-to-Game-Programming\Project4-RiseOfTheAI\main.cpp(259,141): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Intro-to-Game-Programming\Project4-RiseOfTheAI\main.cpp(338,23): warning C4018: '<': signed/unsigned mismatch
   SDLProject.vcxproj -> C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Intro-to-Game-Programming\Project4-RiseOfTheAI\Debug\Project4-RiseOfTheAI.exe

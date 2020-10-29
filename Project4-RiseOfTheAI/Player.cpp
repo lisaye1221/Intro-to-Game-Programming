@@ -6,6 +6,8 @@
 Player::Player(GLuint textID, glm::vec3 position, float speed):
     Entity(EntityType::PLAYER, textID, position, speed),jump(false), jumpPower(5.0f) {}
 
+int Player::getBunniesCaptured() const { return bunniesCaptured; }
+
 bool Player::onLadder() const {
     for (Entity* entity : lastCollided) {
         if (entity->getType() == EntityType::LADDER) {
@@ -83,7 +85,15 @@ void Player::Update(float deltaTime, const std::vector<Entity*>& entitySets) {
         acceleration = glm::vec3(0, -9.81f, 0);
         ignorePlatform = false;
     }
+    for (Entity* entity : lastCollided) {
+        if (entity->getType() == EntityType::ENEMY) {
+            entity->isActive = false;
+            bunniesCaptured++;
+            break;
+        }
+    }
     Entity::Update(deltaTime, entitySets);
 
-
+    
+    
 }

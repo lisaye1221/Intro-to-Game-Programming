@@ -11,7 +11,7 @@ EntityType Entity::getType()const { return entityType; }
 glm::vec3 Entity::getPosition() const { return position; }
 glm::vec3 Entity::getMovement() const { return movement; }
 glm::vec3 Entity::getVelocity() const { return velocity; }
-int Entity::getSpeed() const { return speed; }
+float Entity::getSpeed() const { return speed; }
 Direction Entity::getFacing() const { return facing; }
 
 // setters
@@ -49,13 +49,20 @@ void Entity::CheckCollisionsY(Entity* object)
             if (velocity.y > 0) {
                 position.y -= penetrationY;
                 velocity.y = 0;
-                collidedTop = true;
+                collidedTop = object;
             }
             else if (velocity.y < 0) {
                 position.y += penetrationY;
                 velocity.y = 0;
-                collidedBottom = true;
+                collidedBottom = object;
             }
+        }
+
+        if (velocity.y > 0) {
+            collidedTop = object;
+        }
+        else if (velocity.y < 0) {
+            collidedBottom = object;
         }
     }
     
@@ -71,14 +78,21 @@ void Entity::CheckCollisionsX(Entity* object)
             if (velocity.x > 0) {
                 position.x -= penetrationX;
                 velocity.x = 0;
-                collidedRight = true;
+                collidedRight = object;
             }
             else if (velocity.x < 0) {
                 position.x += penetrationX;
                 velocity.x = 0;
-                collidedLeft = true;
+                collidedLeft = object;
             }
         }
+        if (velocity.x > 0) {
+            collidedRight = object;
+        }
+        else if (velocity.x < 0) {
+            collidedLeft = object;
+        }
+
     }
     
 }
@@ -87,10 +101,10 @@ void Entity::Update(float deltaTime, const std::vector<Entity*>& entitySets)
 {
     if (!isActive) { return; }
 
-    collidedTop = false;
-    collidedBottom = false;
-    collidedLeft = false;
-    collidedRight = false;
+    collidedTop = nullptr;
+    collidedBottom = nullptr;
+    collidedLeft = nullptr;
+    collidedRight = nullptr;
 
     if (animIndices != NULL) {
         if (glm::length(movement) != 0) {

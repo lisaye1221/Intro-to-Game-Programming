@@ -7,7 +7,7 @@ NPC::NPC(GLuint textID, const glm::vec3& pos, float speed, AIType type, AIState 
 
 }
 
-AIType NPC::getType() const { return aiType; }
+AIType NPC::getAIType() const { return aiType; }
 AIState NPC::getState() const { return aiState; }
 
 void NPC::setState(AIState state) { aiState = state; }
@@ -24,8 +24,10 @@ void NPC::AI(Entity* player) {
         AIRunner(player);
         break;
     case COPIER:
+        AICopier(player);
         break;
     case SLEEPER:
+        AISleeper(player);
         break;
     }
 
@@ -58,7 +60,7 @@ void NPC::AIRunner(Entity* player) {
 
     switch (aiState) {
     case IDLE:
-        if (dist < 2) {
+        if (dist < 3 && player->getPosition().y < -3.5f) {
             aiState = RUNNING_AWAY;
         }
         if (player->getPosition().x < position.x) {
@@ -69,7 +71,7 @@ void NPC::AIRunner(Entity* player) {
         }
         break;
     case RUNNING_AWAY:
-        if (dist >= 2) {
+        if (dist >= 3) {
             movement = glm::vec3(0);
             aiState = IDLE;
             break;
@@ -87,19 +89,51 @@ void NPC::AIRunner(Entity* player) {
 }
 
 void NPC::AICopier(Entity* player) {
+    bool isPlayerOnLevelTwo = player->getPosition().y >= -1.64f && player->getPosition().y < 0.5f ;
     switch (aiState) {
     case IDLE:
         // if player is on second level
-        if (player->getPosition().y >= -2.5f && player->getPosition().y < 0.5f) {
+        if (isPlayerOnLevelTwo) {
             aiState = COPYING;
         }
         break;
     case COPYING:
+        if (!isPlayerOnLevelTwo) {
+            aiState = IDLE;
+            movement.x = 0;
+            break;
+        }
         movement.x = player->getMovement().x;
         break;
     }
 }
 
 void NPC::AISleeper(Entity* player) {
+    bool isPlayerNotOnLevelThree = player->getPosition().y < 0.5f;
+    bool isPlayerOnLeft = player->getPosition().x < position.x;
+    switch (aiState) {
+    case IDLE:
+        if (!isPlayerNotOnLevelThree) {
+            if (isPlayerOnLeft && facing == LEFT) {
+                aiState = ALARMED;
+                // move up to the 4th level
+            }
+            else if (!isPlayerOnLeft && facing == RIGHT) {
+                aiState = ALARMED;
+                // move up to the 4th level
+                
+            }
+        }
+        break;
+    case ALARMED:
+        if (!isPlayerNotOnLevelThree) {
+            // move back down to level three
 
+            // change state
+            aiState = IDLE;
+            break;
+        }
+        movement.x = player->getMovement().x;
+        break;
+    }
 }
