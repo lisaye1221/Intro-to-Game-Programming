@@ -61,6 +61,12 @@ void NPC::AIRunner(Entity* player) {
         if (dist < 2) {
             aiState = RUNNING_AWAY;
         }
+        if (player->getPosition().x < position.x) {
+            facing = LEFT;
+        }
+        else if (player->getPosition().x < position.x) {
+            facing = RIGHT;
+        }
         break;
     case RUNNING_AWAY:
         if (dist >= 2) {
@@ -70,11 +76,11 @@ void NPC::AIRunner(Entity* player) {
         }
         else if (run == RIGHT) {
             // move right
-            movement = glm::vec3(1, 0, 0);
+            movement = glm::vec3(1.3, 0, 0);
         }
         else if(run == LEFT) {
             // move left
-            movement = glm::vec3(-1, 0, 0);
+            movement = glm::vec3(-1.3, 0, 0);
         }
         break;
     }

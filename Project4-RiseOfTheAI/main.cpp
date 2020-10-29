@@ -43,12 +43,17 @@ GameState state;
 
 SDL_Window* displayWindow;
 bool gameIsRunning = true;
+float timeLeft = 180;
 
 ShaderProgram program;
 glm::mat4 viewMatrix, modelMatrix, projectionMatrix;
+GLuint fontTextureID;
 
 void makePlatform();
 void makeLadder();
+void displayText();
+void DrawText(ShaderProgram* program, GLuint fontTextureID, const std::string& text,
+    float size, float spacing, glm::vec3 position);
 
 GLuint LoadTexture(const char* filePath) {
     int w, h, n;
@@ -103,6 +108,7 @@ void Initialize() {
 
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+    fontTextureID = LoadTexture("assets/font1.png");
 
     // Initialize Game Objects
 
@@ -133,7 +139,7 @@ void Initialize() {
 
     textID = LoadTexture("assets/bunny1.png");
     initialPos = glm::vec3(3, -4, 0);
-    speed = 1.0f;
+    speed = 0.7f;
     NPC* newNPC = new NPC(textID, initialPos, speed, RUNNER, IDLE);
     state.enemies.push_back(newNPC);
 
@@ -162,6 +168,7 @@ float accumulator = 0.0f;
 void Update() {
     float ticks = (float)SDL_GetTicks() / 1000.0f;
     float deltaTime = ticks - lastTicks;
+    timeLeft -= deltaTime;
     lastTicks = ticks;
     deltaTime += accumulator;
     if (deltaTime < FIXED_TIMESTEP) {
@@ -210,6 +217,8 @@ void Render() {
 
     state.player->Render(&program);
 
+    displayText();
+
     SDL_GL_SwapWindow(displayWindow);
 }
 
@@ -236,6 +245,10 @@ int main(int argc, char* argv[]) {
 
     Shutdown();
     return 0;
+}
+
+void displayText() {
+    DrawText(&program, fontTextureID, "Time Left: " + to_string(int(timeLeft)), 0.45, -0.23, glm::vec3(-4.5, 5.5, 0));
 }
 
 
@@ -304,5 +317,49 @@ void makeLadder() {
         state.allEntities.push_back(newEntity);
         newEntity->Update(0, {});
     }
+
+}
+
+void DrawText(ShaderProgram* program, GLuint fontTextureID, const std::string& text,
+    float size, float spacing, glm::vec3 position)
+{
+    float width = 1.0f / 16.0f;
+    float height = 1.0f / 16.0f;
+    std::vector<float> vertices;
+    std::vector<float> texCoords;
+    for (int i = 0; i < text.size(); i++) {
+        int index = (int)text[i];
+        float offset = (size + spacing) * i;
+        float u = (float)(index % 16) / 16.0f;
+        float v = (float)(index / 16) / 16.0f;
+        vertices.insert(vertices.end(), {
+            offset + (-0.5f * size), 0.5f * size,
+            offset + (-0.5f * size), -0.5f * size,
+            offset + (0.5f * size), 0.5f * size,
+            offset + (0.5f * size), -0.5f * size,
+            offset + (0.5f * size), 0.5f * size,
+            offset + (-0.5f * size), -0.5f * size,
+            });
+        texCoords.insert(texCoords.end(), {
+            u, v,
+            u, v + height,
+            u + width, v,
+            u + width, v + height,
+            u + width, v,
+            u, v + height,
+            });
+    } // end of for loop
+    glm::mat4 modelMatrix = glm::mat4(1.0f);
+    modelMatrix = glm::translate(modelMatrix, position);
+    program->SetModelMatrix(modelMatrix);
+    glUseProgram(program->programID);
+    glVertexAttribPointer(program->positionAttribute, 2, GL_FLOAT, false, 0, vertices.data());
+    glEnableVertexAttribArray(program->positionAttribute);
+    glVertexAttribPointer(program->texCoordAttribute, 2, GL_FLOAT, false, 0, texCoords.data());
+    glEnableVertexAttribArray(program->texCoordAttribute);
+    glBindTexture(GL_TEXTURE_2D, fontTextureID);
+    glDrawArrays(GL_TRIANGLES, 0, (int)(text.size() * 6));
+    glDisableVertexAttribArray(program->positionAttribute);
+    glDisableVertexAttribArray(program->texCoordAttribute);
 
 }
