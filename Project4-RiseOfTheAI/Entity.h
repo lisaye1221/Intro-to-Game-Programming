@@ -56,6 +56,7 @@ public:
     Entity* collidedRight = nullptr;
 
     Entity(EntityType type, GLuint textID, glm::vec3 position, float speed);
+    ~Entity();
 
     // getters
     EntityType getType() const;

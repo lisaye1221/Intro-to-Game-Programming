@@ -14,6 +14,7 @@ void NPC::setState(AIState state) { aiState = state; }
 
 void NPC::Update(float deltaTime, Entity* player, const std::vector<Entity*>& entitySets) {
     AI(player);
+    timeMarker += deltaTime;
     velocity.y = movement.y * speed;
     animIndices = facing == LEFT ? animLeft : animRight;
     Entity::Update(deltaTime, entitySets);
@@ -137,6 +138,13 @@ void NPC::AISleeper(Entity* player) {
         else {
             movement.y = 0;
             ignorePlatform = false;
+        }
+        // randonly turns away
+        if (int(timeMarker) % 3 > 1) {
+            rand() % 2 ? facing = LEFT : facing = RIGHT;
+            if (timeMarker > 2) {
+                timeMarker = 0;
+            }
         }
         break;
     case ALARMED:

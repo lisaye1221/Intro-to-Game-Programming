@@ -5,6 +5,20 @@ Entity::Entity(EntityType type, GLuint textID, glm::vec3 position, float speed)
     movement(glm::vec3(0)), acceleration(glm::vec3(0, -9.81f, 0)), velocity(glm::vec3(0)),
     modelMatrix(glm::mat4(1.0f)), ignorePlatform(false) {}
 
+Entity::~Entity() {
+    if (animRight) {
+        delete[] animRight;
+    }
+    if (animLeft) {
+        delete[] animLeft;
+    }
+    if (animUp) {
+        delete[] animUp;
+    }
+    if (animDown) {
+        delete[] animDown;
+    }
+}
 
 // getters
 EntityType Entity::getType()const { return entityType; }

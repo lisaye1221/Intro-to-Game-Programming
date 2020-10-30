@@ -20,10 +20,10 @@ public:
 	void AIRunner(Entity* player);
 	void AICopier(Entity* player);
 	void AISleeper(Entity* player);
+	float timeMarker = 0;
 
 private:
 	void AI(Entity*);
 	AIType aiType;
 	AIState aiState;
-
 };

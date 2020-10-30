@@ -45,7 +45,7 @@ SDL_Window* displayWindow;
 bool gameIsRunning = true;
 bool gameWon = false;
 bool gameLost = false;
-float timeLeft = 95;
+float timeLeft = 100;
 
 ShaderProgram program;
 glm::mat4 viewMatrix, modelMatrix, projectionMatrix;
@@ -249,9 +249,6 @@ void Update() {
             for (NPC* npc : state.enemies) {
                 npc->Update(FIXED_TIMESTEP, state.player, state.allEntities);
             }
-            /* for (int i = 0; i < ENEMY_COUNT; i++) {
-                 state.enemies[i].Update(FIXED_TIMESTEP,state.player, state.allEntities);
-             }*/
         }
         deltaTime -= FIXED_TIMESTEP;
     }
@@ -320,6 +317,11 @@ void Shutdown() {
     }
 
     // free memory of music
+    Mix_FreeChunk(pop_sfx);
+    Mix_FreeChunk(jump_sfx);
+    Mix_FreeChunk(win);
+    Mix_FreeChunk(lose);
+    Mix_FreeMusic(music);
 
     SDL_Quit();
 }

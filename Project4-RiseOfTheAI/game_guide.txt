@@ -1,17 +1,24 @@
 Capture the bunnies before the time runs out
 
-Level 1: 
+On Level 1: 
 
 This bunny will start to run away if you get too close to it.
 Chase it!
 
-Level 2: 
+On Level 2: 
 
 The bunny will copy your movement and seem to move as fast as you.
-But it will only do so if you're on the second level...
+But it will only do so if you're on the second level
+...
+Try to get it directly under a ladder so you can loop around, drop down, and surprise it.
 
-Level 3: 
+On Level 3: 
 
 These two bunnies will jump up to the 4th level when they see you.
-You can't reach the 4th level though. 
-They'll come back down after you leave the third level.
+Be careful of which way they are looking. It changes from time to time.
+
+
+
+
+
+Music and Sound effects from ZapSplat.com
