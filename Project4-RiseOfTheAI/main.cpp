@@ -138,17 +138,29 @@ void Initialize() {
     makeLadder();
 
     textID = LoadTexture("assets/bunny1.png");
-    initialPos = glm::vec3(3, -4, 0);
+    initialPos = glm::vec3(3, -4.55, 0);
     speed = 0.8f;
     NPC* newNPC = new NPC(textID, initialPos, speed, RUNNER, IDLE);
     state.enemies.push_back(newNPC);
     state.allEntities.push_back(newNPC);
 
-    initialPos = glm::vec3(2, -1, 0);
+    initialPos = glm::vec3(2, -1.55, 0);
     speed = state.player->getSpeed();
     newNPC = new NPC(textID, initialPos, speed, COPIER, IDLE);
     state.enemies.push_back(newNPC);
     state.allEntities.push_back(newNPC);
+
+    initialPos = glm::vec3(-1.5, 1.55, 0);
+    speed = 5.0;
+    newNPC = new NPC(textID, initialPos, speed, SLEEPER, IDLE);
+    newNPC->setFacing(LEFT);
+    state.enemies.push_back(newNPC);
+    state.allEntities.push_back(newNPC);
+
+    for (NPC* npc : state.enemies) {
+        npc->setSize(1.0f, 0.8);
+    }
+
 
 }
 
@@ -257,6 +269,7 @@ int main(int argc, char* argv[]) {
 void displayText() {
     DrawText(&program, fontTextureID, "Time Left: " + to_string(int(timeLeft)), 0.45, -0.23, glm::vec3(-4.5, 5.5, 0));
     DrawText(&program, fontTextureID, "Bunnies:" + to_string(state.player->getBunniesCaptured()) + "/4", 0.45, -0.23, glm::vec3(2.5, 5.5, 0));
+    DrawText(&program, fontTextureID, "Player Y:" + to_string(state.player->getPosition().y) , 0.45, -0.23, glm::vec3(1.5, 3.5, 0));
 }
 
 

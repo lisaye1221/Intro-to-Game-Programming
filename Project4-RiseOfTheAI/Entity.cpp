@@ -24,6 +24,8 @@ void Entity::setSize(float w, float h) {
 void Entity::setSpeed(float spd) {
     speed = spd;
 }
+void Entity::setFacing(Direction direction) { facing = direction; }
+
 
 
 bool Entity::CheckCollision(Entity* other) {
@@ -43,7 +45,7 @@ void Entity::CheckCollisionsY(Entity* object)
 {
     if (CheckCollision(object))
     {
-        if (object->entityType == EntityType::PLATFORM) {
+        if (object->entityType == EntityType::PLATFORM && !ignorePlatform) {
             float ydist = fabs(position.y - object->position.y);
             float penetrationY = fabs(ydist - (height / 2.0f) - (object->height / 2.0f));
             if (velocity.y > 0) {

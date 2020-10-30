@@ -4,7 +4,7 @@
 
 NPC::NPC(GLuint textID, const glm::vec3& pos, float speed, AIType type, AIState state)
     : Entity(EntityType::ENEMY, textID, pos, speed), aiType(type), aiState(state) {
-
+    acceleration = glm::vec3(0);
 }
 
 AIType NPC::getAIType() const { return aiType; }
@@ -14,6 +14,7 @@ void NPC::setState(AIState state) { aiState = state; }
 
 void NPC::Update(float deltaTime, Entity* player, const std::vector<Entity*>& entitySets) {
     AI(player);
+    velocity.y = movement.y * speed;
     Entity::Update(deltaTime, entitySets);
 }
 
@@ -92,6 +93,7 @@ void NPC::AICopier(Entity* player) {
     bool isPlayerOnLevelTwo = player->getPosition().y >= -1.64f && player->getPosition().y < 0.5f ;
     switch (aiState) {
     case IDLE:
+        movement.x = 0;
         // if player is on second level
         if (isPlayerOnLevelTwo) {
             aiState = COPYING;
@@ -109,31 +111,44 @@ void NPC::AICopier(Entity* player) {
 }
 
 void NPC::AISleeper(Entity* player) {
-    bool isPlayerNotOnLevelThree = player->getPosition().y < 0.5f;
+    bool isPlayerOnLevelThree = player->getPosition().y >= 1.38f;
+    bool didPlayerLeave = player->getPosition().y < -0.5f;
     bool isPlayerOnLeft = player->getPosition().x < position.x;
     switch (aiState) {
     case IDLE:
-        if (!isPlayerNotOnLevelThree) {
+        if (isPlayerOnLevelThree) {
             if (isPlayerOnLeft && facing == LEFT) {
                 aiState = ALARMED;
-                // move up to the 4th level
             }
             else if (!isPlayerOnLeft && facing == RIGHT) {
                 aiState = ALARMED;
-                // move up to the 4th level
-                
             }
+        }
+        // move back down to level three
+        if (position.y > 1.45f) {
+            movement.y = -1;
+            ignorePlatform = true;
+        }
+        else {
+            movement.y = 0;
+            ignorePlatform = false;
         }
         break;
     case ALARMED:
-        if (!isPlayerNotOnLevelThree) {
-            // move back down to level three
-
+        if (didPlayerLeave) {   
             // change state
             aiState = IDLE;
             break;
         }
-        movement.x = player->getMovement().x;
+        // move up to the 4th level
+        if (position.y < 5.45) {
+            movement.y = 1;
+            ignorePlatform = true;
+        }
+        else {
+            movement.y = 0;
+            ignorePlatform = false;
+        }
         break;
     }
 }

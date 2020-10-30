@@ -70,6 +70,7 @@ public:
     void setPosition(glm::vec3 pos);
     void setSize(float w, float h);
     void setSpeed(float spd);
+    void setFacing(Direction direction);
 
     bool CheckCollision(Entity* other);
     void CheckCollisionsY(Entity* object);

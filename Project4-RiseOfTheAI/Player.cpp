@@ -77,7 +77,7 @@ void Player::Update(float deltaTime, const std::vector<Entity*>& entitySets) {
         velocity.y += jumpPower;
     }
     if (onLadder()) {
-        ignorePlatform = true;
+        //ignorePlatform = true;
         acceleration = glm::vec3(0);
         velocity.y = movement.y * speed;
     }
