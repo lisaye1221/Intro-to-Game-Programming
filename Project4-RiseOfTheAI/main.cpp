@@ -45,11 +45,18 @@ SDL_Window* displayWindow;
 bool gameIsRunning = true;
 bool gameWon = false;
 bool gameLost = false;
-float timeLeft = 90;
+float timeLeft = 95;
 
 ShaderProgram program;
 glm::mat4 viewMatrix, modelMatrix, projectionMatrix;
 GLuint fontTextureID;
+
+Mix_Music* music;
+Mix_Chunk* pop_sfx;
+Mix_Chunk* jump_sfx;
+Mix_Chunk* win;
+Mix_Chunk* lose;
+
 
 void makePlatform();
 void makeLadder();
@@ -95,6 +102,23 @@ void Initialize() {
 
     // Start Audio
     Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 4096);
+    music = Mix_LoadMUS("assets/banana_tree.mp3");
+    Mix_VolumeMusic(MIX_MAX_VOLUME / 2);
+    // Check load
+    if (music == NULL) {
+        cout << "Fail to load music. " << Mix_GetError() << std::endl;
+    }
+    Mix_PlayMusic(music, -1);
+
+
+    pop_sfx = Mix_LoadWAV("assets/contact.wav");
+    jump_sfx = Mix_LoadWAV("assets/jump.wav");
+    win = Mix_LoadWAV("assets/win.wav");
+    lose = Mix_LoadWAV("assets/lose.wav");
+    Mix_VolumeChunk(pop_sfx, MIX_MAX_VOLUME / 3);
+    Mix_VolumeChunk(jump_sfx, MIX_MAX_VOLUME / 3);
+    Mix_VolumeChunk(win, MIX_MAX_VOLUME / 3);
+    Mix_VolumeChunk(lose, MIX_MAX_VOLUME / 3);
 
     viewMatrix = glm::mat4(1.0f);
     modelMatrix = glm::mat4(1.0f);
@@ -104,8 +128,8 @@ void Initialize() {
     program.SetViewMatrix(viewMatrix);
 
     glUseProgram(program.programID);
-
-    glClearColor(138.0f/255.0f, 138.0f/255.0f, 138.0f/255.0f, 1.0f);
+  
+    glClearColor(165.0f/255.0f, 213.0f/255.0f, 217.0f/255.0f, 1.0f);
     glEnable(GL_BLEND);
 
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -209,7 +233,7 @@ float accumulator = 0.0f;
 void Update() {
     float ticks = (float)SDL_GetTicks() / 1000.0f;
     float deltaTime = ticks - lastTicks;
-    if (timeLeft > 0) { timeLeft -= deltaTime; }
+    if (!gameWon && !gameLost) { timeLeft -= deltaTime; }
     else { timeLeft = 0; }
     lastTicks = ticks;
     deltaTime += accumulator;
@@ -233,8 +257,28 @@ void Update() {
     }
     accumulator = deltaTime;
 
-    if (state.player->getBunniesCaptured() == 4) { gameWon = true; }
-    if (timeLeft <= 0) { gameLost = true; }
+    if (state.player->getBunniesCaptured() == 4 && !gameLost && !gameWon) { 
+        gameWon = true; 
+        Mix_PlayChannel(-1, win, 0);
+        // Stop the music!
+        Mix_HaltMusic();
+    }
+    if (timeLeft <= 0 && !gameLost && !gameWon) { 
+        gameLost = true; 
+        Mix_PlayChannel(-1, lose, 0);
+        // Stop the music!
+        Mix_HaltMusic();
+    }
+
+    if (state.player->justCapturedBunny) { 
+        Mix_PlayChannel(-1, pop_sfx, 0); 
+        state.player->justCapturedBunny = false;
+    }
+    if (state.player->justJumped) {
+        Mix_PlayChannel(-1, jump_sfx, 0);
+        state.player->justJumped = false;
+    }
+
 }
 
 

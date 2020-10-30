@@ -1,3 +1,11 @@
 ﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(491,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (SDLProject.vcxproj).  This can lead to incorrect clean and rebuild behavior.
-  NPC.cpp
+  main.cpp
+C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Intro-to-Game-Programming\Project4-RiseOfTheAI\main.cpp(196,31): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Intro-to-Game-Programming\Project4-RiseOfTheAI\main.cpp(341,117): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Intro-to-Game-Programming\Project4-RiseOfTheAI\main.cpp(342,141): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Intro-to-Game-Programming\Project4-RiseOfTheAI\main.cpp(343,116): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Intro-to-Game-Programming\Project4-RiseOfTheAI\main.cpp(345,96): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Intro-to-Game-Programming\Project4-RiseOfTheAI\main.cpp(346,121): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Intro-to-Game-Programming\Project4-RiseOfTheAI\main.cpp(349,91): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Intro-to-Game-Programming\Project4-RiseOfTheAI\main.cpp(429,23): warning C4018: '<': signed/unsigned mismatch
   SDLProject.vcxproj -> C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Intro-to-Game-Programming\Project4-RiseOfTheAI\Debug\Project4-RiseOfTheAI.exe

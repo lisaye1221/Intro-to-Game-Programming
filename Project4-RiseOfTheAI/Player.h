@@ -13,6 +13,8 @@ public:
 
 	void Update(float deltaTime, const std::vector<Entity*>& entitySets);
 
+	bool justCapturedBunny;
+	bool justJumped;
 private:
 	bool jump;
 	float jumpPower;
