@@ -139,16 +139,18 @@ void Initialize() {
     makePlatform();
     makeLadder();
 
-    textID = LoadTexture("assets/bunny1.png");
+    textID = LoadTexture("assets/bunny.png");
     initialPos = glm::vec3(3, -4.55, 0);
     speed = 0.8f;
     NPC* newNPC = new NPC(textID, initialPos, speed, RUNNER, IDLE);
+    newNPC->setFacing(LEFT);
     state.enemies.push_back(newNPC);
     state.allEntities.push_back(newNPC);
 
     initialPos = glm::vec3(2, -1.55, 0);
     speed = state.player->getSpeed();
     newNPC = new NPC(textID, initialPos, speed, COPIER, IDLE);
+    newNPC->setFacing(LEFT);
     state.enemies.push_back(newNPC);
     state.allEntities.push_back(newNPC);
 
@@ -168,6 +170,17 @@ void Initialize() {
 
     for (NPC* npc : state.enemies) {
         npc->setSize(1.0f, 0.8);
+
+        npc->animLeft = new int[5]{ 0, 1, 2, 3, 4 };
+        npc->animRight = new int[5]{ 5 , 6 , 7, 8, 9};
+        
+        npc->animIndices = npc->getFacing() == LEFT? npc->animLeft : npc->animRight;
+        npc->animFrames = 5;
+        npc->animIndex = 0;
+        npc->animTime = 0;
+        npc->animCols = 10;
+        npc->animRows = 1;
+
     }
 
 

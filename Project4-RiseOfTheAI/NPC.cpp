@@ -15,6 +15,7 @@ void NPC::setState(AIState state) { aiState = state; }
 void NPC::Update(float deltaTime, Entity* player, const std::vector<Entity*>& entitySets) {
     AI(player);
     velocity.y = movement.y * speed;
+    animIndices = facing == LEFT ? animLeft : animRight;
     Entity::Update(deltaTime, entitySets);
 }
 
@@ -53,10 +54,12 @@ void NPC::AIRunner(Entity* player) {
     if (leftDistance < rightDistance) {
         dist = leftDistance;
         run = RIGHT;
+        facing = RIGHT;
     }
     else {
         dist = rightDistance;
         run = LEFT;
+        facing = LEFT;
     }
 
     switch (aiState) {
@@ -67,7 +70,7 @@ void NPC::AIRunner(Entity* player) {
         if (player->getPosition().x < position.x) {
             facing = LEFT;
         }
-        else if (player->getPosition().x < position.x) {
+        else if (player->getPosition().x > position.x) {
             facing = RIGHT;
         }
         break;
@@ -106,6 +109,8 @@ void NPC::AICopier(Entity* player) {
             break;
         }
         movement.x = player->getMovement().x;
+        movement.x > 0 ? facing = RIGHT : facing = LEFT;
+        facing = player->getFacing();
         break;
     }
 }
