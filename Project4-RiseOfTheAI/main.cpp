@@ -43,7 +43,9 @@ GameState state;
 
 SDL_Window* displayWindow;
 bool gameIsRunning = true;
-float timeLeft = 180;
+bool gameWon = false;
+bool gameLost = false;
+float timeLeft = 90;
 
 ShaderProgram program;
 glm::mat4 viewMatrix, modelMatrix, projectionMatrix;
@@ -157,6 +159,13 @@ void Initialize() {
     state.enemies.push_back(newNPC);
     state.allEntities.push_back(newNPC);
 
+    initialPos = glm::vec3(1.5, 1.55, 0);
+    speed = 5.0;
+    newNPC = new NPC(textID, initialPos, speed, SLEEPER, IDLE);
+    newNPC->setFacing(RIGHT);
+    state.enemies.push_back(newNPC);
+    state.allEntities.push_back(newNPC);
+
     for (NPC* npc : state.enemies) {
         npc->setSize(1.0f, 0.8);
     }
@@ -187,7 +196,8 @@ float accumulator = 0.0f;
 void Update() {
     float ticks = (float)SDL_GetTicks() / 1000.0f;
     float deltaTime = ticks - lastTicks;
-    timeLeft -= deltaTime;
+    if (timeLeft > 0) { timeLeft -= deltaTime; }
+    else { timeLeft = 0; }
     lastTicks = ticks;
     deltaTime += accumulator;
     if (deltaTime < FIXED_TIMESTEP) {
@@ -195,19 +205,23 @@ void Update() {
         return;
     }
     while (deltaTime >= FIXED_TIMESTEP) {
-        // Update. Notice it's FIXED_TIMESTEP. Not deltaTime
-        state.player->Update(FIXED_TIMESTEP, state.allEntities);
+        if (!gameWon && !gameLost) {
+            // Update. Notice it's FIXED_TIMESTEP. Not deltaTime
+            state.player->Update(FIXED_TIMESTEP, state.allEntities);
 
-        for (NPC* npc : state.enemies) {
-            npc->Update(FIXED_TIMESTEP, state.player, state.allEntities);
+            for (NPC* npc : state.enemies) {
+                npc->Update(FIXED_TIMESTEP, state.player, state.allEntities);
+            }
+            /* for (int i = 0; i < ENEMY_COUNT; i++) {
+                 state.enemies[i].Update(FIXED_TIMESTEP,state.player, state.allEntities);
+             }*/
         }
-       /* for (int i = 0; i < ENEMY_COUNT; i++) {
-            state.enemies[i].Update(FIXED_TIMESTEP,state.player, state.allEntities);
-        }*/
-
         deltaTime -= FIXED_TIMESTEP;
     }
     accumulator = deltaTime;
+
+    if (state.player->getBunniesCaptured() == 4) { gameWon = true; }
+    if (timeLeft <= 0) { gameLost = true; }
 }
 
 
@@ -269,7 +283,14 @@ int main(int argc, char* argv[]) {
 void displayText() {
     DrawText(&program, fontTextureID, "Time Left: " + to_string(int(timeLeft)), 0.45, -0.23, glm::vec3(-4.5, 5.5, 0));
     DrawText(&program, fontTextureID, "Bunnies:" + to_string(state.player->getBunniesCaptured()) + "/4", 0.45, -0.23, glm::vec3(2.5, 5.5, 0));
-    DrawText(&program, fontTextureID, "Player Y:" + to_string(state.player->getPosition().y) , 0.45, -0.23, glm::vec3(1.5, 3.5, 0));
+    DrawText(&program, fontTextureID, "Arrow Key: Move     Space Bar: Jump" , 0.45, -0.23, glm::vec3(-3.5, -5.7, 0));
+    if (gameWon) {
+        DrawText(&program, fontTextureID, "Task Completed", 0.7, -0.35, glm::vec3(-2.5, 0.5, 0));
+        DrawText(&program, fontTextureID, "Thanks for bringing the bunnies back!", 0.55, -0.33, glm::vec3(-3.8, -0.2, 0));
+    }
+    else if (gameLost) {
+        DrawText(&program, fontTextureID, "Task Failed", 0.7, -0.35, glm::vec3(-2, 0.5, 0));
+    }
 }
 
 
@@ -300,7 +321,7 @@ void makePlatform() {
         newEntity->setPosition(glm::vec3(-5 + i, 0.48f, 0));
         state.platformL2.push_back(newEntity);
         state.allEntities.push_back(newEntity);
-        if (-5 + i == 3 || -5 + i == -4) { newEntity->isActive = false; }
+        if (-5 + i == 3 || -5 + i == -4 || -5 + i == 0) { newEntity->isActive = false; }
         newEntity->Update(0, {});
     }
 
