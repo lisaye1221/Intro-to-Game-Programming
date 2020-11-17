@@ -1,0 +1,3 @@
+﻿  MainMenu.cpp
+C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Intro-to-Game-Programming\Project5-Platformer\MainMenu.cpp(62,104): warning C4305: 'argument': truncation from 'double' to 'float'
+  SDLProject.vcxproj -> C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Intro-to-Game-Programming\Project5-Platformer\Debug\SDLProject.exe
