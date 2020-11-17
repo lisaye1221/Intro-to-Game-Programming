@@ -18,18 +18,32 @@ unsigned int level1_data[] =
 
 void Level1::Initialize() {
     state.nextScene = -1;
-	GLuint mapTextureID = Util::LoadTexture("tileset.png");
+
+    // initialize map
+	GLuint mapTextureID = Util::LoadTexture("assets/tileset.png");
 	state.map = new Map(LEVEL1_WIDTH, LEVEL1_HEIGHT, level1_data, mapTextureID, 1.0f, 4, 1);
-	// Move over all of the player and enemy code from initialization.
+	
+    // initialize audio
+    Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 4096);
+    bgm = Mix_LoadMUS("assets/audio/brave_world.mp3");
+    Mix_VolumeMusic(MIX_MAX_VOLUME / 4);
+    // Check load
+    if (bgm == NULL) {
+        std::cout << "Fail to load music. " << Mix_GetError() << std::endl;
+        assert(false);
+    }
+    // loop the bgm
+    Mix_PlayMusic(bgm, -1);
 
      // Initialize Player
-    state.player = new Entity();
-    state.player->entityType = PLAYER;
-    state.player->position = glm::vec3(5, 0, 0);
-    state.player->movement = glm::vec3(0);
-    state.player->acceleration = glm::vec3(0, -9.81f, 0);
-    state.player->speed = 2.0f;
-    state.player->textureID = Util::LoadTexture("george_0.png");
+    GLuint textID = Util::LoadTexture("assets/george_0.png");
+    glm::vec3 initialPos = glm::vec3(4, 2, 0);
+    float speed = 2;
+
+    state.player = new Player(textID, initialPos, speed);
+    state.allEntities.push_back(state.player);
+
+    state.player->setSize(0.6f, 0.8f);
 
     state.player->animRight = new int[4]{ 3, 7, 11, 15 };
     state.player->animLeft = new int[4]{ 1, 5, 9, 13 };
@@ -43,27 +57,11 @@ void Level1::Initialize() {
     state.player->animCols = 4;
     state.player->animRows = 4;
 
-    state.player->height = 0.8;
-    state.player->width = 0.6;
-
-    state.player->jumpPower = 6.0f;
-
- /*   state.enemies = new Entity[Level1_ENEMY_COUNT];
-    GLuint enemyTextureID = Util::LoadTexture("ctg.png");
-    state.enemies[0].entityType = ENEMY;
-    state.enemies[0].textureID = enemyTextureID;
-    state.enemies[0].speed = 1;
-    state.enemies[0].position = glm::vec3(4, -2.25f, 0);
-    state.enemies[0].aiType = WAITANDGO;
-    state.enemies[0].aiState = IDLE;*/
-
 }
 
 void Level1::Update(float deltaTime) {
-	state.player->Update(deltaTime, state.player, state.enemies, Level1_ENEMY_COUNT, state.map);
-    if (state.player->position.x >= 12) {
-        state.nextScene = 1;
-    }
+    state.player->Update(deltaTime, state.allEntities, state.map);
+
 }
 
 void Level1::Render(ShaderProgram* program) {

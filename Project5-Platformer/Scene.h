@@ -15,11 +15,15 @@
 #include "Util.h"
 #include "Entity.h"
 #include "Map.h"
+#include "NPC.h"
+#include "Player.h"
+#include <vector>
 
 struct GameState {
 	Map* map;
-	Entity* player;
-	Entity* enemies;
+	Player* player;
+	std::vector<NPC*> enemies;
+	std::vector<Entity*> allEntities;
 	int nextScene;
 };
 class Scene {
@@ -30,6 +34,7 @@ public:
 	virtual void Initialize() = 0;
 	virtual void Update(float deltaTime) = 0;
 	virtual void Render(ShaderProgram* program) = 0;
+	virtual void ProcessInput(SDL_Event& event);
 };
 
 

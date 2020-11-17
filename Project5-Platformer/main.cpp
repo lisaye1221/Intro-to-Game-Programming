@@ -64,16 +64,12 @@ void Initialize() {
     sceneList[1] = new Level1();
     sceneList[2] = new Level2();
     //sceneList[3] = new Level3();
-    SwitchToScene(sceneList[0]);
+    SwitchToScene(sceneList[1]);
 
    
 }
 
 void ProcessInput() {
-
-    if (!currentScene->state.player) { return; }
-
-    currentScene->state.player->movement = glm::vec3(0);
 
     SDL_Event event;
     while (SDL_PollEvent(&event)) {
@@ -82,40 +78,9 @@ void ProcessInput() {
         case SDL_WINDOWEVENT_CLOSE:
             gameIsRunning = false;
             break;
-
-        case SDL_KEYDOWN:
-            switch (event.key.keysym.sym) {
-            case SDLK_LEFT:
-                // Move the player left
-                break;
-
-            case SDLK_RIGHT:
-                // Move the player right
-                break;
-
-            case SDLK_SPACE:
-                // Some sort of action
-                if (currentScene->state.player->collidedBottom) { currentScene->state.player->jump = true; }
-                break;
-            }
-            break; // SDL_KEYDOWN
+        default:
+            currentScene->ProcessInput(event);
         }
-    }
-
-    const Uint8* keys = SDL_GetKeyboardState(NULL);
-
-    if (keys[SDL_SCANCODE_LEFT]) {
-        currentScene->state.player->movement.x = -1.0f;
-        currentScene->state.player->animIndices = currentScene->state.player->animLeft;
-    }
-    else if (keys[SDL_SCANCODE_RIGHT]) {
-        currentScene->state.player->movement.x = 1.0f;
-        currentScene->state.player->animIndices = currentScene->state.player->animRight;
-    }
-
-
-    if (glm::length(currentScene->state.player->movement) > 1.0f) {
-        currentScene->state.player->movement = glm::normalize(currentScene->state.player->movement);
     }
 
 }
@@ -145,8 +110,8 @@ void Update() {
     }
 
     viewMatrix = glm::mat4(1.0f);
-    if (currentScene->state.player->position.x > 5) {
-        viewMatrix = glm::translate(viewMatrix, glm::vec3(-currentScene->state.player->position.x, 3.75, 0));
+    if (currentScene->state.player->getPosition().x > 5) {
+        viewMatrix = glm::translate(viewMatrix, glm::vec3(-currentScene->state.player->getPosition().x, 3.75, 0));
     }
     else {
         viewMatrix = glm::translate(viewMatrix, glm::vec3(-5, 3.75, 0));

@@ -1,4 +1,5 @@
 #pragma once
+
 #define GL_SILENCE_DEPRECATION
 
 #ifdef _WINDOWS
@@ -11,34 +12,33 @@
 #include "glm/mat4x4.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 #include "ShaderProgram.h"
+
 #include "Map.h"
 
-enum EntityType {PLAYER, PLATFORM, ENEMY};
+#include <algorithm>
+#include <vector>
 
-enum AIType { WALKER, WAITANDGO };
-enum AIState {IDLE, WALKING, ATTACKING};
+enum class EntityType {PLAYER, NPC};
+enum Direction {LEFT, RIGHT, UP, DOWN};
 
 class Entity {
-public:
+protected:
     EntityType entityType;
-    AIType aiType;
-    AIState aiState;
     glm::vec3 position;
     glm::vec3 movement;
     glm::vec3 acceleration;
     glm::vec3 velocity;
     float speed;
-
     float width = 1;
     float height = 1;
+    bool ignorePlatform;
+    Direction facing;
 
-    bool jump = false;
-    float jumpPower;
+    std::vector<Entity*> lastCollided;
 
     GLuint textureID;
-
     glm::mat4 modelMatrix;
-
+public:
     int* animRight = NULL;
     int* animLeft = NULL;
     int* animUp = NULL;
@@ -57,19 +57,30 @@ public:
     bool collidedLeft = false;
     bool collidedRight = false;
 
-    Entity();
+    Entity(EntityType type, GLuint textID, glm::vec3 position, float speed);
+    ~Entity();
+
+    // getters
+    EntityType getType() const;
+    glm::vec3 getPosition() const;
+    glm::vec3 getMovement() const;
+    glm::vec3 getVelocity() const;
+    float getSpeed() const;
+    Direction getFacing() const;
+
+    // setters
+    void resetMovement();
+    void setPosition(glm::vec3 pos);
+    void setSize(float w, float h);
+    void setSpeed(float spd);
+    void setFacing(Direction direction);
 
     bool CheckCollision(Entity* other);
-    void CheckCollisionsY(Entity* objects, int objectCount);
-    void CheckCollisionsX(Entity* objects, int objectCount);
+    void CheckCollisionsY(Entity* object);
+    void CheckCollisionsX(Entity* object);
     void CheckCollisionsX(Map* map);
     void CheckCollisionsY(Map* map);
-
-    void Update(float deltaTime,Entity* player, Entity* objects, int objectCount, Map* map);
-    void Render(ShaderProgram* program);
+    virtual void Update(float deltaTime, const std::vector<Entity*>& entitySets, Map* map);
+    virtual void Render(ShaderProgram* program);
     void DrawSpriteFromTextureAtlas(ShaderProgram* program, GLuint textureID, int index);
-
-    void AI(Entity* player);
-    void AIWalker();
-    void AIWaitAndGo(Entity* player);
 };

@@ -13,20 +13,34 @@ void MainMenu::Initialize() {
     // Start Audio
     Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 4096);
     bgm = Mix_LoadMUS("assets/audio/main_menu.wav");
-    Mix_VolumeMusic(MIX_MAX_VOLUME / 3);
+    Mix_VolumeMusic(MIX_MAX_VOLUME / 4);
     // Check load
     if (bgm == NULL) {
         std::cout << "Fail to load music. " << Mix_GetError() << std::endl;
         assert(false);
     }
+    // loop the bgm
     Mix_PlayMusic(bgm, -1);
-
 
     // add in graphics for main menu
     backgroundID = Util::LoadTexture("assets/background.png");
     titleID = Util::LoadTexture("assets/Title.png");
     fontTextureID = Util::LoadTexture("assets/font.png");
 
+}
+
+void MainMenu::ProcessInput(SDL_Event& event) {
+    switch (event.type) {
+    case SDL_KEYDOWN:
+        switch (event.key.keysym.sym) {
+        case SDLK_RETURN:
+            // move to level 1
+            state.nextScene = 1;
+            // get rid of music
+            Mix_FreeMusic(bgm);
+        }
+        break; // SDL_KEYDOWN
+    }
 }
 
 void MainMenu::Update(float deltaTime) {

@@ -1,16 +1,46 @@
 #include "Entity.h"
 
-Entity::Entity()
-{
-    position = glm::vec3(0);
-    movement = glm::vec3(0);
-    acceleration = glm::vec3(0);
-    velocity = glm::vec3(0);
+Entity::Entity(EntityType type, GLuint textID, glm::vec3 position, float speed)
+    :entityType(type), textureID(textID),position(position), speed(speed),
+    movement(glm::vec3(0)), acceleration(glm::vec3(0, -9.81f, 0)), velocity(glm::vec3(0)),
+    modelMatrix(glm::mat4(1.0f)), ignorePlatform(false) {}
 
-    speed = 0;
-
-    modelMatrix = glm::mat4(1.0f);
+Entity::~Entity() {
+    if (animRight) {
+        delete[] animRight;
+    }
+    if (animLeft) {
+        delete[] animLeft;
+    }
+    if (animUp) {
+        delete[] animUp;
+    }
+    if (animDown) {
+        delete[] animDown;
+    }
 }
+
+// getters
+EntityType Entity::getType()const { return entityType; }
+glm::vec3 Entity::getPosition() const { return position; }
+glm::vec3 Entity::getMovement() const { return movement; }
+glm::vec3 Entity::getVelocity() const { return velocity; }
+float Entity::getSpeed() const { return speed; }
+Direction Entity::getFacing() const { return facing; }
+
+// setters
+void Entity::resetMovement() { movement = glm::vec3(0); }
+void Entity::setPosition(glm::vec3 pos) { position = pos; }
+void Entity::setSize(float w, float h) {
+    width = w;
+    height = h;
+}
+void Entity::setSpeed(float spd) {
+    speed = spd;
+}
+void Entity::setFacing(Direction direction) { facing = direction; }
+
+
 
 bool Entity::CheckCollision(Entity* other) {
     if (!isActive || !other->isActive || other == this) { return false; }
@@ -18,16 +48,17 @@ bool Entity::CheckCollision(Entity* other) {
     float xdist = fabs(position.x - other->position.x) - ((width + other->width) / 2.0f);
     float ydist = fabs(position.y - other->position.y) - ((height + other->height) / 2.0f);
 
+    if (xdist < 0 && ydist < 0) {
+        lastCollided.push_back(other);
+    }
+
     return (xdist < 0 && ydist < 0);
 }
 
-void Entity::CheckCollisionsY(Entity* objects, int objectCount)
+void Entity::CheckCollisionsY(Entity* object)
 {
-    for (int i = 0; i < objectCount; i++)
+    if (CheckCollision(object))
     {
-        Entity* object = &objects[i];
-        if (CheckCollision(object))
-        {
             float ydist = fabs(position.y - object->position.y);
             float penetrationY = fabs(ydist - (height / 2.0f) - (object->height / 2.0f));
             if (velocity.y > 0) {
@@ -40,17 +71,21 @@ void Entity::CheckCollisionsY(Entity* objects, int objectCount)
                 velocity.y = 0;
                 collidedBottom = true;
             }
+
+        if (velocity.y > 0) {
+            collidedTop = true;
+        }
+        else if (velocity.y < 0) {
+            collidedBottom = true;
         }
     }
+    
 }
 
-void Entity::CheckCollisionsX(Entity* objects, int objectCount)
+void Entity::CheckCollisionsX(Entity* object)
 {
-    for (int i = 0; i < objectCount; i++)
+    if (CheckCollision(object))
     {
-        Entity* object = &objects[i];
-        if (CheckCollision(object))
-        {
             float xdist = fabs(position.x - object->position.x);
             float penetrationX = fabs(xdist - (width / 2.0f) - (object->width / 2.0f));
             if (velocity.x > 0) {
@@ -64,7 +99,13 @@ void Entity::CheckCollisionsX(Entity* objects, int objectCount)
                 collidedLeft = true;
             }
         }
-    }
+        if (velocity.x > 0) {
+            collidedRight = true;
+        }
+        else if (velocity.x < 0) {
+            collidedLeft = true;
+        }
+    
 }
 
 void Entity::CheckCollisionsY(Map* map)
@@ -129,45 +170,7 @@ void Entity::CheckCollisionsX(Map* map)
     }
 }
 
-
-void Entity::AIWalker() {
-    movement = glm::vec3(-1, 0, 0);
-}
-
-void Entity::AIWaitAndGo(Entity* player) {
-    switch (aiState) {
-        case IDLE:
-            if (glm::distance(position, player->position) < 3.0f) {
-                aiState = WALKING;
-            }
-            break;
-        case WALKING:
-            // if player is to left of AI
-            if (player->position.x < position.x) {
-                // move left
-                movement = glm::vec3(-1, 0, 0);
-            }
-            else { // if player is to the right
-                // move right
-                movement = glm::vec3(1, 0, 0);
-            }
-            break;
-        case ATTACKING:
-            break;
-    }
-}
-
-void Entity::AI(Entity* player) {
-
-    switch (aiType) {
-        case WALKER:
-            AIWalker();
-            break;
-    }
-
-}
-
-void Entity::Update(float deltaTime,Entity* player, Entity* objects, int objectCount, Map* map)
+void Entity::Update(float deltaTime, const std::vector<Entity*>& entitySets, Map* map)
 {
     if (!isActive) { return; }
 
@@ -176,15 +179,12 @@ void Entity::Update(float deltaTime,Entity* player, Entity* objects, int objectC
     collidedLeft = false;
     collidedRight = false;
 
-    if (entityType == ENEMY) {
-        AI(player);
-    }
-
     if (animIndices != NULL) {
         if (glm::length(movement) != 0) {
             animTime += deltaTime;
 
-            if (animTime >= 0.25f)
+            if ((entityType == EntityType::PLAYER && animTime >= 0.25f) ||
+                (entityType == EntityType::NPC && animTime >= 0.18f))
             {
                 animTime = 0.0f;
                 animIndex++;
@@ -199,20 +199,23 @@ void Entity::Update(float deltaTime,Entity* player, Entity* objects, int objectC
         }
     }
 
-    if (jump) {
-        jump = false;
-        velocity.y += jumpPower;
-    }
-
-    velocity.x = movement.x * speed; // if player moves left and right, let them move
+    velocity.x = movement.x * speed; 
     velocity += acceleration * deltaTime;
+
+    // clear collisions from last frame 
+    lastCollided.clear();
 
     position.y += velocity.y * deltaTime; // Move on Y
     CheckCollisionsY(map);
-    //CheckCollisionsY(objects, objectCount); // Fix if needed
+    for (Entity* entity : entitySets) {
+        CheckCollisionsY(entity);// Fix if needed
+    }
+
     position.x += velocity.x * deltaTime; // Move on X
     CheckCollisionsX(map);
-    //CheckCollisionsX(objects, objectCount); // Fix if needed
+    for (Entity* entity : entitySets) {
+        CheckCollisionsX(entity);// Fix if needed
+    }
 
     modelMatrix = glm::mat4(1.0f);
     modelMatrix = glm::translate(modelMatrix, position);

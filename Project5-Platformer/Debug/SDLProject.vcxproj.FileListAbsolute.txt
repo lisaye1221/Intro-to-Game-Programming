@@ -12,5 +12,5 @@ C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Class Notes\Week8-A
 C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Class Notes\Week8-AI\Debug\SDLProject.pdb
 C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Class Notes\Week9-Platformer\Debug\SDLProject.exe
 C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Class Notes\Week9-Platformer\Debug\SDLProject.pdb
-C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Intro-to-Game-Programming\Project5-Platformer\Debug\SDLProject.exe
-C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Intro-to-Game-Programming\Project5-Platformer\Debug\SDLProject.pdb
+C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Intro-to-Game-Programming\Project5-Platformer\Debug\Project5-Platformer.exe
+C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Intro-to-Game-Programming\Project5-Platformer\Debug\Project5-Platformer.pdb
