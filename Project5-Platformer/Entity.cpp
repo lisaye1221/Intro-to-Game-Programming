@@ -183,8 +183,7 @@ void Entity::Update(float deltaTime, const std::vector<Entity*>& entitySets, Map
         if (glm::length(movement) != 0) {
             animTime += deltaTime;
 
-            if ((entityType == EntityType::PLAYER && animTime >= 0.25f) ||
-                (entityType == EntityType::NPC && animTime >= 0.18f))
+            if (animTime >= 0.15f)
             {
                 animTime = 0.0f;
                 animIndex++;

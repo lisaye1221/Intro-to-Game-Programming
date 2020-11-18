@@ -5,7 +5,6 @@
 
 
 class MainMenu : public Scene {
-	glm::mat4 backgroundMatrix;
 	glm::mat4 titleMatrix;
 	GLuint backgroundID;
 	GLuint titleID;

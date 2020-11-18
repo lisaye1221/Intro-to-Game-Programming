@@ -35,6 +35,10 @@ public:
 	virtual void Update(float deltaTime) = 0;
 	virtual void Render(ShaderProgram* program) = 0;
 	virtual void ProcessInput(SDL_Event& event);
+protected:
+	glm::mat4 backgroundMatrix;
+	GLuint backgroundID;
+
 };
 
 

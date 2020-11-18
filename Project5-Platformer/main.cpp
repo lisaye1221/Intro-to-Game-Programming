@@ -18,6 +18,7 @@
 #include "MainMenu.h"
 #include "Level1.h"
 #include "Level2.h"
+#include "Level3.h"
 
 SDL_Window* displayWindow;
 bool gameIsRunning = true;
@@ -34,7 +35,7 @@ void SwitchToScene(Scene* scene) {
 
 void Initialize() {
     SDL_Init(SDL_INIT_VIDEO);
-    displayWindow = SDL_CreateWindow("Textured!", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 640, 480, SDL_WINDOW_OPENGL);
+    displayWindow = SDL_CreateWindow("Day and Night Lite", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 640, 480, SDL_WINDOW_OPENGL);
     SDL_GLContext context = SDL_GL_CreateContext(displayWindow);
     SDL_GL_MakeCurrent(displayWindow, context);
 
@@ -63,8 +64,8 @@ void Initialize() {
     sceneList[0] = new MainMenu();
     sceneList[1] = new Level1();
     sceneList[2] = new Level2();
-    //sceneList[3] = new Level3();
-    SwitchToScene(sceneList[1]);
+    sceneList[3] = new Level3();
+    SwitchToScene(sceneList[3]);
 
    
 }

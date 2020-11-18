@@ -1,11 +1,22 @@
-
-
 #include "Player.h"
 
+int PLAYER_MAX_LIFE = 3;
 
 Player::Player(GLuint textID, glm::vec3 position, float speed):
-    Entity(EntityType::PLAYER, textID, position, speed),jump(false), jumpPower(5.0f) {}
+    Entity(EntityType::PLAYER, textID, position, speed),jump(false), jumpPower(6.5f) {}
 
+int Player::getLives() const { return lives; }
+
+void Player::decreaseLife() {
+    if (lives > 0) {
+        lives--;
+    }
+}
+void Player::increaseLife() {
+    if (lives < PLAYER_MAX_LIFE) {
+        lives++;
+    }
+}
 
 void Player::ProcessPlayerInput(SDL_Event& event) {
         movement = glm::vec3(0);

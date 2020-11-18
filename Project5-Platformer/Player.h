@@ -11,8 +11,14 @@ public:
 
 	void Update(float deltaTime, const std::vector<Entity*>& entitySets, Map* map);
 
+	int getLives() const;
+
+	void decreaseLife();
+	void increaseLife();
+
 	bool justJumped;
 private:
 	bool jump;
 	float jumpPower;
+	int lives;
 };
