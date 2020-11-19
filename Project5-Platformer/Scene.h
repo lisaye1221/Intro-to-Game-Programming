@@ -18,11 +18,13 @@
 #include "NPC.h"
 #include "Player.h"
 #include <vector>
+#include <string>
 
 struct GameState {
 	Map* map;
 	Player* player;
 	std::vector<NPC*> enemies;
+	std::vector<Entity*> items;
 	std::vector<Entity*> allEntities;
 	int nextScene;
 };
@@ -35,6 +37,7 @@ public:
 	virtual void Update(float deltaTime) = 0;
 	virtual void Render(ShaderProgram* program) = 0;
 	virtual void ProcessInput(SDL_Event& event);
+	virtual void displayText(ShaderProgram* program, GLuint fontTextureID);
 protected:
 	glm::mat4 backgroundMatrix;
 	GLuint backgroundID;

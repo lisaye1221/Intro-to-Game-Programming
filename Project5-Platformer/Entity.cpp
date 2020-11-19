@@ -3,7 +3,13 @@
 Entity::Entity(EntityType type, GLuint textID, glm::vec3 position, float speed)
     :entityType(type), textureID(textID),position(position), speed(speed),
     movement(glm::vec3(0)), acceleration(glm::vec3(0, -9.81f, 0)), velocity(glm::vec3(0)),
-    modelMatrix(glm::mat4(1.0f)), ignorePlatform(false) {}
+    modelMatrix(glm::mat4(1.0f)), ignorePlatform(false) {
+
+    if (type == EntityType::HEART){
+        width = 0.3;
+        height = 0.3;
+        }
+}
 
 Entity::~Entity() {
     if (animRight) {

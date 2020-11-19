@@ -18,7 +18,7 @@
 #include <algorithm>
 #include <vector>
 
-enum class EntityType {PLAYER, NPC};
+enum class EntityType {PLAYER, NPC, HEART, ENEMY, FRIEND};
 enum Direction {LEFT, RIGHT, UP, DOWN};
 
 class Entity {

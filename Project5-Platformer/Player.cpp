@@ -3,7 +3,10 @@
 int PLAYER_MAX_LIFE = 3;
 
 Player::Player(GLuint textID, glm::vec3 position, float speed):
-    Entity(EntityType::PLAYER, textID, position, speed),jump(false), jumpPower(6.5f) {}
+    Entity(EntityType::PLAYER, textID, position, speed),jump(false), jumpPower(6.5f) {
+    lives = PLAYER_MAX_LIFE;
+
+}
 
 int Player::getLives() const { return lives; }
 
@@ -58,6 +61,25 @@ void Player::Update(float deltaTime, const std::vector<Entity*>& entitySets, Map
         acceleration = glm::vec3(0, -9.81f, 0);
         ignorePlatform = false;
     }
+
+
+    // handles game logic when colliding with an entity
+    for (Entity * entity : lastCollided) {
+        switch (entity->getType()) {
+        case EntityType::HEART:
+            // gains a life, heart should then disappear
+            increaseLife();
+            entity->isActive = false;
+            break;
+        case EntityType::ENEMY:
+            // loses a life
+            decreaseLife();
+            // recoil from hitting the enemy
+            (facing == LEFT) ? position.x++ : position.x--;
+            break;
+        }
+    }
+
     Entity::Update(deltaTime, entitySets, map);
 
     
