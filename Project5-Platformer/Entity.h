@@ -78,8 +78,8 @@ public:
     bool CheckCollision(Entity* other);
     void CheckCollisionsY(Entity* object);
     void CheckCollisionsX(Entity* object);
-    void CheckCollisionsX(Map* map);
-    void CheckCollisionsY(Map* map);
+    virtual void CheckCollisionsX(Map* map);
+    virtual void CheckCollisionsY(Map* map);
     virtual void Update(float deltaTime, const std::vector<Entity*>& entitySets, Map* map);
     virtual void Render(ShaderProgram* program);
     void DrawSpriteFromTextureAtlas(ShaderProgram* program, GLuint textureID, int index);

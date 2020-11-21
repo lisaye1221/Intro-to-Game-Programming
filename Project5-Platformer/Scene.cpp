@@ -15,3 +15,10 @@ void Scene::displayText(ShaderProgram* program, GLuint fontTextureID) {
 		Util::DrawText(program, fontTextureID, "Lives: " + to_string(state.player->getLives()), 0.5, -0.23, glm::vec3(1, -0.5, 0));
 	}
 }
+
+void Scene::gameLose() {
+
+}
+void Scene::gameWin() {
+
+}

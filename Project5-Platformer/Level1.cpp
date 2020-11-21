@@ -3,7 +3,7 @@
 #define LEVEL1_HEIGHT 8
 
 #define Level1_ENEMY_COUNT 2
-glm::vec3 INITIAL_POSITION = glm::vec3(4, -3, 0);
+glm::vec3 INITIAL_POSITION_LEVEL1 = glm::vec3(4, -3, 0);
 
 using namespace std;
 
@@ -44,9 +44,9 @@ void Level1::Initialize() {
 
      // Initialize Player
     GLuint textID = Util::LoadTexture("assets/egg.png");
-    float speed = 2;
+    float speed = 2.5;
 
-    state.player = new Player(textID, INITIAL_POSITION, speed);
+    state.player = new Player(textID, INITIAL_POSITION_LEVEL1, speed);
     state.allEntities.push_back(state.player);
     state.player->setSize(0.8f, 1.0f);
 
@@ -71,6 +71,7 @@ void Level1::Initialize() {
 
 void Level1::Update(float deltaTime) {
     state.player->Update(deltaTime, state.allEntities, state.map);
+
     // update npc's
     for (NPC* npc : state.enemies) {
         // update
@@ -87,8 +88,19 @@ void Level1::Update(float deltaTime) {
     // loses one life, sends player back to start of level
     if (state.player->getPosition().y < -10) {
         state.player->decreaseLife();
-        state.player->setPosition(INITIAL_POSITION);
+        state.player->setPosition(INITIAL_POSITION_LEVEL1);
 
+    }
+
+    // check if player is dead
+    if (state.player->getLives() == 0) { 
+        state.gameLost = true;
+        gameLose();
+    }
+
+    // if player touches a door, transition to next level
+    if (state.player->advanceStage) {
+        state.nextScene = 2;
     }
 
 }
@@ -114,6 +126,9 @@ void Level1::Render(ShaderProgram* program) {
 	state.player->Render(program);
 
     // render enemies
+    for (NPC* npc : state.enemies) {
+        npc->Render(program);
+    }
 
     // render items
     for (Entity* item : state.items) {
@@ -124,7 +139,7 @@ void Level1::Render(ShaderProgram* program) {
     displayText(program, fontTextureID);
 
 
-    Util::DrawText(program, fontTextureID, "Player x: " + to_string(state.player->getPosition().x), 0.4, -0.23, glm::vec3(state.player->getPosition().x, state.player->getPosition().y + 3, 0));
-    Util::DrawText(program, fontTextureID, "Player y: " + to_string(state.player->getPosition().y), 0.4, -0.23, glm::vec3(state.player->getPosition().x, state.player->getPosition().y + 1, 0));
+    //Util::DrawText(program, fontTextureID, "Player x: " + to_string(state.player->getPosition().x), 0.4, -0.23, glm::vec3(state.player->getPosition().x, state.player->getPosition().y + 3, 0));
+    //Util::DrawText(program, fontTextureID, "Player y: " + to_string(state.player->getPosition().y), 0.4, -0.23, glm::vec3(state.player->getPosition().x, state.player->getPosition().y + 1, 0));
 
 }

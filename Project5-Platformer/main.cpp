@@ -28,8 +28,14 @@ glm::mat4 viewMatrix, modelMatrix, projectionMatrix;
 
 Scene* currentScene;
 Scene* sceneList[4];
-void SwitchToScene(Scene* scene) {
-    currentScene = scene;
+void SwitchToScene(Scene* prevScene, Scene* nextScene) {
+    currentScene = nextScene;
+    currentScene->Initialize();
+    currentScene->state.player->copyProgress(prevScene->state.player);
+}
+
+void SwitchToScene(Scene* nextScene) {
+    currentScene = nextScene;
     currentScene->Initialize();
 }
 
@@ -100,7 +106,9 @@ void Update() {
     }
     while (deltaTime >= FIXED_TIMESTEP) {
         // Update. Notice it's FIXED_TIMESTEP. Not deltaTime
-        currentScene->Update(FIXED_TIMESTEP);
+        if (!currentScene->state.gameLost && !currentScene->state.gameWon) {
+            currentScene->Update(FIXED_TIMESTEP);
+        }
 
         deltaTime -= FIXED_TIMESTEP;
     }
@@ -144,7 +152,7 @@ int main(int argc, char* argv[]) {
         ProcessInput();
         Update();
         if (currentScene->state.nextScene >= 0) {
-            SwitchToScene(sceneList[currentScene->state.nextScene]);
+            SwitchToScene(currentScene, sceneList[currentScene->state.nextScene]);
         }
         Render();
     }

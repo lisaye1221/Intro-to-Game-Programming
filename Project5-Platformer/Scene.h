@@ -27,6 +27,8 @@ struct GameState {
 	std::vector<Entity*> items;
 	std::vector<Entity*> allEntities;
 	int nextScene;
+	bool gameWon = false;
+	bool gameLost = false;
 };
 class Scene {
 public:
@@ -38,6 +40,9 @@ public:
 	virtual void Render(ShaderProgram* program) = 0;
 	virtual void ProcessInput(SDL_Event& event);
 	virtual void displayText(ShaderProgram* program, GLuint fontTextureID);
+
+	virtual void gameLose();
+	virtual void gameWin();
 protected:
 	glm::mat4 backgroundMatrix;
 	GLuint backgroundID;

@@ -20,6 +20,50 @@ void Player::increaseLife() {
         lives++;
     }
 }
+void Player::hitObstacle() {
+    // loses a life
+    decreaseLife();
+    isInvincible = true;
+    // recoil from hitting the enemy
+    (facing == LEFT) ? position.x++: position.x--;
+}
+void Player::copyProgress(Player* prevPlayer) {
+    lives = prevPlayer->lives;
+}
+
+void Player::CheckCollisionsX(Map* map) {
+    glm::vec3 left = glm::vec3(position.x - (width / 2), position.y, position.z);
+    glm::vec3 right = glm::vec3(position.x + (width / 2), position.y, position.z);
+    float penetration_x = 0;
+    float penetration_y = 0;
+    if (map->IsSolid(left, &penetration_x, &penetration_y) && velocity.x < 0) {
+        position.x += penetration_x;
+        velocity.x = 0;
+        collidedLeft = true;
+    }
+    if (map->IsSolid(right, &penetration_x, &penetration_y) && velocity.x > 0) {
+        position.x -= penetration_x;
+        velocity.x = 0;
+        collidedRight = true;
+    }
+
+    // test if player collide with spike
+    // use isInvincible to avoid losing multiple lives, player is safe until player recoils back to a non-spike tile
+    if (map->IsSpike(left, &penetration_x, &penetration_y) || map->IsSpike(right, &penetration_x, &penetration_y)) {
+        if (!isInvincible) { hitObstacle(); }
+        (facing == LEFT) ? position.x += 0.3 : position.x -= 0.3;
+    }
+    else {
+        isInvincible = false;
+    }
+
+    // test if player collides with door, is at a door
+    if (map->IsDoor(left, &penetration_x, &penetration_y) || map->IsDoor(right, &penetration_x, &penetration_y)) {
+        advanceStage = true;
+    }
+
+}
+
 
 void Player::ProcessPlayerInput(SDL_Event& event) {
         movement = glm::vec3(0);
@@ -72,10 +116,7 @@ void Player::Update(float deltaTime, const std::vector<Entity*>& entitySets, Map
             entity->isActive = false;
             break;
         case EntityType::ENEMY:
-            // loses a life
-            decreaseLife();
-            // recoil from hitting the enemy
-            (facing == LEFT) ? position.x++ : position.x--;
+            hitObstacle();
             break;
         }
     }
