@@ -75,6 +75,8 @@ void MainMenu::Render(ShaderProgram* program) {
 
     Util::DrawText(program, fontTextureID, "Press Enter to Start", 0.5, -0.23, glm::vec3(-2.2, -0.5, 0));
 
+    Util::DrawText(program, fontTextureID, "Use arrow keys to move, space bar to jump", 0.3, -0.15, glm::vec3(-2.7, -3.5, 0));
+
     glDisableVertexAttribArray(program->positionAttribute);
     glDisableVertexAttribArray(program->texCoordAttribute);
 }

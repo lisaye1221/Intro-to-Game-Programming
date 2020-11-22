@@ -8,7 +8,7 @@ Player::Player(GLuint textID, glm::vec3 position, float speed):
     Mix_VolumeChunk(jumpSfx, MIX_MAX_VOLUME / 3);
     contactSfx = Mix_LoadWAV("assets/audio/contact.wav");
     Mix_VolumeChunk(contactSfx, MIX_MAX_VOLUME / 3);
-    alertSfx = Mix_LoadWAV("assets/audio/alert.wav");
+    alertSfx = Mix_LoadWAV("assets/audio/egg_crack.wav");
     lives = PLAYER_MAX_LIFE;
 
 }
@@ -17,6 +17,7 @@ int Player::getLives() const { return lives; }
 
 void Player::decreaseLife() {
     if (lives > 0) {
+        Mix_PlayChannel(-1, alertSfx, 0);
         lives--;
     }
 }
@@ -26,8 +27,6 @@ void Player::increaseLife() {
     }
 }
 void Player::hitObstacle() {
-    // play alert sound effect
-    Mix_PlayChannel(-1, alertSfx, 0);
     // loses a life
     decreaseLife();
     isInvincible = true;
@@ -131,6 +130,7 @@ void Player::Update(float deltaTime, const std::vector<Entity*>& entitySets, Map
             break;
         }
     }
+    isInvincible = false;
 
     Entity::Update(deltaTime, entitySets, map);
 
