@@ -40,7 +40,8 @@ void Level1::Initialize() {
         assert(false);
     }
     // loop the bgm
-    //Mix_PlayMusic(bgm, -1);
+    Mix_PlayMusic(bgm, -1);
+    initSfx();
 
      // Initialize Player
     GLuint textID = Util::LoadTexture("assets/egg.png");
@@ -69,35 +70,28 @@ void Level1::Initialize() {
     // place enemies
     textID = Util::LoadTexture("assets/bunny.png");
     initialPos = glm::vec3(19, -5, 0);
-    NPC* newNPC = new NPC(textID, initialPos, 1.5, FRIEND, 3);
+    NPC* newNPC = new NPC(textID, initialPos, 1.5, BUNNY, 3);
     newNPC->setFacing(LEFT);
     state.enemies.push_back(newNPC);
     state.allEntities.push_back(newNPC);
 
     initialPos = glm::vec3(17.5, -2, 0);
-    newNPC = new NPC(textID, initialPos, 1.5, FRIEND, 2);
+    newNPC = new NPC(textID, initialPos, 1.5, BUNNY, 2);
     newNPC->setFacing(RIGHT);
     state.enemies.push_back(newNPC);
     state.allEntities.push_back(newNPC);
 
-    for (NPC* npc : state.enemies) {
-        npc->setSize(1.0f, 0.8);
-
-        npc->animLeft = new int[5]{ 0, 1, 2, 3, 4 };
-        npc->animRight = new int[5]{ 5 , 6 , 7, 8, 9 };
-
-        npc->animIndices = npc->getFacing() == LEFT ? npc->animLeft : npc->animRight;
-        npc->animFrames = 5;
-        npc->animIndex = 0;
-        npc->animTime = 0;
-        npc->animCols = 10;
-        npc->animRows = 1;
-
-    }
-
 }
 
 void Level1::Update(float deltaTime) {
+
+    timeMarker += deltaTime;
+    if (int(timeMarker) % 7 == timeToNextSwitch) {
+        switchDayAndNight();
+        timeToNextSwitch = rand() % 3 + 3;
+        timeMarker = 0;
+    }
+
     state.player->Update(deltaTime, state.allEntities, state.map);
 
     // update npc's
@@ -110,7 +104,16 @@ void Level1::Update(float deltaTime) {
     }
 
     backgroundMatrix = glm::mat4(1.0f);
-    backgroundMatrix = glm::translate(backgroundMatrix, glm::vec3(state.player->getPosition().x, 0, 0));
+
+    if (state.player->getPosition().x > 5) {
+        backgroundMatrix = glm::translate(backgroundMatrix, glm::vec3(state.player->getPosition().x, 0, 0));
+
+    }
+    else {
+        backgroundMatrix = glm::translate(backgroundMatrix, glm::vec3(1, 0, 0));
+
+    }
+
     
     // when player falls in the pit
     // loses one life, sends player back to start of level
@@ -127,6 +130,8 @@ void Level1::Update(float deltaTime) {
 
     // if player touches a door, transition to next level
     if (state.player->advanceStage) {
+        Mix_VolumeChunk(nextLevelSfx, MIX_MAX_VOLUME / 4);
+        Mix_PlayChannel(-1, nextLevelSfx, 0);
         state.nextScene = 2;
     }
 
@@ -168,5 +173,6 @@ void Level1::Render(ShaderProgram* program) {
 
     //Util::DrawText(program, fontTextureID, "Player x: " + to_string(state.player->getPosition().x), 0.4, -0.23, glm::vec3(state.player->getPosition().x, state.player->getPosition().y + 3, 0));
     //Util::DrawText(program, fontTextureID, "Player y: " + to_string(state.player->getPosition().y), 0.4, -0.23, glm::vec3(state.player->getPosition().x, state.player->getPosition().y + 1, 0));
+    //Util::DrawText(program, fontTextureID, "time: " + to_string(int(timeMarker) % 5), 0.4, -0.23, glm::vec3(state.player->getPosition().x, state.player->getPosition().y + 1, 0));
 
 }

@@ -20,7 +20,9 @@
 #include <vector>
 #include <string>
 
+
 struct GameState {
+	Mode mode = Mode::DAY;
 	Map* map;
 	Player* player;
 	std::vector<NPC*> enemies;
@@ -35,17 +37,24 @@ public:
 	GameState state;
 	Mix_Music* bgm;
 	GLuint fontTextureID;
+	float timeMarker;
+	int timeToNextSwitch = 4;
+	void initSfx();
 	virtual void Initialize() = 0;
 	virtual void Update(float deltaTime) = 0;
 	virtual void Render(ShaderProgram* program) = 0;
 	virtual void ProcessInput(SDL_Event& event);
 	virtual void displayText(ShaderProgram* program, GLuint fontTextureID);
+	virtual void switchDayAndNight();
 
 	virtual void gameLose();
 	virtual void gameWin();
 protected:
 	glm::mat4 backgroundMatrix;
 	GLuint backgroundID;
+	Mix_Chunk* clockSfx;
+	Mix_Chunk* nextLevelSfx;
+
 
 };
 

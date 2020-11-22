@@ -1,12 +1,13 @@
 ﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(491,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (SDLProject.vcxproj).  This can lead to incorrect clean and rebuild behavior.
-  Level3.cpp
-C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Intro-to-Game-Programming\Project5-Platformer\Level3.cpp(62,60): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Intro-to-Game-Programming\Project5-Platformer\Level3.cpp(67,30): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Intro-to-Game-Programming\Project5-Platformer\Level3.cpp(84,30): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Intro-to-Game-Programming\Project5-Platformer\Level3.cpp(101,30): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Intro-to-Game-Programming\Project5-Platformer\Level3.cpp(119,30): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Intro-to-Game-Programming\Project5-Platformer\Level3.cpp(136,30): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Intro-to-Game-Programming\Project5-Platformer\Level3.cpp(153,30): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Intro-to-Game-Programming\Project5-Platformer\Level3.cpp(233,196): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Intro-to-Game-Programming\Project5-Platformer\Level3.cpp(234,196): warning C4305: 'argument': truncation from 'double' to 'float'
+  Player.cpp
+C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Intro-to-Game-Programming\Project5-Platformer\Player.cpp(61,46): warning C4305: '+=': truncation from 'double' to 'T'
+          with
+          [
+              T=float
+          ]
+C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Intro-to-Game-Programming\Project5-Platformer\Player.cpp(61,65): warning C4305: '-=': truncation from 'double' to 'T'
+          with
+          [
+              T=float
+          ]
   SDLProject.vcxproj -> C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Intro-to-Game-Programming\Project5-Platformer\Debug\Project5-Platformer.exe

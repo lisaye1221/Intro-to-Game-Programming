@@ -18,6 +18,7 @@
 #include <algorithm>
 #include <vector>
 
+enum class Mode { DAY, NIGHT };
 enum class EntityType {PLAYER, NPC, HEART, ENEMY, FRIEND};
 enum Direction {LEFT, RIGHT, UP, DOWN};
 

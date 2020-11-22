@@ -26,6 +26,7 @@ void Level3::Initialize() {
 
     backgroundID = Util::LoadTexture("assets/day.png");
     fontTextureID = Util::LoadTexture("assets/font.png");
+    initSfx();
 
     // Initialize Player
     GLuint textID = Util::LoadTexture("assets/egg.png");
@@ -59,110 +60,58 @@ void Level3::Initialize() {
     // bunny 1
     textID = Util::LoadTexture("assets/bunny.png");
     initialPos = glm::vec3(13.5, -3, 0);
-    NPC* newNPC = new NPC(textID, initialPos, 1.5, FRIEND, 1.5);
+    NPC* newNPC = new NPC(textID, initialPos, 1.5, BUNNY, 1.5);
     newNPC->setFacing(LEFT);
     state.enemies.push_back(newNPC);
     state.allEntities.push_back(newNPC);
-
-    newNPC->setSize(1.0f, 0.8);
-    newNPC->animLeft = new int[5]{ 0, 1, 2, 3, 4 };
-    newNPC->animRight = new int[5]{ 5 , 6 , 7, 8, 9 };
-    newNPC->animIndices = newNPC->getFacing() == LEFT ? newNPC->animLeft : newNPC->animRight;
-    newNPC->animFrames = 5;
-    newNPC->animIndex = 0;
-    newNPC->animTime = 0;
-    newNPC->animCols = 10;
-    newNPC->animRows = 1;
 
     // bunny 2
     initialPos = glm::vec3(27, -5, 0);
-    newNPC = new NPC(textID, initialPos, 1.5, FRIEND, 2);
+    newNPC = new NPC(textID, initialPos, 1.5, BUNNY, 2);
     newNPC->setFacing(LEFT);
     state.enemies.push_back(newNPC);
     state.allEntities.push_back(newNPC);
-
-    newNPC->setSize(1.0f, 0.8);
-    newNPC->animLeft = new int[5]{ 0, 1, 2, 3, 4 };
-    newNPC->animRight = new int[5]{ 5 , 6 , 7, 8, 9 };
-    newNPC->animIndices = newNPC->getFacing() == LEFT ? newNPC->animLeft : newNPC->animRight;
-    newNPC->animFrames = 5;
-    newNPC->animIndex = 0;
-    newNPC->animTime = 0;
-    newNPC->animCols = 10;
-    newNPC->animRows = 1;
 
     // bunny 3
     initialPos = glm::vec3(42, -2, 0);
-    newNPC = new NPC(textID, initialPos, 1.5, FRIEND, 2);
+    newNPC = new NPC(textID, initialPos, 1.5, BUNNY, 2);
     newNPC->setFacing(LEFT);
     state.enemies.push_back(newNPC);
     state.allEntities.push_back(newNPC);
-
-    newNPC->setSize(1.0f, 0.8);
-    newNPC->animLeft = new int[5]{ 0, 1, 2, 3, 4 };
-    newNPC->animRight = new int[5]{ 5 , 6 , 7, 8, 9 };
-    newNPC->animIndices = newNPC->getFacing() == LEFT ? newNPC->animLeft : newNPC->animRight;
-    newNPC->animFrames = 5;
-    newNPC->animIndex = 0;
-    newNPC->animTime = 0;
-    newNPC->animCols = 10;
-    newNPC->animRows = 1;
 
     // fish 1
     textID = Util::LoadTexture("assets/fish.png");
     initialPos = glm::vec3(20, -5, 0);
-    newNPC = new NPC(textID, initialPos, 1.5, ENEMY, 1);
+    newNPC = new NPC(textID, initialPos, 1.5, FISH, 1);
     newNPC->setFacing(RIGHT);
     state.enemies.push_back(newNPC);
     state.allEntities.push_back(newNPC);
-
-    newNPC->setSize(1.0f, 0.8);
-    newNPC->animLeft = new int[4]{ 0, 1, 2, 3 };
-    newNPC->animRight = new int[4]{ 4, 5 , 6 , 7 };
-    newNPC->animIndices = newNPC->getFacing() == LEFT ? newNPC->animLeft : newNPC->animRight;
-    newNPC->animFrames = 4;
-    newNPC->animIndex = 0;
-    newNPC->animTime = 0;
-    newNPC->animCols = 8;
-    newNPC->animRows = 1;
 
     // fish 2
     initialPos = glm::vec3(32, -1, 0);
-    newNPC = new NPC(textID, initialPos, 1.5, ENEMY, 3);
+    newNPC = new NPC(textID, initialPos, 1.5, FISH, 3);
     newNPC->setFacing(RIGHT);
     state.enemies.push_back(newNPC);
     state.allEntities.push_back(newNPC);
-
-    newNPC->setSize(1.0f, 0.8);
-    newNPC->animLeft = new int[4]{ 0, 1, 2, 3 };
-    newNPC->animRight = new int[4]{ 4, 5 , 6 , 7 };
-    newNPC->animIndices = newNPC->getFacing() == LEFT ? newNPC->animLeft : newNPC->animRight;
-    newNPC->animFrames = 4;
-    newNPC->animIndex = 0;
-    newNPC->animTime = 0;
-    newNPC->animCols = 8;
-    newNPC->animRows = 1;
 
     // fish 3
     initialPos = glm::vec3(43, -6, 0);
-    newNPC = new NPC(textID, initialPos, 1.5, ENEMY, 1);
+    newNPC = new NPC(textID, initialPos, 1.5, FISH, 1);
     newNPC->setFacing(RIGHT);
     state.enemies.push_back(newNPC);
     state.allEntities.push_back(newNPC);
-
-    newNPC->setSize(1.0f, 0.8);
-    newNPC->animLeft = new int[4]{ 0, 1, 2, 3 };
-    newNPC->animRight = new int[4]{ 4, 5 , 6 , 7 };
-    newNPC->animIndices = newNPC->getFacing() == LEFT ? newNPC->animLeft : newNPC->animRight;
-    newNPC->animFrames = 4;
-    newNPC->animIndex = 0;
-    newNPC->animTime = 0;
-    newNPC->animCols = 8;
-    newNPC->animRows = 1;
 
 }
 
 void Level3::Update(float deltaTime) {
+
+    timeMarker += deltaTime;
+    if (int(timeMarker) % 7 == timeToNextSwitch) {
+        switchDayAndNight();
+        timeToNextSwitch = rand() % 3 + 3;
+        timeMarker = 0;
+    }
+
     state.player->Update(deltaTime, state.allEntities, state.map);
 
     // update npc's
@@ -175,7 +124,14 @@ void Level3::Update(float deltaTime) {
     }
 
     backgroundMatrix = glm::mat4(1.0f);
-    backgroundMatrix = glm::translate(backgroundMatrix, glm::vec3(state.player->getPosition().x, 0, 0));
+    if (state.player->getPosition().x > 5) {
+        backgroundMatrix = glm::translate(backgroundMatrix, glm::vec3(state.player->getPosition().x, 0, 0));
+
+    }
+    else {
+        backgroundMatrix = glm::translate(backgroundMatrix, glm::vec3(1, 0, 0));
+
+    }
 
     // when player falls in the pit
     // loses one life, sends player back to start of level
@@ -230,7 +186,7 @@ void Level3::Render(ShaderProgram* program) {
     // draw the relevant texts
     displayText(program, fontTextureID);
 
-    Util::DrawText(program, fontTextureID, "Player x: " + std::to_string(state.player->getPosition().x), 0.4, -0.23, glm::vec3(state.player->getPosition().x, state.player->getPosition().y + 3, 0));
-    Util::DrawText(program, fontTextureID, "Player y: " + std::to_string(state.player->getPosition().y), 0.4, -0.23, glm::vec3(state.player->getPosition().x, state.player->getPosition().y + 1, 0));
+    //Util::DrawText(program, fontTextureID, "Player x: " + std::to_string(state.player->getPosition().x), 0.4, -0.23, glm::vec3(state.player->getPosition().x, state.player->getPosition().y + 3, 0));
+    //Util::DrawText(program, fontTextureID, "Player y: " + std::to_string(state.player->getPosition().y), 0.4, -0.23, glm::vec3(state.player->getPosition().x, state.player->getPosition().y + 1, 0));
 
 }

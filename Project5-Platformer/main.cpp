@@ -87,6 +87,15 @@ void ProcessInput() {
         case SDL_WINDOWEVENT_CLOSE:
             gameIsRunning = false;
             break;
+        //case SDL_KEYDOWN:
+        //    switch (event.key.keysym.sym) {
+        //    case SDLK_a:
+        //        currentScene->switchDayAndNight();
+        //        break;
+        //    default:
+        //        currentScene->ProcessInput(event);
+        //    }
+        //    break; // SDL_KEYDOWN
         default:
             currentScene->ProcessInput(event);
         }

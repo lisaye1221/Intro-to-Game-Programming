@@ -6,11 +6,45 @@ NPC::NPC(GLuint textID, const glm::vec3& pos, float speed, AIType type, int walk
     : Entity(EntityType::NPC, textID, pos, speed), aiType(type), walkRadius(walkRadius) {
     initialPos = pos;
     acceleration = glm::vec3(0);
-    if (type == FRIEND) { entityType = EntityType::FRIEND; }
-    else { entityType = EntityType::ENEMY; }
+    // set up entityType and animation data
+    if (type == BUNNY) { 
+        entityType = EntityType::FRIEND; 
+        height = 0.8f;
+        animLeft = new int[5]{ 0, 1, 2, 3, 4 };
+        animRight = new int[5]{ 5 , 6 , 7, 8, 9 };
+        animIndices = facing == LEFT ? animLeft : animRight;
+        animFrames = 5;
+        animIndex = 0;
+        animTime = 0;
+        animCols = 10;
+        animRows = 1;
+    }
+    else if (type == FISH) {
+        entityType = EntityType::ENEMY;
+        height = 0.8f;
+        animLeft = new int[4]{ 0, 1, 2, 3 };
+        animRight = new int[4]{ 4, 5 , 6 , 7 };
+        animIndices = facing == LEFT ? animLeft : animRight;
+        animFrames = 4;
+        animIndex = 0;
+        animTime = 0;
+        animCols = 8;
+        animRows = 1;
+    }
 }
 
 AIType NPC::getAIType() const { return aiType; }
+
+void NPC::updateAIType(Mode mode) {
+    if (mode == Mode::DAY) {
+        if (aiType == BUNNY) { entityType = EntityType::FRIEND; }
+        else if(aiType == FISH) { entityType = EntityType::ENEMY; }
+    }
+    else { // mode == NIGHT
+        if (aiType == BUNNY) { entityType = EntityType::ENEMY; }
+        else if (aiType == FISH) { entityType = EntityType::FRIEND; }
+    }
+}
 
 
 void NPC::Update(float deltaTime, Entity* player, const std::vector<Entity*>& entitySets, Map* map) {

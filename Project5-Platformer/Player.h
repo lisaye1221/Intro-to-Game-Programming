@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Entity.h"
+#include <SDL_mixer.h>
 
 class Player : public Entity {
 
@@ -27,4 +28,9 @@ private:
 	float jumpPower;
 	int lives;
 	bool isInvincible = false;
+
+	Mix_Chunk* jumpSfx;
+	Mix_Chunk* contactSfx;
+	Mix_Chunk* alertSfx;
+
 };

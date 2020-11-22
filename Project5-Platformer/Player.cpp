@@ -4,6 +4,11 @@ int PLAYER_MAX_LIFE = 3;
 
 Player::Player(GLuint textID, glm::vec3 position, float speed):
     Entity(EntityType::PLAYER, textID, position, speed),jump(false), jumpPower(6.5f) {
+    jumpSfx = Mix_LoadWAV("assets/audio/jump.wav");
+    Mix_VolumeChunk(jumpSfx, MIX_MAX_VOLUME / 3);
+    contactSfx = Mix_LoadWAV("assets/audio/contact.wav");
+    Mix_VolumeChunk(contactSfx, MIX_MAX_VOLUME / 3);
+    alertSfx = Mix_LoadWAV("assets/audio/alert.wav");
     lives = PLAYER_MAX_LIFE;
 
 }
@@ -21,6 +26,8 @@ void Player::increaseLife() {
     }
 }
 void Player::hitObstacle() {
+    // play alert sound effect
+    Mix_PlayChannel(-1, alertSfx, 0);
     // loses a life
     decreaseLife();
     isInvincible = true;
@@ -51,7 +58,7 @@ void Player::CheckCollisionsX(Map* map) {
     // use isInvincible to avoid losing multiple lives, player is safe until player recoils back to a non-spike tile
     if (map->IsSpike(left, &penetration_x, &penetration_y) || map->IsSpike(right, &penetration_x, &penetration_y)) {
         if (!isInvincible) { hitObstacle(); }
-        (facing == LEFT) ? position.x += 0.3 : position.x -= 0.3;
+        (facing == LEFT) ? position.x += 0.1 : position.x -= 0.1;
     }
     else {
         isInvincible = false;
@@ -72,7 +79,10 @@ void Player::ProcessPlayerInput(SDL_Event& event) {
         case SDL_KEYDOWN:
             switch (event.key.keysym.sym) {
             case SDLK_SPACE:
-                if (collidedBottom) { jump = true; }
+                if (collidedBottom) { 
+                    jump = true; 
+                    Mix_PlayChannel(-1, jumpSfx, 0);
+                }
                 break;
             }
             break; // SDL_KEYDOWN
@@ -111,6 +121,7 @@ void Player::Update(float deltaTime, const std::vector<Entity*>& entitySets, Map
     for (Entity * entity : lastCollided) {
         switch (entity->getType()) {
         case EntityType::HEART:
+            Mix_PlayChannel(-1, contactSfx, 0);
             // gains a life, heart should then disappear
             increaseLife();
             entity->isActive = false;
