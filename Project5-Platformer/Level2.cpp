@@ -50,6 +50,57 @@ void Level2::Initialize() {
     state.allEntities.push_back(newHeart);
     state.items.push_back(newHeart);
 
+    // place enemies
+    textID = Util::LoadTexture("assets/bunny.png");
+    initialPos = glm::vec3(15, -5, 0);
+    NPC* newNPC = new NPC(textID, initialPos, 1.5, FRIEND, 4);
+    newNPC->setFacing(LEFT);
+    state.enemies.push_back(newNPC);
+    state.allEntities.push_back(newNPC);
+
+    newNPC->setSize(1.0f, 0.8);
+    newNPC->animLeft = new int[5]{ 0, 1, 2, 3, 4 };
+    newNPC->animRight = new int[5]{ 5 , 6 , 7, 8, 9 };
+    newNPC->animIndices = newNPC->getFacing() == LEFT ? newNPC->animLeft : newNPC->animRight;
+    newNPC->animFrames = 5;
+    newNPC->animIndex = 0;
+    newNPC->animTime = 0;
+    newNPC->animCols = 10;
+    newNPC->animRows = 1;
+
+    initialPos = glm::vec3(17, -1, 0);
+    newNPC = new NPC(textID, initialPos, 1.5, FRIEND, 1.5);
+    newNPC->setFacing(LEFT);
+    state.enemies.push_back(newNPC);
+    state.allEntities.push_back(newNPC);
+
+    newNPC->setSize(1.0f, 0.8);
+    newNPC->animLeft = new int[5]{ 0, 1, 2, 3, 4 };
+    newNPC->animRight = new int[5]{ 5 , 6 , 7, 8, 9 };
+    newNPC->animIndices = newNPC->getFacing() == LEFT ? newNPC->animLeft : newNPC->animRight;
+    newNPC->animFrames = 5;
+    newNPC->animIndex = 0;
+    newNPC->animTime = 0;
+    newNPC->animCols = 10;
+    newNPC->animRows = 1;
+
+    textID = Util::LoadTexture("assets/fish.png");
+    initialPos = glm::vec3(12, -3, 0);
+    newNPC = new NPC(textID, initialPos, 1.5, ENEMY, 2);
+    newNPC->setFacing(RIGHT);
+    state.enemies.push_back(newNPC);
+    state.allEntities.push_back(newNPC);
+
+    newNPC->setSize(1.0f, 0.8);
+    newNPC->animLeft = new int[4]{ 0, 1, 2, 3};
+    newNPC->animRight = new int[4]{ 4, 5 , 6 , 7};
+    newNPC->animIndices = newNPC->getFacing() == LEFT ? newNPC->animLeft : newNPC->animRight;
+    newNPC->animFrames = 4;
+    newNPC->animIndex = 0;
+    newNPC->animTime = 0;
+    newNPC->animCols = 8;
+    newNPC->animRows = 1;
+
 }
 
 void Level2::Update(float deltaTime) {
@@ -57,7 +108,7 @@ void Level2::Update(float deltaTime) {
 
     // update npc's
     for (NPC* npc : state.enemies) {
-        // update
+        npc->Update(deltaTime, state.player, state.allEntities, state.map);
     }
     // update items
     for (Entity* item : state.items) {
@@ -71,7 +122,7 @@ void Level2::Update(float deltaTime) {
     // loses one life, sends player back to start of level
     if (state.player->getPosition().y < -10) {
         state.player->decreaseLife();
-        state.player->setPosition(INITIAL_POSITION_LEVEL2);
+        if (state.player->getLives() > 0) { state.player->setPosition(INITIAL_POSITION_LEVEL2); }
 
     }
 
@@ -120,7 +171,7 @@ void Level2::Render(ShaderProgram* program) {
     // draw the relevant texts
     displayText(program, fontTextureID);
 
-    //Util::DrawText(program, fontTextureID, "Player x: " + std::to_string(state.player->getPosition().x), 0.4, -0.23, glm::vec3(state.player->getPosition().x, state.player->getPosition().y + 3, 0));
-    //Util::DrawText(program, fontTextureID, "Player y: " + std::to_string(state.player->getPosition().y), 0.4, -0.23, glm::vec3(state.player->getPosition().x, state.player->getPosition().y + 1, 0));
+    Util::DrawText(program, fontTextureID, "Player x: " + std::to_string(state.player->getPosition().x), 0.4, -0.23, glm::vec3(state.player->getPosition().x, state.player->getPosition().y + 3, 0));
+    Util::DrawText(program, fontTextureID, "Player y: " + std::to_string(state.player->getPosition().y), 0.4, -0.23, glm::vec3(state.player->getPosition().x, state.player->getPosition().y + 1, 0));
 
 }

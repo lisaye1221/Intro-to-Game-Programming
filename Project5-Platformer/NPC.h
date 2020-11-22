@@ -7,7 +7,7 @@ enum AIType { FRIEND, ENEMY };
 class NPC : public Entity {
 
 public:
-	NPC(GLuint textID, const glm::vec3& pos, float speed, AIType type);
+	NPC(GLuint textID, const glm::vec3& pos, float speed, AIType type, int walkRadius);
 
 	AIType getAIType() const;
 
@@ -17,4 +17,6 @@ public:
 private:
 	void AI(Entity*);
 	AIType aiType;
+	int walkRadius;
+	glm::vec3 initialPos;
 };

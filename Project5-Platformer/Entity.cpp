@@ -55,7 +55,7 @@ bool Entity::CheckCollision(Entity* other) {
     float ydist = fabs(position.y - other->position.y) - ((height + other->height) / 2.0f);
 
     if (xdist < 0 && ydist < 0) {
-        lastCollided.push_back(other);
+        if (find(lastCollided.begin(), lastCollided.end(), other) == lastCollided.end()) { lastCollided.push_back(other); }
     }
 
     return (xdist < 0 && ydist < 0);
@@ -65,6 +65,9 @@ void Entity::CheckCollisionsY(Entity* object)
 {
     if (CheckCollision(object))
     {
+        bool shouldIgnore = (object->entityType == EntityType::FRIEND && entityType == EntityType::PLAYER) ||
+            (object->entityType == EntityType::PLAYER && entityType == EntityType::FRIEND) || (object->entityType == EntityType::HEART);
+        if (!shouldIgnore) { // ignore if entity is a friend
             float ydist = fabs(position.y - object->position.y);
             float penetrationY = fabs(ydist - (height / 2.0f) - (object->height / 2.0f));
             if (velocity.y > 0) {
@@ -78,11 +81,12 @@ void Entity::CheckCollisionsY(Entity* object)
                 collidedBottom = true;
             }
 
-        if (velocity.y > 0) {
-            collidedTop = true;
-        }
-        else if (velocity.y < 0) {
-            collidedBottom = true;
+            if (velocity.y > 0) {
+                collidedTop = true;
+            }
+            else if (velocity.y < 0) {
+                collidedBottom = true;
+            }
         }
     }
     
@@ -92,6 +96,9 @@ void Entity::CheckCollisionsX(Entity* object)
 {
     if (CheckCollision(object))
     {
+        bool shouldIgnore = (object->entityType == EntityType::FRIEND && entityType == EntityType::PLAYER) ||
+            (object->entityType == EntityType::PLAYER && entityType == EntityType::FRIEND) || (object->entityType == EntityType::HEART);
+        if (!shouldIgnore) {
             float xdist = fabs(position.x - object->position.x);
             float penetrationX = fabs(xdist - (width / 2.0f) - (object->width / 2.0f));
             if (velocity.x > 0) {
@@ -104,13 +111,15 @@ void Entity::CheckCollisionsX(Entity* object)
                 velocity.x = 0;
                 collidedLeft = true;
             }
+
+            if (velocity.x > 0) {
+                collidedRight = true;
+            }
+            else if (velocity.x < 0) {
+                collidedLeft = true;
+            }
         }
-        if (velocity.x > 0) {
-            collidedRight = true;
-        }
-        else if (velocity.x < 0) {
-            collidedLeft = true;
-        }
+    }
     
 }
 
@@ -189,7 +198,7 @@ void Entity::Update(float deltaTime, const std::vector<Entity*>& entitySets, Map
         if (glm::length(movement) != 0) {
             animTime += deltaTime;
 
-            if (animTime >= 0.15f)
+            if (animTime >= 0.1f)
             {
                 animTime = 0.0f;
                 animIndex++;

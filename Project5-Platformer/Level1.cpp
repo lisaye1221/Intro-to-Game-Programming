@@ -14,9 +14,9 @@ unsigned int level1_data[] =
     2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2,
     2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 4, 4, 4, 0, 0, 0, 0, 0, 0, 2, 2,
     2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 2, 2,
-    2, 2, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 2, 2,
-    2, 2, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 0, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2,
-    2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2
+    2, 2, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 2, 2,
+    2, 2, 1, 1, 1, 1, 1, 1, 1, 2, 2, 0, 0, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2,
+    2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2
 };
 
 void Level1::Initialize() {
@@ -40,7 +40,7 @@ void Level1::Initialize() {
         assert(false);
     }
     // loop the bgm
-    Mix_PlayMusic(bgm, -1);
+    //Mix_PlayMusic(bgm, -1);
 
      // Initialize Player
     GLuint textID = Util::LoadTexture("assets/egg.png");
@@ -66,6 +66,34 @@ void Level1::Initialize() {
     state.allEntities.push_back(newHeart);
     state.items.push_back(newHeart);
 
+    // place enemies
+    textID = Util::LoadTexture("assets/bunny.png");
+    initialPos = glm::vec3(19, -5, 0);
+    NPC* newNPC = new NPC(textID, initialPos, 1.5, FRIEND, 3);
+    newNPC->setFacing(LEFT);
+    state.enemies.push_back(newNPC);
+    state.allEntities.push_back(newNPC);
+
+    initialPos = glm::vec3(17.5, -2, 0);
+    newNPC = new NPC(textID, initialPos, 1.5, FRIEND, 2);
+    newNPC->setFacing(RIGHT);
+    state.enemies.push_back(newNPC);
+    state.allEntities.push_back(newNPC);
+
+    for (NPC* npc : state.enemies) {
+        npc->setSize(1.0f, 0.8);
+
+        npc->animLeft = new int[5]{ 0, 1, 2, 3, 4 };
+        npc->animRight = new int[5]{ 5 , 6 , 7, 8, 9 };
+
+        npc->animIndices = npc->getFacing() == LEFT ? npc->animLeft : npc->animRight;
+        npc->animFrames = 5;
+        npc->animIndex = 0;
+        npc->animTime = 0;
+        npc->animCols = 10;
+        npc->animRows = 1;
+
+    }
 
 }
 
@@ -74,7 +102,7 @@ void Level1::Update(float deltaTime) {
 
     // update npc's
     for (NPC* npc : state.enemies) {
-        // update
+        npc->Update(deltaTime, state.player, state.allEntities, state.map);
     }
     // update items
     for (Entity* item : state.items) {
@@ -88,8 +116,7 @@ void Level1::Update(float deltaTime) {
     // loses one life, sends player back to start of level
     if (state.player->getPosition().y < -10) {
         state.player->decreaseLife();
-        state.player->setPosition(INITIAL_POSITION_LEVEL1);
-
+        if (state.player->getLives() > 0) { state.player->setPosition(INITIAL_POSITION_LEVEL1); }
     }
 
     // check if player is dead

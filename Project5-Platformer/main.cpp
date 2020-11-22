@@ -32,6 +32,8 @@ void SwitchToScene(Scene* prevScene, Scene* nextScene) {
     currentScene = nextScene;
     currentScene->Initialize();
     currentScene->state.player->copyProgress(prevScene->state.player);
+    nextScene->bgm = prevScene->bgm;
+    prevScene->bgm = nullptr;
 }
 
 void SwitchToScene(Scene* nextScene) {
@@ -71,7 +73,7 @@ void Initialize() {
     sceneList[1] = new Level1();
     sceneList[2] = new Level2();
     sceneList[3] = new Level3();
-    SwitchToScene(sceneList[1]);
+    SwitchToScene(sceneList[0]);
 
    
 }
@@ -151,7 +153,11 @@ int main(int argc, char* argv[]) {
     while (gameIsRunning) {
         ProcessInput();
         Update();
-        if (currentScene->state.nextScene >= 0) {
+        if (currentScene->state.nextScene == 1) {
+            SwitchToScene(sceneList[1]);
+
+        }
+        else if (currentScene->state.nextScene > 1) {
             SwitchToScene(currentScene, sceneList[currentScene->state.nextScene]);
         }
         Render();

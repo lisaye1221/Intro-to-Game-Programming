@@ -9,7 +9,7 @@ unsigned int level3_data[] =
 {
     2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2,
     2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2,
-    2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 4, 4, 4, 0, 0, 0, 0, 0, 0, 4, 0, 0, 2, 2, 0, 0, 0, 0, 0, 4, 4, 4, 4, 4, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2,
+    2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 4, 4, 4, 0, 0, 0, 0, 0, 0, 4, 0, 0, 2, 2, 0, 0, 0, 0, 0, 4, 4, 4, 4, 4, 4, 4, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 2, 2,
     2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 4, 4, 4, 4, 0, 0, 0, 2, 2,
     2, 2, 0, 0, 0, 0, 4, 4, 4, 0, 0, 0, 4, 4, 4, 4, 0, 0, 0, 0, 0, 4, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 2, 2,
     2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 4, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 7, 2, 2,
@@ -45,7 +45,7 @@ void Level3::Initialize() {
 
     // place a heart 
     textID = Util::LoadTexture("assets/full_heart.png");
-    glm::vec3 initialPos = glm::vec3(10, -5, 0);
+    glm::vec3 initialPos = glm::vec3(10, -5.5, 0);
     Entity* newHeart = new Entity(EntityType::HEART, textID, initialPos, 0);
     state.allEntities.push_back(newHeart);
     state.items.push_back(newHeart);
@@ -54,6 +54,112 @@ void Level3::Initialize() {
     newHeart = new Entity(EntityType::HEART, textID, initialPos, 0);
     state.allEntities.push_back(newHeart);
     state.items.push_back(newHeart);
+
+    // place enemies
+    // bunny 1
+    textID = Util::LoadTexture("assets/bunny.png");
+    initialPos = glm::vec3(13.5, -3, 0);
+    NPC* newNPC = new NPC(textID, initialPos, 1.5, FRIEND, 1.5);
+    newNPC->setFacing(LEFT);
+    state.enemies.push_back(newNPC);
+    state.allEntities.push_back(newNPC);
+
+    newNPC->setSize(1.0f, 0.8);
+    newNPC->animLeft = new int[5]{ 0, 1, 2, 3, 4 };
+    newNPC->animRight = new int[5]{ 5 , 6 , 7, 8, 9 };
+    newNPC->animIndices = newNPC->getFacing() == LEFT ? newNPC->animLeft : newNPC->animRight;
+    newNPC->animFrames = 5;
+    newNPC->animIndex = 0;
+    newNPC->animTime = 0;
+    newNPC->animCols = 10;
+    newNPC->animRows = 1;
+
+    // bunny 2
+    initialPos = glm::vec3(27, -5, 0);
+    newNPC = new NPC(textID, initialPos, 1.5, FRIEND, 2);
+    newNPC->setFacing(LEFT);
+    state.enemies.push_back(newNPC);
+    state.allEntities.push_back(newNPC);
+
+    newNPC->setSize(1.0f, 0.8);
+    newNPC->animLeft = new int[5]{ 0, 1, 2, 3, 4 };
+    newNPC->animRight = new int[5]{ 5 , 6 , 7, 8, 9 };
+    newNPC->animIndices = newNPC->getFacing() == LEFT ? newNPC->animLeft : newNPC->animRight;
+    newNPC->animFrames = 5;
+    newNPC->animIndex = 0;
+    newNPC->animTime = 0;
+    newNPC->animCols = 10;
+    newNPC->animRows = 1;
+
+    // bunny 3
+    initialPos = glm::vec3(42, -2, 0);
+    newNPC = new NPC(textID, initialPos, 1.5, FRIEND, 2);
+    newNPC->setFacing(LEFT);
+    state.enemies.push_back(newNPC);
+    state.allEntities.push_back(newNPC);
+
+    newNPC->setSize(1.0f, 0.8);
+    newNPC->animLeft = new int[5]{ 0, 1, 2, 3, 4 };
+    newNPC->animRight = new int[5]{ 5 , 6 , 7, 8, 9 };
+    newNPC->animIndices = newNPC->getFacing() == LEFT ? newNPC->animLeft : newNPC->animRight;
+    newNPC->animFrames = 5;
+    newNPC->animIndex = 0;
+    newNPC->animTime = 0;
+    newNPC->animCols = 10;
+    newNPC->animRows = 1;
+
+    // fish 1
+    textID = Util::LoadTexture("assets/fish.png");
+    initialPos = glm::vec3(20, -5, 0);
+    newNPC = new NPC(textID, initialPos, 1.5, ENEMY, 1);
+    newNPC->setFacing(RIGHT);
+    state.enemies.push_back(newNPC);
+    state.allEntities.push_back(newNPC);
+
+    newNPC->setSize(1.0f, 0.8);
+    newNPC->animLeft = new int[4]{ 0, 1, 2, 3 };
+    newNPC->animRight = new int[4]{ 4, 5 , 6 , 7 };
+    newNPC->animIndices = newNPC->getFacing() == LEFT ? newNPC->animLeft : newNPC->animRight;
+    newNPC->animFrames = 4;
+    newNPC->animIndex = 0;
+    newNPC->animTime = 0;
+    newNPC->animCols = 8;
+    newNPC->animRows = 1;
+
+    // fish 2
+    initialPos = glm::vec3(32, -1, 0);
+    newNPC = new NPC(textID, initialPos, 1.5, ENEMY, 3);
+    newNPC->setFacing(RIGHT);
+    state.enemies.push_back(newNPC);
+    state.allEntities.push_back(newNPC);
+
+    newNPC->setSize(1.0f, 0.8);
+    newNPC->animLeft = new int[4]{ 0, 1, 2, 3 };
+    newNPC->animRight = new int[4]{ 4, 5 , 6 , 7 };
+    newNPC->animIndices = newNPC->getFacing() == LEFT ? newNPC->animLeft : newNPC->animRight;
+    newNPC->animFrames = 4;
+    newNPC->animIndex = 0;
+    newNPC->animTime = 0;
+    newNPC->animCols = 8;
+    newNPC->animRows = 1;
+
+    // fish 3
+    initialPos = glm::vec3(43, -6, 0);
+    newNPC = new NPC(textID, initialPos, 1.5, ENEMY, 1);
+    newNPC->setFacing(RIGHT);
+    state.enemies.push_back(newNPC);
+    state.allEntities.push_back(newNPC);
+
+    newNPC->setSize(1.0f, 0.8);
+    newNPC->animLeft = new int[4]{ 0, 1, 2, 3 };
+    newNPC->animRight = new int[4]{ 4, 5 , 6 , 7 };
+    newNPC->animIndices = newNPC->getFacing() == LEFT ? newNPC->animLeft : newNPC->animRight;
+    newNPC->animFrames = 4;
+    newNPC->animIndex = 0;
+    newNPC->animTime = 0;
+    newNPC->animCols = 8;
+    newNPC->animRows = 1;
+
 }
 
 void Level3::Update(float deltaTime) {
@@ -61,7 +167,7 @@ void Level3::Update(float deltaTime) {
 
     // update npc's
     for (NPC* npc : state.enemies) {
-        // update
+        npc->Update(deltaTime, state.player, state.allEntities, state.map);
     }
     // update items
     for (Entity* item : state.items) {
@@ -75,8 +181,7 @@ void Level3::Update(float deltaTime) {
     // loses one life, sends player back to start of level
     if (state.player->getPosition().y < -10) {
         state.player->decreaseLife();
-        state.player->setPosition(INITIAL_POSITION_LEVEL3);
-
+        if (state.player->getLives() > 0) { state.player->setPosition(INITIAL_POSITION_LEVEL3); }
     }
 
     // check if player is dead
@@ -125,7 +230,7 @@ void Level3::Render(ShaderProgram* program) {
     // draw the relevant texts
     displayText(program, fontTextureID);
 
-    //Util::DrawText(program, fontTextureID, "Player x: " + std::to_string(state.player->getPosition().x), 0.4, -0.23, glm::vec3(state.player->getPosition().x, state.player->getPosition().y + 3, 0));
-    //Util::DrawText(program, fontTextureID, "Player y: " + std::to_string(state.player->getPosition().y), 0.4, -0.23, glm::vec3(state.player->getPosition().x, state.player->getPosition().y + 1, 0));
+    Util::DrawText(program, fontTextureID, "Player x: " + std::to_string(state.player->getPosition().x), 0.4, -0.23, glm::vec3(state.player->getPosition().x, state.player->getPosition().y + 3, 0));
+    Util::DrawText(program, fontTextureID, "Player y: " + std::to_string(state.player->getPosition().y), 0.4, -0.23, glm::vec3(state.player->getPosition().x, state.player->getPosition().y + 1, 0));
 
 }
