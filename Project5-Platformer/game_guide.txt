@@ -1,0 +1,13 @@
+Day and Night Lite
+
+In this platformer, your enemies are not always your enemies. 
+As day switch to night and vice versa, friends become enemies and enemies become friends.
+The switch is random so watch out!
+
+If you haven't figured out yet: 
+Bunny- day:friend, night:enemy
+Fish- day:enemy, night:friend
+
+
+Simpler and Platformer version of my old game Day and Night(Hence the addition of "Lite" in the Title). 
+Sound effects from ZapSplat.com
