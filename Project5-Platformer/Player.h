@@ -23,6 +23,7 @@ public:
 
 	bool justJumped;
 	bool advanceStage = false;
+	bool rebirth = false;
 private:
 	bool jump;
 	float jumpPower;

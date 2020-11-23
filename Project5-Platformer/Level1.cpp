@@ -122,6 +122,13 @@ void Level1::Update(float deltaTime) {
         if (state.player->getLives() > 0) { state.player->setPosition(INITIAL_POSITION_LEVEL1); }
     }
 
+    if (state.player->rebirth) {
+        state.player->clearLastCollided();
+        state.player->decreaseLife();
+        if (state.player->getLives() > 0) { state.player->setPosition(INITIAL_POSITION_LEVEL1); }
+        state.player->rebirth = false;
+    }
+
     // check if player is dead
     if (state.player->getLives() == 0) { 
         state.gameLost = true;

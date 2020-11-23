@@ -56,11 +56,11 @@ void Player::CheckCollisionsX(Map* map) {
     // test if player collide with spike
     // use isInvincible to avoid losing multiple lives, player is safe until player recoils back to a non-spike tile
     if (map->IsSpike(left, &penetration_x, &penetration_y) || map->IsSpike(right, &penetration_x, &penetration_y)) {
-        if (!isInvincible) { hitObstacle(); }
-        (facing == LEFT) ? position.x += 0.1 : position.x -= 0.1;
-    }
-    else {
-        isInvincible = false;
+        if (!rebirth) {
+            Mix_PlayChannel(-1, alertSfx, 0);
+            rebirth = true;
+        }
+        
     }
 
     // test if player collides with door, is at a door
@@ -126,7 +126,10 @@ void Player::Update(float deltaTime, const std::vector<Entity*>& entitySets, Map
             entity->isActive = false;
             break;
         case EntityType::ENEMY:
-            hitObstacle();
+            if (!rebirth) {
+                Mix_PlayChannel(-1, alertSfx, 0);
+                rebirth = true;
+            }
             break;
         }
     }

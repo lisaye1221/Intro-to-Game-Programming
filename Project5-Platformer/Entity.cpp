@@ -46,7 +46,9 @@ void Entity::setSpeed(float spd) {
 }
 void Entity::setFacing(Direction direction) { facing = direction; }
 
-
+void Entity::clearLastCollided() {
+    lastCollided.clear();
+}
 
 bool Entity::CheckCollision(Entity* other) {
     if (!isActive || !other->isActive || other == this) { return false; }

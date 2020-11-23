@@ -79,9 +79,9 @@ void Level2::Initialize() {
 void Level2::Update(float deltaTime) {
 
     timeMarker += deltaTime;
-    if (int(timeMarker) % 7 == timeToNextSwitch) {
+    if (int(timeMarker) % 10 == timeToNextSwitch) {
         switchDayAndNight();
-        timeToNextSwitch = rand() % 3 + 3;
+        timeToNextSwitch = rand() % 3 + 6;
         timeMarker = 0;
     }
 
@@ -112,6 +112,12 @@ void Level2::Update(float deltaTime) {
         state.player->decreaseLife();
         if (state.player->getLives() > 0) { state.player->setPosition(INITIAL_POSITION_LEVEL2); }
 
+    }
+    if (state.player->rebirth) {
+        state.player->clearLastCollided();
+        state.player->decreaseLife();
+        if (state.player->getLives() > 0) { state.player->setPosition(INITIAL_POSITION_LEVEL2); }
+        state.player->rebirth = false;
     }
 
     // check if player is dead

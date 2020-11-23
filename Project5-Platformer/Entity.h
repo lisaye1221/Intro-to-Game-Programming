@@ -75,6 +75,7 @@ public:
     void setSize(float w, float h);
     void setSpeed(float spd);
     void setFacing(Direction direction);
+    void clearLastCollided();
 
     bool CheckCollision(Entity* other);
     void CheckCollisionsY(Entity* object);
