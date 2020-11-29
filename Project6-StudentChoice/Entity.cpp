@@ -1,0 +1,291 @@
+#include "Entity.h"
+
+Entity::Entity(EntityType type, GLuint textID, glm::vec3 position, float speed)
+    :entityType(type), textureID(textID),position(position), speed(speed),
+    movement(glm::vec3(0)), acceleration(glm::vec3(0)), velocity(glm::vec3(0)),
+    modelMatrix(glm::mat4(1.0f)), ignorePlatform(false) {
+
+    if (type == EntityType::HEART){
+        width = 0.3;
+        height = 0.3;
+        }
+}
+
+Entity::~Entity() {
+    if (animRight) {
+        delete[] animRight;
+    }
+    if (animLeft) {
+        delete[] animLeft;
+    }
+    if (animUp) {
+        delete[] animUp;
+    }
+    if (animDown) {
+        delete[] animDown;
+    }
+}
+
+// getters
+EntityType Entity::getType()const { return entityType; }
+glm::vec3 Entity::getPosition() const { return position; }
+glm::vec3 Entity::getMovement() const { return movement; }
+glm::vec3 Entity::getVelocity() const { return velocity; }
+float Entity::getSpeed() const { return speed; }
+Direction Entity::getFacing() const { return facing; }
+
+// setters
+void Entity::resetMovement() { movement = glm::vec3(0); }
+void Entity::setPosition(glm::vec3 pos) { position = pos; }
+void Entity::setSize(float w, float h) {
+    width = w;
+    height = h;
+}
+void Entity::setSpeed(float spd) {
+    speed = spd;
+}
+void Entity::setFacing(Direction direction) { facing = direction; }
+
+void Entity::clearLastCollided() {
+    lastCollided.clear();
+}
+
+bool Entity::CheckCollision(Entity* other) {
+    if (!isActive || !other->isActive || other == this) { return false; }
+
+    float xdist = fabs(position.x - other->position.x) - ((width + other->width) / 2.0f);
+    float ydist = fabs(position.y - other->position.y) - ((height + other->height) / 2.0f);
+
+    if (xdist < 0 && ydist < 0) {
+        if (find(lastCollided.begin(), lastCollided.end(), other) == lastCollided.end()) { lastCollided.push_back(other); }
+    }
+
+    return (xdist < 0 && ydist < 0);
+}
+
+void Entity::CheckCollisionsY(Entity* object)
+{
+    if (CheckCollision(object))
+    {
+        bool shouldIgnore = (object->entityType == EntityType::FRIEND && entityType == EntityType::PLAYER) ||
+            (object->entityType == EntityType::PLAYER && entityType == EntityType::FRIEND) || (object->entityType == EntityType::HEART);
+        if (!shouldIgnore) { // ignore if entity is a friend
+            float ydist = fabs(position.y - object->position.y);
+            float penetrationY = fabs(ydist - (height / 2.0f) - (object->height / 2.0f));
+            if (velocity.y > 0) {
+                position.y -= penetrationY;
+                velocity.y = 0;
+                collidedTop = true;
+            }
+            else if (velocity.y < 0) {
+                position.y += penetrationY;
+                velocity.y = 0;
+                collidedBottom = true;
+            }
+
+            if (velocity.y > 0) {
+                collidedTop = true;
+            }
+            else if (velocity.y < 0) {
+                collidedBottom = true;
+            }
+        }
+    }
+    
+}
+
+void Entity::CheckCollisionsX(Entity* object)
+{
+    if (CheckCollision(object))
+    {
+        bool shouldIgnore = (object->entityType == EntityType::FRIEND && entityType == EntityType::PLAYER) ||
+            (object->entityType == EntityType::PLAYER && entityType == EntityType::FRIEND) || (object->entityType == EntityType::HEART);
+        if (!shouldIgnore) {
+            float xdist = fabs(position.x - object->position.x);
+            float penetrationX = fabs(xdist - (width / 2.0f) - (object->width / 2.0f));
+            if (velocity.x > 0) {
+                position.x -= penetrationX;
+                velocity.x = 0;
+                collidedRight = true;
+            }
+            else if (velocity.x < 0) {
+                position.x += penetrationX;
+                velocity.x = 0;
+                collidedLeft = true;
+            }
+
+            if (velocity.x > 0) {
+                collidedRight = true;
+            }
+            else if (velocity.x < 0) {
+                collidedLeft = true;
+            }
+        }
+    }
+    
+}
+
+void Entity::CheckCollisionsY(Map* map)
+{
+    // Probes for tiles
+    glm::vec3 top = glm::vec3(position.x, position.y + (height / 2), position.z);
+    glm::vec3 top_left = glm::vec3(position.x - (width / 2), position.y + (height / 2), position.z);
+    glm::vec3 top_right = glm::vec3(position.x + (width / 2), position.y + (height / 2), position.z);
+    glm::vec3 bottom = glm::vec3(position.x, position.y - (height / 2), position.z);
+    glm::vec3 bottom_left = glm::vec3(position.x - (width / 2), position.y - (height / 2), position.z);
+    glm::vec3 bottom_right = glm::vec3(position.x + (width / 2), position.y - (height / 2), position.z);
+    float penetration_x = 0;
+    float penetration_y = 0;
+    if (map->IsSolid(top, &penetration_x, &penetration_y) && velocity.y > 0) {
+        position.y -= penetration_y;
+        velocity.y = 0;
+        collidedTop = true;
+    }
+    else if (map->IsSolid(top_left, &penetration_x, &penetration_y) && velocity.y > 0) {
+        position.y -= penetration_y;
+        velocity.y = 0;
+        collidedTop = true;
+    }
+    else if (map->IsSolid(top_right, &penetration_x, &penetration_y) && velocity.y > 0) {
+        position.y -= penetration_y;
+        velocity.y = 0;
+        collidedTop = true;
+    }
+    if (map->IsSolid(bottom, &penetration_x, &penetration_y) && velocity.y < 0) {
+        position.y += penetration_y;
+        velocity.y = 0;
+        collidedBottom = true;
+    }
+    else if (map->IsSolid(bottom_left, &penetration_x, &penetration_y) && velocity.y < 0) {
+        position.y += penetration_y;
+        velocity.y = 0;
+        collidedBottom = true;
+    }
+    else if (map->IsSolid(bottom_right, &penetration_x, &penetration_y) && velocity.y < 0) {
+        position.y += penetration_y;
+        velocity.y = 0;
+        collidedBottom = true;
+    }
+}
+
+void Entity::CheckCollisionsX(Map* map)
+{
+    // Probes for tiles
+    glm::vec3 left = glm::vec3(position.x - (width / 2), position.y, position.z);
+    glm::vec3 right = glm::vec3(position.x + (width / 2), position.y, position.z);
+    float penetration_x = 0;
+    float penetration_y = 0;
+    if (map->IsSolid(left, &penetration_x, &penetration_y) && velocity.x < 0) {
+        position.x += penetration_x;
+        velocity.x = 0;
+        collidedLeft = true;
+    }
+    if (map->IsSolid(right, &penetration_x, &penetration_y) && velocity.x > 0) {
+        position.x -= penetration_x;
+        velocity.x = 0;
+        collidedRight = true;
+    }
+}
+
+void Entity::Update(float deltaTime, const std::vector<Entity*>& entitySets, Map* map)
+{
+    if (!isActive) { return; }
+
+    collidedTop = false;
+    collidedBottom = false;
+    collidedLeft = false;
+    collidedRight = false;
+
+    if (animIndices != NULL) {
+        if (glm::length(movement) != 0) {
+            animTime += deltaTime;
+
+            if (animTime >= 0.1f)
+            {
+                animTime = 0.0f;
+                animIndex++;
+                if (animIndex >= animFrames)
+                {
+                    animIndex = 0;
+                }
+            }
+        }
+        else {
+            animIndex = 0;
+        }
+    }
+
+    velocity.x = movement.x * speed; 
+    velocity += acceleration * deltaTime;
+
+    // clear collisions from last frame 
+    lastCollided.clear();
+
+    position.y += velocity.y * deltaTime; // Move on Y
+    CheckCollisionsY(map);
+    for (Entity* entity : entitySets) {
+        CheckCollisionsY(entity);// Fix if needed
+    }
+
+    position.x += velocity.x * deltaTime; // Move on X
+    CheckCollisionsX(map);
+    for (Entity* entity : entitySets) {
+        CheckCollisionsX(entity);// Fix if needed
+    }
+
+    modelMatrix = glm::mat4(1.0f);
+    modelMatrix = glm::translate(modelMatrix, position);
+}
+
+void Entity::DrawSpriteFromTextureAtlas(ShaderProgram* program, GLuint textureID, int index)
+{
+    float u = (float)(index % animCols) / (float)animCols;
+    float v = (float)(index / animCols) / (float)animRows;
+
+    float width = 1.0f / (float)animCols;
+    float height = 1.0f / (float)animRows;
+
+    float texCoords[] = { u, v + height, u + width, v + height, u + width, v,
+        u, v + height, u + width, v, u, v };
+
+    float vertices[] = { -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5 };
+
+    glBindTexture(GL_TEXTURE_2D, textureID);
+
+    glVertexAttribPointer(program->positionAttribute, 2, GL_FLOAT, false, 0, vertices);
+    glEnableVertexAttribArray(program->positionAttribute);
+
+    glVertexAttribPointer(program->texCoordAttribute, 2, GL_FLOAT, false, 0, texCoords);
+    glEnableVertexAttribArray(program->texCoordAttribute);
+
+    glDrawArrays(GL_TRIANGLES, 0, 6);
+
+    glDisableVertexAttribArray(program->positionAttribute);
+    glDisableVertexAttribArray(program->texCoordAttribute);
+}
+
+void Entity::Render(ShaderProgram* program) {
+    if (!isActive) { return; }
+    program->SetModelMatrix(modelMatrix);
+
+    if (animIndices != NULL) {
+        DrawSpriteFromTextureAtlas(program, textureID, animIndices[animIndex]);
+        return;
+    }
+
+    float vertices[] = { -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5 };
+    float texCoords[] = { 0.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0 };
+
+    glBindTexture(GL_TEXTURE_2D, textureID);
+
+    glVertexAttribPointer(program->positionAttribute, 2, GL_FLOAT, false, 0, vertices);
+    glEnableVertexAttribArray(program->positionAttribute);
+
+    glVertexAttribPointer(program->texCoordAttribute, 2, GL_FLOAT, false, 0, texCoords);
+    glEnableVertexAttribArray(program->texCoordAttribute);
+
+    glDrawArrays(GL_TRIANGLES, 0, 6);
+
+    glDisableVertexAttribArray(program->positionAttribute);
+    glDisableVertexAttribArray(program->texCoordAttribute);
+}
