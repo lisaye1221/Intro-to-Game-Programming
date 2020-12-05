@@ -16,6 +16,7 @@
 #include "Map.h"
 #include "Scene.h"
 #include "MainMenu.h"
+#include "Level1.h"
 
 
 SDL_Window* displayWindow;
@@ -54,7 +55,7 @@ void Initialize() {
 
     viewMatrix = glm::mat4(1.0f);
     modelMatrix = glm::mat4(1.0f);
-    projectionMatrix = glm::ortho(-24.0f, 24.0f, -18.0f, 18.0f, -1.0f, 1.0f);
+    projectionMatrix = glm::ortho(-16.0f, 16.0f, -12.0f, 12.0f, -1.0f, 1.0f);
 
     program.SetProjectionMatrix(projectionMatrix);
     program.SetViewMatrix(viewMatrix);
@@ -66,8 +67,11 @@ void Initialize() {
 
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+    viewMatrix = glm::translate(viewMatrix, glm::vec3(-16, 9, 0));
+
     sceneList[0] = new MainMenu();
-    SwitchToScene(sceneList[0]);
+    sceneList[1] = new Level1();
+    SwitchToScene(sceneList[1]);
 
    
 }
@@ -107,6 +111,8 @@ void Update() {
         deltaTime -= FIXED_TIMESTEP;
     }
     accumulator = deltaTime;
+
+    
 
     /*viewMatrix = glm::mat4(1.0f);
     if (currentScene->state.player->getPosition().x > 5) {

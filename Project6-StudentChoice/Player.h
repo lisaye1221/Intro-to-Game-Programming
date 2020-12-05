@@ -6,11 +6,12 @@
 class Player : public Entity {
 
 public:
-	Player(GLuint textID, glm::vec3 position, float speed);
+	Player(GLuint textID, glm::vec3 position);
 
 	void ProcessPlayerInput(SDL_Event& event);
 
 	void CheckCollisionsX(Map* map);
+	void CheckCollisionsY(Map* map);
 
 	void Update(float deltaTime, const std::vector<Entity*>& entitySets, Map* map);
 

@@ -1,7 +1,7 @@
 #include "Map.h"
 #include <set>
 
-std::set<int> notSolid = {0, 5, 6, 7};
+std::set<int> isSolid = {0, 9, 10};
  
 Map::Map(int width, int height, unsigned int* levelData, GLuint textureID, float tile_size, int
 	tile_count_x, int tile_count_y)
@@ -78,7 +78,7 @@ bool Map::IsSolid(glm::vec3 position, float* penetration_x, float* penetration_y
 	if (tile_x < 0 || tile_x >= width) return false;
 	if (tile_y < 0 || tile_y >= height) return false;
 	int tile = levelData[tile_y * width + tile_x];
-	if (notSolid.find(tile) != notSolid.end()) return false;
+	if (isSolid.find(tile) == isSolid.end()) return false;
 	float tile_center_x = (tile_x * tile_size);
 	float tile_center_y = -(tile_y * tile_size);
 	*penetration_x = (tile_size / 2) - fabs(position.x - tile_center_x);

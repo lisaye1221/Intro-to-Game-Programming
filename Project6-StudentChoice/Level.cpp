@@ -14,7 +14,10 @@ void Level::ProcessInput(SDL_Event& event) {
             break;
         }
         break; // SDL_KEYDOWN
+    default:
+        state.player->ProcessPlayerInput(event);
     }
+    
 }
 
 Player* Level::getPlayer() {

@@ -1,8 +1,3 @@
 ﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(491,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (Project5-Platformer.vcxproj, SDLProject.vcxproj).  This can lead to incorrect clean and rebuild behavior.
-  MainMenu.cpp
-C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Intro-to-Game-Programming\Project6-StudentChoice\MainMenu.cpp(74,89): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Intro-to-Game-Programming\Project6-StudentChoice\MainMenu.cpp(80,104): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Intro-to-Game-Programming\Project6-StudentChoice\MainMenu.cpp(82,125): warning C4305: 'argument': truncation from 'double' to 'float'
   main.cpp
-  Generating Code...
   SDLProject.vcxproj -> C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Intro-to-Game-Programming\Project6-StudentChoice\Debug\Project6-StudentChoice.exe
