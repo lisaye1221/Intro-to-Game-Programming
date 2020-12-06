@@ -4,6 +4,8 @@ Player::Player(GLuint textID, glm::vec3 position):
     Entity(EntityType::PLAYER, textID, position, speed) {
     speed = 3.5f;
 
+    interactionType = InteractionType::NONE;
+
     animRight = new int[4]{ 8, 9, 10, 11 };
     animLeft = new int[4]{ 4, 5, 6, 7 };
     animUp = new int[4]{ 12, 13, 14, 15 };
@@ -40,8 +42,12 @@ void Player::CheckCollisionsX(Map* map) {
         collidedRight = true;
     }
 
-    // test if player collides with door, is at a door
     if (map->IsDoor(left, &penetration_x, &penetration_y) || map->IsDoor(right, &penetration_x, &penetration_y)) {
+        onWhat = InteractionType::NEXTSTAGE;
+    }
+    if (map->IsSpecial(left, &penetration_x, &penetration_y) || map->IsSpecial(right, &penetration_x, &penetration_y)) {
+        onWhat = InteractionType::SPECIAL;
+        
     }
 
 }
@@ -127,6 +133,8 @@ void Player::Update(float deltaTime, const std::vector<Entity*>& entitySets, Map
     // left/right border control
     if (position.x < 0.4f) { position.x = 0.4f; }
     if (position.x > 31.6f) { position.x = 31.6f; }
+
+    onWhat = InteractionType::NONE;
 
     // updates onWhat
     for (Entity* entity : lastCollided) {

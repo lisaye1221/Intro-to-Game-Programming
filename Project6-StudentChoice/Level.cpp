@@ -34,8 +34,19 @@ Player* Level::getPlayer() {
 }
 
 void Level::displayUI(ShaderProgram* program, GLuint fontTextureID) const {
+
+    string x;
+    if (true) {
+        x = "";
+    }
+    else {
+        x = "";
+    }
+
     Util::DrawText(program, fontTextureID, "Player x: " + to_string(state.player->getPosition().x), 1.0, -0.2, glm::vec3(2, 2, 0));
     Util::DrawText(program, fontTextureID, "Player y: " + to_string(state.player->getPosition().y), 1.0, -0.2, glm::vec3(2, 0, 0));
+    Util::DrawText(program, fontTextureID, "IsInteract: " + to_string(state.player->isInteracting), 1.0, -0.2, glm::vec3(20, 0, 0));
+    Util::DrawText(program, fontTextureID, "" + x, 0.8, -0.2, glm::vec3(20, 2, 0));
 
 }
 

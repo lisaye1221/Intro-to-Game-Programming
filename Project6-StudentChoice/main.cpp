@@ -71,6 +71,7 @@ void Initialize() {
 
     sceneList[0] = new MainMenu();
     sceneList[1] = new Level1();
+    sceneList[2] = new Level1();
     SwitchToScene(sceneList[1]);
 
    
@@ -111,16 +112,6 @@ void Update() {
         deltaTime -= FIXED_TIMESTEP;
     }
     accumulator = deltaTime;
-
-    
-
-    /*viewMatrix = glm::mat4(1.0f);
-    if (currentScene->state.player->getPosition().x > 5) {
-        viewMatrix = glm::translate(viewMatrix, glm::vec3(-currentScene->state.player->getPosition().x, 3.75, 0));
-    }
-    else {
-        viewMatrix = glm::translate(viewMatrix, glm::vec3(-5, 3.75, 0));
-    }*/
 
 
 }

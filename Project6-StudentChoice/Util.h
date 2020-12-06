@@ -7,6 +7,7 @@
 #endif
 #define GL_GLEXT_PROTOTYPES 1
 #include <vector>
+#include <SDL_mixer.h>
 #include <SDL.h>
 #include <SDL_opengl.h>
 #include "glm/mat4x4.hpp"

@@ -12,20 +12,20 @@ unsigned int level1_data[] =
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 3, 3, 3, 1, 1, 1, 1, 1, 1, 1,
+    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 3, 4, 3, 1, 1, 1, 1, 1, 1, 1,
+    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 4, 4, 3, 1, 1, 1, 1, 1, 1, 1,
+    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 3, 3, 3, 1, 1, 1, 1, 1, 1, 1,
     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
     1, 1, 1, 1, 1, 1, 1, 1, 45, 1, 1, 1, 1, 1, 1, 35, 34, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
     1, 1, 1, 1, 44, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 34, 35, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 3, 3, 3, 1,
+    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 4, 4, 3, 1,
+    1, 43, 42, 40, 40, 43, 42, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 32, 3, 3, 4, 3, 3, 1,
+    1, 40, 41, 40, 43, 42, 41, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 3, 3, 3, 1, 1, 1,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 };
 vector<vector<string>> MAGENTA_LINES_LEVEL1 = {
@@ -42,14 +42,41 @@ vector<vector<string>> MAGENTA_LINES_LEVEL1 = {
     {
        "Hi again!",
        "If you want to go to the next world, interact with the blue flower",
+       "Or did you want to ask me about the rumored treasures?",
+       "I'm not too sure about it either though... Maybe look around?",
        "?",
        "You just want to talk to me?",
        "Haha, it does get lonely here right?"
     }
 };
+vector<vector<string>> LEVEL1_LINES = {
+    {"It is just a patch of grass"},
+    {"It is just some flowers"},
+    {"I think I can move on from here"}
+};
+vector<string> orbObtainNotice = {
+    "It is just a patch of grass",
+    "Wait",
+    "There is something in the grass...", 
+    "?", 
+    "[You have obtained a mysterious orb]"
+};
 
 void Level1::Initialize() {
     Level::Initialize();
+
+    // initialize audio
+    Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 4096);
+    bgm = Mix_LoadMUS("assets/audio/A-Flock-of-Bubbles.mp3");
+    Mix_VolumeMusic(MIX_MAX_VOLUME / 8);
+    // Check load
+    if (bgm == NULL) {
+        std::cout << "Fail to load music. " << Mix_GetError() << std::endl;
+        assert(false);
+    }
+    // loop the bgm
+    Mix_PlayMusic(bgm, -1);
+
     // initialize map
     GLuint mapTextureID = Util::LoadTexture("assets/world1.png");
     state.map = new Map(LEVEL1_WIDTH, LEVEL1_HEIGHT, level1_data, mapTextureID, 1.0f, 8, 16);
@@ -77,9 +104,23 @@ void Level1::Update(float deltaTime) {
     state.player->Update(deltaTime, state.allEntities, state.map);
     state.magenta->Update(deltaTime, state.player, state.allEntities, state.map);
 
-    if (state.player->interactionType == InteractionType::MAGENTA) {
-        if (state.currText.isEnd) { state.player->isInteracting = false; }
+    switch (state.player->interactionType) {
+    case InteractionType::MAGENTA:
+        if (state.currText.isEnd) { state.player->interactionType = InteractionType::NONE; }
         talkedToMagenta = 1;
+        break;
+    case InteractionType::SPECIAL:
+        if (state.currText.isEnd) { state.player->interactionType = InteractionType::NONE; }
+        break;
+    case InteractionType::NEXTSTAGE:
+        if (state.currText.isEnd) { 
+            nextScene = 2;
+            state.player->interactionType = InteractionType::NONE;
+        }
+        break;
+    case InteractionType::NONE:
+        state.player->isInteracting = false;
+        break;
     }
 
 }
@@ -99,6 +140,20 @@ void Level1::Interact() {
     case InteractionType::MAGENTA:
         state.player->interactionType = InteractionType::MAGENTA;
         state.currText = Text(state.magenta->lines[talkedToMagenta], "Magenta");
+        break;
+    case InteractionType::NEXTSTAGE:
+        state.player->interactionType = InteractionType::NEXTSTAGE;
+        state.currText = Text(LEVEL1_LINES[2], "");
+        break;
+    case InteractionType::SPECIAL:
+        state.player->interactionType = InteractionType::SPECIAL;
+        if (!state.player->hasOrb && state.player->getPosition().y < -12) {
+            state.player->hasOrb = true;
+            state.currText = Text(orbObtainNotice, "");
+        }
+        else {
+            state.currText = Text(LEVEL1_LINES[0], "");
+        }
         break;
     }
 

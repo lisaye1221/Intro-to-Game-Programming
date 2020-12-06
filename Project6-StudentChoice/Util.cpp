@@ -65,10 +65,12 @@ void Util::DrawText(ShaderProgram* program, GLuint fontTexture, std::string text
 
 void Util::DisplayText(ShaderProgram* program, GLuint fontTextureID, const Text& text) {
 
-	if (text.getSpeaker() == "" || text.isEnd) { return; }
+	if (text.isEnd) { return; }
 
 	// display speaker
-	DrawText(program, fontTextureID, text.getSpeaker()+": ", 0.8, -0.1, glm::vec3(1, -19, 0));
+	if (text.getSpeaker() != "") {
+		DrawText(program, fontTextureID, text.getSpeaker() + ": ", 0.8, -0.1, glm::vec3(1, -19, 0));
+	}
 
 	// display line
 	string currLine = text.getCurLine();

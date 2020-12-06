@@ -20,6 +20,7 @@ public:
 	// void copyProgress(Player* prevPlayer);
 	InteractionType onWhat = InteractionType::NONE;
 	InteractionType interactionType = InteractionType::NONE;
+	bool hasOrb = false;
 	bool isInteracting = false;
 	bool advanceStage = false;
 private:

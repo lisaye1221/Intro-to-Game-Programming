@@ -1,7 +1,9 @@
 #include "Map.h"
 #include <set>
 
-std::set<int> isSolid = {0, 9, 10};
+std::set<int> isSolid = { 0, 9, 10 };
+std::set<int> isDoor = {34,35};
+std::set<int> isSpecial = {4};
  
 Map::Map(int width, int height, unsigned int* levelData, GLuint textureID, float tile_size, int
 	tile_count_x, int tile_count_y)
@@ -96,6 +98,18 @@ bool Map::IsDoor(glm::vec3 position, float* penetration_x, float* penetration_y)
 	if (tile_x < 0 || tile_x >= width) return false;
 	if (tile_y < 0 || tile_y >= height) return false;
 	int tile = levelData[tile_y * width + tile_x];
-	// numer 5 indicates a spike
-	return tile >= 6;
+	return (isDoor.find(tile) != isDoor.end());
+}
+
+bool Map::IsSpecial(glm::vec3 position, float* penetration_x, float* penetration_y) {
+	*penetration_x = 0;
+	*penetration_y = 0;
+	if (position.x < left_bound || position.x > right_bound) return false;
+	if (position.y > top_bound || position.y < bottom_bound) return false;
+	int tile_x = floor((position.x + (tile_size / 2)) / tile_size);
+	int tile_y = -(ceil(position.y - (tile_size / 2))) / tile_size; // Our array counts up as Y goes down.
+	if (tile_x < 0 || tile_x >= width) return false;
+	if (tile_y < 0 || tile_y >= height) return false;
+	int tile = levelData[tile_y * width + tile_x];
+	return (isSpecial.find(tile) != isSpecial.end());
 }

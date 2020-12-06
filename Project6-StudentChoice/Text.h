@@ -1,6 +1,7 @@
 #ifndef TEXT_H
 #define TEXT_H
 
+#include <SDL_mixer.h>
 #include<vector>
 #include<string>
 
@@ -10,6 +11,7 @@ class Text {
 	// holds the name of the speaker
 	std::string speaker;
 	size_t currLineIndex = 0;
+	Mix_Chunk* textSfx;
 public:
 	bool isEnd = false;
 	Text();
@@ -17,7 +19,7 @@ public:
 
 	const std::string& getSpeaker() const;
 	void nextLine();
-	const std::string& getCurLine() const ;
+	std::string getCurLine() const ;
 	
 
 };
