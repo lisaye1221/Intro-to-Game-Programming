@@ -17,7 +17,7 @@ public:
 
 	void talkedToMangeta();
 	
-	// void copyProgress(Player* prevPlayer);
+	void copyProgress(Player* prevPlayer);
 	InteractionType onWhat = InteractionType::NONE;
 	InteractionType interactionType = InteractionType::NONE;
 	bool hasOrb = false;

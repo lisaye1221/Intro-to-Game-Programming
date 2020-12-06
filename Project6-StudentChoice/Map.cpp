@@ -1,7 +1,7 @@
 #include "Map.h"
 #include <set>
 
-std::set<int> isSolid = { 0, 9, 10 };
+std::set<int> isSolid = { 0, 9, 10, 11, 12, 13 };
 std::set<int> isDoor = {34,35};
 std::set<int> isSpecial = {4};
  

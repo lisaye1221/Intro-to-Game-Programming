@@ -28,6 +28,9 @@ unsigned int level1_data[] =
     1, 40, 41, 40, 43, 42, 41, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 3, 3, 3, 1, 1, 1,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 };
+vector<string> instructions = {
+    "Control: W,A,S,D - move      H-interact | J-confirm/next"
+};
 vector<vector<string>> MAGENTA_LINES_LEVEL1 = {
     { 
       "Hi, are you new around here?", 
@@ -80,7 +83,7 @@ void Level1::Initialize() {
     // initialize map
     GLuint mapTextureID = Util::LoadTexture("assets/world1.png");
     state.map = new Map(LEVEL1_WIDTH, LEVEL1_HEIGHT, level1_data, mapTextureID, 1.0f, 8, 16);
-
+    state.currText = Text(instructions, "");
 
     // Initialize Player
     GLuint textID = Util::LoadTexture("assets/mc2.png");
@@ -106,8 +109,12 @@ void Level1::Update(float deltaTime) {
 
     switch (state.player->interactionType) {
     case InteractionType::MAGENTA:
-        if (state.currText.isEnd) { state.player->interactionType = InteractionType::NONE; }
-        talkedToMagenta = 1;
+        if (state.currText.isEnd) { 
+            state.player->interactionType = InteractionType::NONE;
+            state.player->talkedToMangeta();
+            talkedToMagenta = 1;
+        }
+        
         break;
     case InteractionType::SPECIAL:
         if (state.currText.isEnd) { state.player->interactionType = InteractionType::NONE; }

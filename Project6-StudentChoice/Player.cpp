@@ -3,6 +3,8 @@
 Player::Player(GLuint textID, glm::vec3 position):
     Entity(EntityType::PLAYER, textID, position, speed) {
     speed = 3.5f;
+    width = 0.7f;
+    height = 0.6f;
 
     interactionType = InteractionType::NONE;
 
@@ -22,9 +24,10 @@ Player::Player(GLuint textID, glm::vec3 position):
 
 void Player::talkedToMangeta() { magentaTalks++; }
 
-//void Player::copyProgress(Player* prevPlayer) {
-//   
-//}
+void Player::copyProgress(Player* prevPlayer) {
+    hasOrb = prevPlayer->hasOrb;
+    magentaTalks = prevPlayer->magentaTalks;
+}
 
 void Player::CheckCollisionsX(Map* map) {
     glm::vec3 left = glm::vec3(position.x - (width / 2), position.y, position.z);

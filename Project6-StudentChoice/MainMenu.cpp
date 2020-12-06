@@ -27,6 +27,8 @@ void MainMenu::Initialize() {
     //titleID = Util::LoadTexture("assets/Title.png");
     fontTextureID = Util::LoadTexture("assets/font.png");
 
+    backgroundMatrix = glm::translate(backgroundMatrix, glm::vec3(16, -9, 0));
+
 }
 
 void MainMenu::ProcessInput(SDL_Event& event) {
@@ -49,7 +51,7 @@ void MainMenu::Update(float deltaTime) {
 
 void MainMenu::Render(ShaderProgram* program) {
 
-    float vertices[] = { -24.0, -18.0, 24.0, -18, 24.0, 18.0, -24, -18.0, 24.0, 18, -24, 18 };
+    float vertices[] = { -16.0, -12.0, 16.0, -12, 16.0, 12.0, -16, -12.0, 16.0, 12, -16, 12 };
     float texCoords[] = { 0.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0 };
     glVertexAttribPointer(program->positionAttribute, 2, GL_FLOAT, false, 0, vertices);
     glEnableVertexAttribArray(program->positionAttribute);
@@ -71,15 +73,13 @@ void MainMenu::Render(ShaderProgram* program) {
     glBindTexture(GL_TEXTURE_2D, titleID);
     glDrawArrays(GL_TRIANGLES, 0, 6);*/
 
-    Util::DrawText(program, fontTextureID, "THIS WORLD", 1.8, -0.18, glm::vec3(-7, 4, 0));
+    Util::DrawText(program, fontTextureID, "THIS WORLD", 2.4, -0.18, glm::vec3(7, -4, 0));
 
 
     // display text to prompt user to start game
 
 
-    Util::DrawText(program, fontTextureID, "Press Enter to Start", 0.5, -0.23, glm::vec3(-2.2, -0.5, 0));
-
-    Util::DrawText(program, fontTextureID, "Use arrow keys to move, space bar to jump", 0.3, -0.15, glm::vec3(-2.7, -3.5, 0));
+    Util::DrawText(program, fontTextureID, "Press Enter to Start", 1.0, -0.2, glm::vec3(9, -8, 0));
 
     glDisableVertexAttribArray(program->positionAttribute);
     glDisableVertexAttribArray(program->texCoordAttribute);

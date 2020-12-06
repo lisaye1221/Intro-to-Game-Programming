@@ -17,6 +17,7 @@
 #include "Scene.h"
 #include "MainMenu.h"
 #include "Level1.h"
+#include "Level2.h"
 
 
 SDL_Window* displayWindow;
@@ -26,17 +27,20 @@ ShaderProgram program;
 glm::mat4 viewMatrix, modelMatrix, projectionMatrix;
 
 Scene* currentScene;
-Scene* sceneList[4];
+Scene* sceneList[10];
 void SwitchToScene(Scene* prevScene, Scene* nextScene) {
     currentScene = nextScene;
     currentScene->Initialize();
-    // currentScene->state.player->copyProgress(prevScene->state.player);
+    nextScene->bgm = prevScene->bgm;
+    prevScene->bgm = nullptr;
+    currentScene->getPlayer()->copyProgress(prevScene->getPlayer());
     
 }
 
 void SwitchToScene(Scene* nextScene) {
     currentScene = nextScene;
     currentScene->Initialize();
+
 }
 
 void Initialize() {
@@ -71,8 +75,9 @@ void Initialize() {
 
     sceneList[0] = new MainMenu();
     sceneList[1] = new Level1();
-    sceneList[2] = new Level1();
-    SwitchToScene(sceneList[1]);
+    sceneList[2] = new Level2();
+    sceneList[3] = new Level2();
+    SwitchToScene(sceneList[0]);
 
    
 }
