@@ -61,27 +61,31 @@ bool Entity::CheckCollision(Entity* other) {
 
 void Entity::CheckCollisionsY(Entity* object)
 {
+    bool shouldIgnore = true;
     if (CheckCollision(object))
     {
         float ydist = fabs(position.y - object->position.y);
         float penetrationY = fabs(ydist - (height / 2.0f) - (object->height / 2.0f));
-        if (velocity.y > 0) {
-            position.y -= penetrationY;
-            velocity.y = 0;
-            collidedTop = true;
-        }
-        else if (velocity.y < 0) {
-            position.y += penetrationY;
-            velocity.y = 0;
-            collidedBottom = true;
-        }
+        if (!shouldIgnore) {
+            if (velocity.y > 0) {
+                position.y -= penetrationY;
+                velocity.y = 0;
+                collidedTop = true;
+            }
+            else if (velocity.y < 0) {
+                position.y += penetrationY;
+                velocity.y = 0;
+                collidedBottom = true;
+            }
 
-        if (velocity.y > 0) {
-            collidedTop = true;
+            if (velocity.y > 0) {
+                collidedTop = true;
+            }
+            else if (velocity.y < 0) {
+                collidedBottom = true;
+            }
         }
-        else if (velocity.y < 0) {
-            collidedBottom = true;
-        }
+        
         
     }
     
@@ -89,27 +93,32 @@ void Entity::CheckCollisionsY(Entity* object)
 
 void Entity::CheckCollisionsX(Entity* object)
 {
+    bool shouldIgnore = true;
     if (CheckCollision(object))
     {
         float xdist = fabs(position.x - object->position.x);
         float penetrationX = fabs(xdist - (width / 2.0f) - (object->width / 2.0f));
-        if (velocity.x > 0) {
-            position.x -= penetrationX;
-            velocity.x = 0;
-            collidedRight = true;
-        }
-        else if (velocity.x < 0) {
-            position.x += penetrationX;
-            velocity.x = 0;
-            collidedLeft = true;
-        }
 
-        if (velocity.x > 0) {
-            collidedRight = true;
+        if (!shouldIgnore) {
+            if (velocity.x > 0) {
+                position.x -= penetrationX;
+                velocity.x = 0;
+                collidedRight = true;
+            }
+            else if (velocity.x < 0) {
+                position.x += penetrationX;
+                velocity.x = 0;
+                collidedLeft = true;
+            }
+
+            if (velocity.x > 0) {
+                collidedRight = true;
+            }
+            else if (velocity.x < 0) {
+                collidedLeft = true;
+            }
         }
-        else if (velocity.x < 0) {
-            collidedLeft = true;
-        }
+        
         
     }
     
@@ -187,10 +196,10 @@ void Entity::Update(float deltaTime, const std::vector<Entity*>& entitySets, Map
     collidedRight = false;
 
     if (animIndices != NULL) {
-        if (glm::length(movement) != 0) {
+        if (entityType == EntityType::MAGENTA) {
             animTime += deltaTime;
 
-            if (animTime >= 0.1f)
+            if (animTime >= 0.2f)
             {
                 animTime = 0.0f;
                 animIndex++;
@@ -201,7 +210,22 @@ void Entity::Update(float deltaTime, const std::vector<Entity*>& entitySets, Map
             }
         }
         else {
-            animIndex = 0;
+            if (glm::length(movement) != 0) {
+                animTime += deltaTime;
+
+                if (animTime >= 0.1f)
+                {
+                    animTime = 0.0f;
+                    animIndex++;
+                    if (animIndex >= animFrames)
+                    {
+                        animIndex = 0;
+                    }
+                }
+            }
+            else {
+                animIndex = 0;
+            }
         }
     }
 

@@ -18,6 +18,7 @@
 #include <algorithm>
 #include <vector>
 
+enum class InteractionType {NONE, MAGENTA, NEXTSTAGE, NPC};
 enum class EntityType {PLAYER, MAGENTA, MONSTER, NPC};
 enum Direction {LEFT, RIGHT, UP, DOWN};
 

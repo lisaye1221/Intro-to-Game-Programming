@@ -26,7 +26,7 @@ class Scene {
 public:
 	Mix_Music* bgm;
 	GLuint fontTextureID;
-	int nextScene;
+	int nextScene = -1;
 	void initSfx();
 	virtual Player* getPlayer() = 0;
 	virtual void Initialize() = 0;

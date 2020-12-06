@@ -2,6 +2,7 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include <SDL_image.h>
 #include "stb_image.h"
+using namespace std;
 
 GLuint Util::LoadTexture(const char* filePath) {
 	int w, h, n;
@@ -60,4 +61,51 @@ void Util::DrawText(ShaderProgram* program, GLuint fontTexture, std::string text
 	glDrawArrays(GL_TRIANGLES, 0, (int)(text.size() * 6));
 	glDisableVertexAttribArray(program->positionAttribute);
 	glDisableVertexAttribArray(program->texCoordAttribute);
+}
+
+void Util::DisplayText(ShaderProgram* program, GLuint fontTextureID, const Text& text) {
+
+	if (text.getSpeaker() == "" || text.isEnd) { return; }
+
+	// display speaker
+	DrawText(program, fontTextureID, text.getSpeaker()+": ", 0.8, -0.1, glm::vec3(1, -19, 0));
+
+	// display line
+	string currLine = text.getCurLine();
+
+	if(currLine.size() < 35){
+		DrawText(program, fontTextureID, currLine, 0.8, -0.1, glm::vec3(7, -19, 0));
+		return;
+	}
+
+	int charCount = 0;
+	stringstream ss(currLine);
+	string word;
+	string line;
+	string line2;
+	while (ss >> word) {
+		charCount += word.size() + 1;
+		if (charCount < 35) {
+			line += word + " ";
+		}
+		else {
+			line2 += word + " ";
+			break;
+		}
+		
+	}
+	DrawText(program, fontTextureID, line, 0.8, -0.1, glm::vec3(7, -18,0));
+	charCount = 0;
+	while (ss >> word) {
+		charCount += word.size() + 1;
+		if (charCount < 35) {
+			line2 += word + " ";
+		}
+		else {
+			break;
+		}
+
+	}
+	DrawText(program, fontTextureID, line2, 0.8, -0.1, glm::vec3(7, -19.5, 0));
+
 }

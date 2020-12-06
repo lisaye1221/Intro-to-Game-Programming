@@ -2,10 +2,23 @@
 
 Player::Player(GLuint textID, glm::vec3 position):
     Entity(EntityType::PLAYER, textID, position, speed) {
-    speed = 3.0f;
+    speed = 3.5f;
 
+    animRight = new int[4]{ 8, 9, 10, 11 };
+    animLeft = new int[4]{ 4, 5, 6, 7 };
+    animUp = new int[4]{ 12, 13, 14, 15 };
+    animDown = new int[4]{ 0, 1, 2, 3 };
+
+    animIndices = animRight;
+    animFrames = 4;
+    animIndex = 0;
+    animTime = 0;
+    animCols = 4;
+    animRows = 4;
 
 }
+
+void Player::talkedToMangeta() { magentaTalks++; }
 
 //void Player::copyProgress(Player* prevPlayer) {
 //   
@@ -83,7 +96,7 @@ void Player::ProcessPlayerInput(SDL_Event& event) {
         movement = glm::vec3(0);
         
         const Uint8* keys = SDL_GetKeyboardState(NULL);
-
+        if (isInteracting) { return; } // can't move during an interaction
         if (keys[SDL_SCANCODE_A]) { // left
             movement.x = -1.0f;
             facing = LEFT;
@@ -110,6 +123,21 @@ void Player::ProcessPlayerInput(SDL_Event& event) {
 	}
 
 void Player::Update(float deltaTime, const std::vector<Entity*>& entitySets, Map* map) {
+
+    // left/right border control
+    if (position.x < 0.4f) { position.x = 0.4f; }
+    if (position.x > 31.6f) { position.x = 31.6f; }
+
+    // updates onWhat
+    for (Entity* entity : lastCollided) {
+        if (entity->getType() == EntityType::MAGENTA) {
+            onWhat = InteractionType::MAGENTA;
+            break;
+        }
+        if (entity->getType() == EntityType::NPC) {
+            onWhat = InteractionType::NPC;
+        }
+    }
 
     Entity::Update(deltaTime, entitySets, map);
 
