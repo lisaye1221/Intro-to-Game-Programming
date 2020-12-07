@@ -18,8 +18,8 @@
 #include <algorithm>
 #include <vector>
 
-enum class InteractionType {NONE, MAGENTA, NEXTSTAGE, NPC, SPECIAL};
-enum class EntityType {PLAYER, MAGENTA, MONSTER, NPC};
+enum class InteractionType {NONE, MAGENTA, NEXTSTAGE, NPC, SPECIAL, SIGN};
+enum class EntityType {PLAYER, MAGENTA, MONSTER, NPC, SIGN, FAKEMONSTER};
 enum Direction {LEFT, RIGHT, UP, DOWN};
 
 class Entity {
@@ -57,6 +57,8 @@ public:
     bool collidedBottom = false;
     bool collidedLeft = false;
     bool collidedRight = false;
+
+    std::vector<std::vector<std::string>> lines;
 
     Entity(EntityType type, GLuint textID, glm::vec3 position, float speed);
     ~Entity();

@@ -52,6 +52,12 @@ void Level::displayUI(ShaderProgram* program, GLuint fontTextureID) const {
 
 void Level::Render(ShaderProgram* program) {
     state.map->Render(program);
+    for (NPC* enemy : state.enemies) {
+        enemy->Render(program);
+    }
+    for (Entity* object : state.objects) {
+        object->Render(program);
+    }
     state.magenta->Render(program);
     state.player->Render(program);
     Level::displayUI(program, fontTextureID);

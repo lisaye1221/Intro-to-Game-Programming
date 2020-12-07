@@ -1,8 +1,8 @@
 #include "Map.h"
 #include <set>
 
-std::set<int> isSolid = { 0, 9, 10, 11, 12, 13 };
-std::set<int> isDoor = {34,35};
+std::set<int> isSolid = { 0, 9, 10, 11, 12, 13, 56, 57, 58, 59, 60, 61, 62, 63 };
+std::set<int> isDoor = {34,35, 67};
 std::set<int> isSpecial = {4};
  
 Map::Map(int width, int height, unsigned int* levelData, GLuint textureID, float tile_size, int
@@ -112,4 +112,9 @@ bool Map::IsSpecial(glm::vec3 position, float* penetration_x, float* penetration
 	if (tile_y < 0 || tile_y >= height) return false;
 	int tile = levelData[tile_y * width + tile_x];
 	return (isSpecial.find(tile) != isSpecial.end());
+}
+
+void Map::updateMap(unsigned int* newLevelData) {
+	levelData = newLevelData;
+	this->Build();
 }

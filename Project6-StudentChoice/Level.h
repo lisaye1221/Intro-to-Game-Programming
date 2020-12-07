@@ -8,7 +8,7 @@ struct GameState {
 	Player* player;
 	NPC* magenta;
 	std::vector<NPC*> enemies;
-	std::vector<Entity*> items;
+	std::vector<Entity*> objects;
 	std::vector<Entity*> allEntities;
 	Text currText;
 };
@@ -32,6 +32,7 @@ public:
 protected:
 	glm::mat4 backgroundMatrix;
 	GLuint backgroundID;
+	bool nextStageAppear = true;
 	
 
 };

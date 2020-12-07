@@ -21,6 +21,21 @@ NPC::NPC(GLuint textID, const glm::vec3& pos, float speed, EntityType type)
         facing = DOWN;
         height = 0.6f;
     }
+    else if (type == EntityType::MONSTER) {
+        animRight = new int[4]{ 8, 9, 10, 11 };
+        animLeft = new int[4]{ 4, 5, 6, 7 };
+        animUp = new int[4]{ 12, 13, 14, 15 };
+        animDown = new int[4]{ 0, 1, 2, 3 };
+
+        animIndices = animDown;
+        animFrames = 4;
+        animIndex = 0;
+        animTime = 0;
+        animCols = 4;
+        animRows = 4;
+        facing = DOWN;
+        height = 0.6f;
+    }
     
 }
 
@@ -46,22 +61,39 @@ void NPC::Update(float deltaTime, Entity* player, const std::vector<Entity*>& en
 
 void NPC::AI(Entity* player) {
 
-    //// moves left or right depending on where it's facing
-    //if (facing == LEFT) {
-    //    movement = glm::vec3(-1, 0, 0);
-    //}
-    //else if (facing == RIGHT) {
-    //    movement = glm::vec3(1, 0, 0);
-    //}
+    // moves left or right depending on where it's facing
+    if (facing == LEFT) {
+        movement = glm::vec3(-1, 0, 0);
+    }
+    else if (facing == RIGHT) {
+        movement = glm::vec3(1, 0, 0);
+    }
+    else if (facing == UP) {
+        movement = glm::vec3(0, 1, 0);
 
-    //// if go out of walking bound, turns the othe way
-    //if (position.x >= initialPos.x + walkRadius) {
-    //    facing = LEFT;
-    //}
-    //else if (position.x <= initialPos.x - walkRadius) {
-    //    facing = RIGHT;
-    //}
+    }
+    else if (facing == DOWN) {
+        movement = glm::vec3(0, -1, 0);
+    }
+
+    switch (entityType) {
+    case EntityType::MONSTER:
+        AI_MONSTER(player);
+        break;
+    case EntityType::FAKEMONSTER:
+        AI_FAKEMONSTER(player);
+        break;
+    }
 
 
+
+}
+
+// monsters in level 3
+void NPC::AI_MONSTER(Entity*) {
+
+}
+
+void NPC::AI_FAKEMONSTER(Entity*) {
 
 }

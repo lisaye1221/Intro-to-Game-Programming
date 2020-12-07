@@ -10,9 +10,11 @@ public:
 
 	virtual void Update(float deltaTime, Entity* player, const std::vector<Entity*>& entitySets, Map* map);
 
-	std::vector<std::vector<std::string>> lines;
+	
 private:
 	void AI(Entity*);
+	void AI_MONSTER(Entity*);
+	void AI_FAKEMONSTER(Entity*);
 	glm::vec3 initialPos;
 	
 };

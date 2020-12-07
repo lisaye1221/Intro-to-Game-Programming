@@ -18,6 +18,7 @@
 #include "MainMenu.h"
 #include "Level1.h"
 #include "Level2.h"
+#include "Level3.h"
 
 
 SDL_Window* displayWindow;
@@ -76,8 +77,8 @@ void Initialize() {
     sceneList[0] = new MainMenu();
     sceneList[1] = new Level1();
     sceneList[2] = new Level2();
-    sceneList[3] = new Level2();
-    SwitchToScene(sceneList[0]);
+    sceneList[3] = new Level3();
+    SwitchToScene(sceneList[3]);
 
    
 }

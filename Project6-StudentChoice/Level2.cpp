@@ -67,7 +67,7 @@ void Level2::Initialize() {
 
     // initialize audio
     bgm = Mix_LoadMUS("assets/audio/Lost-Jungle.mp3");
-    Mix_VolumeMusic(MIX_MAX_VOLUME / 7);
+    Mix_VolumeMusic(MIX_MAX_VOLUME / 5);
     // Check load
     if (bgm == NULL) {
         std::cout << "Fail to load music. " << Mix_GetError() << std::endl;
@@ -83,7 +83,6 @@ void Level2::Initialize() {
 
     // Initialize Player
     GLuint textID = Util::LoadTexture("assets/mc2.png");
-    float speed = 2.5;
 
     state.player = new Player(textID, glm::vec3(1, -2, 0));
     state.allEntities.push_back(state.player);
@@ -127,7 +126,7 @@ void Level2::Update(float deltaTime) {
 void Level2::Render(ShaderProgram* program) {
     Level::Render(program);
     Util::DisplayText(program, fontTextureID, state.currText);
-    Util::DrawText(program, fontTextureID, to_string(talkedToMagenta_2), 0.8, -0.2, glm::vec3(20, 2, 0));
+    //Util::DrawText(program, fontTextureID, to_string(talkedToMagenta_2), 0.8, -0.2, glm::vec3(20, 2, 0));
 }
 void Level2::ProcessInput(SDL_Event& event) {
     Level::ProcessInput(event);

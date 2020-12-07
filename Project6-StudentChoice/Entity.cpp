@@ -229,6 +229,10 @@ void Entity::Update(float deltaTime, const std::vector<Entity*>& entitySets, Map
         }
     }
 
+    // left/right border control
+    if (position.x < 0.4f) { position.x = 0.4f; }
+    if (position.x > 31.6f) { position.x = 31.6f; }
+
     velocity.x = movement.x * speed; 
     velocity.y = movement.y * speed;
     velocity += acceleration * deltaTime;

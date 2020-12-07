@@ -133,10 +133,6 @@ void Player::ProcessPlayerInput(SDL_Event& event) {
 
 void Player::Update(float deltaTime, const std::vector<Entity*>& entitySets, Map* map) {
 
-    // left/right border control
-    if (position.x < 0.4f) { position.x = 0.4f; }
-    if (position.x > 31.6f) { position.x = 31.6f; }
-
     onWhat = InteractionType::NONE;
 
     // updates onWhat
@@ -145,9 +141,14 @@ void Player::Update(float deltaTime, const std::vector<Entity*>& entitySets, Map
             onWhat = InteractionType::MAGENTA;
             break;
         }
+        if (entity->getType() == EntityType::SIGN) {
+            onWhat = InteractionType::SIGN;
+            break;
+        }
         if (entity->getType() == EntityType::NPC) {
             onWhat = InteractionType::NPC;
         }
+        
     }
 
     Entity::Update(deltaTime, entitySets, map);
