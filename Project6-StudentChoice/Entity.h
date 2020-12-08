@@ -19,7 +19,7 @@
 #include <vector>
 
 enum class InteractionType {NONE, MAGENTA, NEXTSTAGE, NPC, SPECIAL, SIGN};
-enum class EntityType {PLAYER, MAGENTA, MONSTER, NPC, SIGN, FAKEMONSTER};
+enum class EntityType {PLAYER, MAGENTA, MONSTER, CHASER, NPC, SIGN, FAKEMONSTER};
 enum Direction {LEFT, RIGHT, UP, DOWN};
 
 class Entity {
@@ -32,7 +32,6 @@ protected:
     float speed;
     float width = 1;
     float height = 1;
-    bool ignorePlatform;
     Direction facing;
 
     std::vector<Entity*> lastCollided;
@@ -57,6 +56,7 @@ public:
     bool collidedBottom = false;
     bool collidedLeft = false;
     bool collidedRight = false;
+    bool rightBorderBounded = true;
 
     std::vector<std::vector<std::string>> lines;
 
@@ -73,6 +73,7 @@ public:
 
     // setters
     void resetMovement();
+    void setMovement(glm::vec3 movt);
     void setPosition(glm::vec3 pos);
     void setSize(float w, float h);
     void setSpeed(float spd);

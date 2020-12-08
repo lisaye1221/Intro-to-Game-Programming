@@ -4,9 +4,10 @@
 #include "Level.h"
 
 class Level3 : public Level {
+	Mix_Chunk* popSfx;
 	bool attackStart = false;
 	bool attackEnd = false;
-	float countdownTime = 5;
+	float countdownTime = 30;
 public:
 	virtual void Initialize();
 	virtual void Update(float deltaTime);

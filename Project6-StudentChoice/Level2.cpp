@@ -29,7 +29,7 @@ unsigned int level2_data[] =
 };
 vector<vector<string>> MAGENTA_LINES_LEVEL2 = {
     {
-      "Hi, we meet again!",
+      "Hi again, you found me!",
       "What am I doing here?",
       "I felt I should help you find your way home!",
       "It's kind of exciting, don't you think?",
@@ -49,16 +49,17 @@ vector<vector<string>> MAGENTA_LINES_LEVEL2 = {
         "It's pretty rare to have visitors here",
         "Me? I'm a slime.",
         "A gooo one of course",
-        "Was that a gooo one?",
-        "You sure are chatty",
-        "I heard there are scary monsters at night",
-        "You should probably get going"
+        "Was that a gooo one? :)",
+        "Ok ok, no more slime puns",
+        "You sure are chatty...",
+        "You should probably get going",
+        "Don't you want to get home quicker?"
     }
 };
 vector<vector<string>> LEVEL2_LINES = {
-    {"It is just a patch of grass"},
-    {"It is just some flowers"},
-    {"I think I can move on from here"}
+    {"(It is just a patch of grass)"},
+    {"(These are just some flowers)"},
+    {"(I think I can move on from here)"}
 };
 
 
@@ -78,7 +79,7 @@ void Level2::Initialize() {
 
     // initialize map
     GLuint mapTextureID = Util::LoadTexture("assets/world1.png");
-    state.map = new Map(LEVEL2_WIDTH, LEVEL2_HEIGHT, level2_data, mapTextureID, 1.0f, 8, 16);
+    state.map = new Map(LEVEL2_WIDTH, LEVEL2_HEIGHT, level2_data, mapTextureID, 1.0f, 8, 16, WORLD);
 
 
     // Initialize Player

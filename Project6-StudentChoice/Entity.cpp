@@ -3,7 +3,7 @@
 Entity::Entity(EntityType type, GLuint textID, glm::vec3 position, float speed)
     :entityType(type), textureID(textID),position(position), speed(speed),
     movement(glm::vec3(0)), acceleration(glm::vec3(0)), velocity(glm::vec3(0)),
-    modelMatrix(glm::mat4(1.0f)), ignorePlatform(false) {
+    modelMatrix(glm::mat4(1.0f)){
 
 }
 
@@ -32,6 +32,7 @@ Direction Entity::getFacing() const { return facing; }
 
 // setters
 void Entity::resetMovement() { movement = glm::vec3(0); }
+void Entity::setMovement(glm::vec3 movt) { movement = movt; }
 void Entity::setPosition(glm::vec3 pos) { position = pos; }
 void Entity::setSize(float w, float h) {
     width = w;
@@ -229,9 +230,11 @@ void Entity::Update(float deltaTime, const std::vector<Entity*>& entitySets, Map
         }
     }
 
-    // left/right border control
+    // left/up/down border control
     if (position.x < 0.4f) { position.x = 0.4f; }
-    if (position.x > 31.6f) { position.x = 31.6f; }
+    if (position.x > 31.6f && rightBorderBounded) { position.x = 31.6f; }
+    if (position.y > -1.0f) { position.y = -1.0f; }
+    if (position.y < -16.0f) { position.y = -16.0f; }
 
     velocity.x = movement.x * speed; 
     velocity.y = movement.y * speed;
@@ -241,13 +244,17 @@ void Entity::Update(float deltaTime, const std::vector<Entity*>& entitySets, Map
     lastCollided.clear();
 
     position.y += velocity.y * deltaTime; // Move on Y
-    CheckCollisionsY(map);
+    if (entityType == EntityType::PLAYER) {
+        CheckCollisionsY(map);
+    }
     for (Entity* entity : entitySets) {
         CheckCollisionsY(entity);// Fix if needed
     }
 
     position.x += velocity.x * deltaTime; // Move on X
-    CheckCollisionsX(map);
+    if (entityType == EntityType::PLAYER) {
+        CheckCollisionsX(map);
+    }
     for (Entity* entity : entitySets) {
         CheckCollisionsX(entity);// Fix if needed
     }

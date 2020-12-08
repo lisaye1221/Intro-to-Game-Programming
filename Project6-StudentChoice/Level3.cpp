@@ -3,6 +3,7 @@
 #define LEVEL3_HEIGHT 18
 
 int talkedToMagenta_3 = 0;
+bool talkedBefore = false;
 
 using namespace std;
 
@@ -55,8 +56,8 @@ vector<vector<string>> MAGENTA_LINES_LEVEL3 = {
     { // 0
       "This place seems dangerous",
       "Seems like monster can come out any second",
-      "You don't seem like you can fight",
-      "So you should just run away",
+      "Hmmmm... You don't seem like you can fight",
+      "So maybe you should just run away from the monsters",
       "Me?",
       "Haha you don't have to worry about me",
       "They won't attack me",
@@ -89,15 +90,14 @@ vector<vector<string>> MAGENTA_LINES_LEVEL3 = {
     },
     { //5
         "Seems like you survived the attack",
-        "I'm glad you're safe"
+        "I'm glad you're safe",
         "Look! Over there, the flower patch",
         "We can move on now!"
     }
 };
 vector<vector<string>> LEVEL3_LINES = {
     {
-        "To earn the right to leave this world",
-        "You must withstand 45 seconds of attack",
+        "To leave this world, you must endure 30 seconds of attack",
         "What will lie ahead...",
         "Freedom or death?"
     },
@@ -109,16 +109,18 @@ vector<vector<string>> LEVEL3_LINES = {
         "Do you fear death?"
     },
     {
+        "In this world...",
+        "How are you choosing who to trust?",
         "Proceed with caution"
     },
-    {"I think I can move on from here"}
+    {"(I think I can move on from here)"}
 };
 
 
 void Level3::Initialize() {
     Level::Initialize();
 
-    Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 4096);
+    //Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 4096);
 
     // initialize audio
     bgm = Mix_LoadMUS("assets/audio/Lost-in-a-Labyrinth.mp3");
@@ -130,10 +132,12 @@ void Level3::Initialize() {
     }
     // loop the bgm
     Mix_PlayMusic(bgm, -1);
+    popSfx = Mix_LoadWAV("assets/audio/pop.wav");
+    Mix_VolumeChunk(popSfx, MIX_MAX_VOLUME / 4);
 
     // initialize map
     GLuint mapTextureID = Util::LoadTexture("assets/world1.png");
-    state.map = new Map(LEVEL3_WIDTH, LEVEL3_HEIGHT, level3_data, mapTextureID, 1.0f, 8, 16);
+    state.map = new Map(LEVEL3_WIDTH, LEVEL3_HEIGHT, level3_data, mapTextureID, 1.0f, 8, 16, WORLD);
     nextStageAppear = false;
 
     // Initialize Player
@@ -165,24 +169,47 @@ void Level3::Initialize() {
     state.objects.push_back(sign);
     state.allEntities.push_back(sign);
 
-    int enemyCount = 6; 
+    int monsterCount = 8; 
     textID = Util::LoadTexture("assets/skeleton.png");
     NPC* enemy;
-    for (int i = 0; i < enemyCount / 2 ;i++) {
-        // spawn 3 on right side
-        int y = 0 - (rand() % 12 + 5); // randomize where they spawn
-        enemy = new NPC(textID, glm::vec3(31.5, y, 0), 0, EntityType::MONSTER);
+    for (int i = 0; i < monsterCount; i++) {
+        float randSpd = rand() % 3 + 5;
+        enemy = new NPC(textID, glm::vec3(31.5, 0, 0), randSpd, EntityType::MONSTER);
         enemy->isActive = false; // do not appear at first
         state.allEntities.push_back(enemy);
         state.enemies.push_back(enemy);
 
-        // spawn 3 on left side
-        y = 0 - (rand() % 12 + 5); // randomize where they spawn
-        enemy = new NPC(textID, glm::vec3(1, y, 0), 0, EntityType::MONSTER);
-        enemy->isActive = false; // do not appear at first
-        state.allEntities.push_back(enemy);
-        state.enemies.push_back(enemy);
     }
+    // set each of their positions, speed, direction
+    state.enemies[0]->setPosition(glm::vec3(1.5, -5, 0));
+    state.enemies[1]->setPosition(glm::vec3(31, -8, 0));
+    state.enemies[2]->setPosition(glm::vec3(16, -1, 0));
+    state.enemies[3]->setPosition(glm::vec3(6, -15, 0));
+    state.enemies[4]->setPosition(glm::vec3(20, -15, 0));
+    state.enemies[5]->setPosition(glm::vec3(25, -1, 0));
+    state.enemies[6]->setPosition(glm::vec3(1.5, -10.5, 0));
+    state.enemies[7]->setPosition(glm::vec3(11.5, -15, 0));
+    state.enemies[0]->setFacing(RIGHT);
+    state.enemies[1]->setFacing(LEFT);
+    state.enemies[2]->setFacing(DOWN);
+    state.enemies[3]->setFacing(UP);
+    state.enemies[4]->setFacing(UP);
+    state.enemies[5]->setFacing(DOWN);
+    state.enemies[6]->setFacing(LEFT);
+    state.enemies[7]->setFacing(UP);
+    state.enemies[0]->goLeftOrRight = true;
+    state.enemies[1]->goLeftOrRight = true;
+    state.enemies[2]->goLeftOrRight = false;
+    state.enemies[3]->goLeftOrRight = false;
+    state.enemies[4]->goLeftOrRight = false;
+    state.enemies[5]->goLeftOrRight = false;
+    state.enemies[6]->goLeftOrRight = true;
+    state.enemies[7]->goLeftOrRight = false;
+    textID = Util::LoadTexture("assets/skeleton_red.png");
+    enemy = new NPC(textID, glm::vec3(31, -1, 0), 3.0, EntityType::CHASER);
+    enemy->isActive = false; // do not appear at first
+    state.allEntities.push_back(enemy);
+    state.enemies.push_back(enemy);
 
 }
 void Level3::Update(float deltaTime) {
@@ -208,13 +235,13 @@ void Level3::Update(float deltaTime) {
         break;
     case InteractionType::NEXTSTAGE:
         if (state.currText.isEnd) {
-            // nextScene = 4;
+            nextScene = 4;
             state.player->interactionType = InteractionType::NONE;
         }
         break;
     case InteractionType::SIGN:
         if (state.currText.isEnd) {
-            if (!attackStart) { talkedToMagenta_3 = 1; }
+            if (!attackStart && talkedToMagenta_3 > 1) { talkedToMagenta_3 = 1; }
             attackStart = true;
             state.player->interactionType = InteractionType::NONE;
         }
@@ -233,15 +260,86 @@ void Level3::Update(float deltaTime) {
     if (attackEnd && !nextStageAppear) { 
         state.objects[1]->isActive = true;
         state.map->updateMap(level3_clear_data);
+        Mix_PlayChannel(-1, popSfx, 0);
         nextStageAppear = true;
     }
-    if (countdownTime <= 0) { attackEnd = true; }
+    if (countdownTime <= 0) { 
+        if (!attackEnd) { // do this only once
+            // despawn all enemies
+            for (NPC* enemy : state.enemies) {
+                enemy->isActive = false;
+            }
+        }
+        attackEnd = true;
+    }
+
+    // spawn monster logic
+    if (attackStart && !attackEnd) {
+        if (countdownTime < 30 && !state.enemies[0]->isActive) {
+            state.enemies[0]->isActive = true;
+        }
+        if (countdownTime < 30 && !state.enemies[1]->isActive) {
+            state.enemies[1]->isActive = true;
+
+        }
+        if (countdownTime <= 26 && !state.enemies[2]->isActive) {
+            state.enemies[2]->isActive = true;
+
+        }
+        if (countdownTime <= 22 && !state.enemies[3]->isActive) {
+            state.enemies[3]->isActive = true;
+
+        }
+        if (countdownTime <= 20 && !state.enemies[8]->isActive) {
+            state.enemies[8]->isActive = true;
+        }
+        if (countdownTime <= 18 && !state.enemies[4]->isActive) {
+            state.enemies[4]->isActive = true;
+
+        }
+        if (countdownTime <= 15 && !state.enemies[5]->isActive) {
+            state.enemies[5]->isActive = true;
+        }
+        if (countdownTime <= 12 && !state.enemies[6]->isActive) {
+            state.enemies[6]->isActive = true;
+        }
+        if (countdownTime <= 9 && !state.enemies[7]->isActive) {
+            state.enemies[7]->isActive = true;
+        }
+    }
+
+    // pause monsters when interacting
+    if (state.player->isInteracting) {
+        for (NPC* npc : state.enemies) {
+            npc->shouldStop = true;
+        }
+    }
+    else {
+        for (NPC* npc : state.enemies) {
+            npc->shouldStop = false;
+        }
+    }
+
+    // magenta animation
+    if (attackEnd) {
+        if (state.magenta->getPosition().x < 24.5) {
+            state.magenta->setFacing(RIGHT);
+            state.magenta->setSpeed(3.0);
+        }
+        else if (state.magenta->getPosition().y > -5) {
+            state.magenta->setFacing(DOWN);
+        }
+        else {
+            state.magenta->setFacing(DOWN);
+            state.magenta->setSpeed(0);
+        }
+    }
 
 }
 void Level3::Render(ShaderProgram* program) {
     Level::Render(program);
     Util::DisplayText(program, fontTextureID, state.currText);
-    Util::DrawText(program, fontTextureID, to_string(attackEnd), 0.8, -0.2, glm::vec3(20, 2.5, 0));
+    Util::DrawText(program, fontTextureID, "Dead:"+to_string(state.player->isDead), 0.8, -0.2, glm::vec3(20, 2.5, 0));
     Util::DrawText(program, fontTextureID, "Time: " + to_string(int(countdownTime)), 0.8, -0.2, glm::vec3(20, 1, 0));
 }
 void Level3::ProcessInput(SDL_Event& event) {
@@ -256,13 +354,15 @@ void Level3::Interact() {
     case InteractionType::MAGENTA:
         state.player->interactionType = InteractionType::MAGENTA;
         if (attackEnd) {
-            state.currText = talkedToMagenta_3 ? Text(state.magenta->lines[5], "Magenta") : Text(state.magenta->lines[4], "Magenta");
+            state.currText = talkedBefore ? Text(state.magenta->lines[5], "Magenta") : Text(state.magenta->lines[4], "Magenta");
         }
-        else if (talkedToMagenta_3 == 0 || !attackStart) {
+        else if (talkedToMagenta_3 == 0 && !attackStart) {
             state.currText = Text(state.magenta->lines[0], "Magenta");
+            talkedBefore = true;
         }
         else if(attackStart){
-            if (talkedToMagenta_3 >= MAGENTA_LINES_LEVEL3.size()) { talkedToMagenta_3 = 1; }
+            if (talkedToMagenta_3 >= MAGENTA_LINES_LEVEL3.size() || talkedToMagenta_3 == 0) { talkedToMagenta_3 = 1; }
+            talkedBefore = true;
             state.currText = Text(state.magenta->lines[talkedToMagenta_3], "Magenta");
         }
         break;

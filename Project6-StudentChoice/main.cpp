@@ -19,6 +19,7 @@
 #include "Level1.h"
 #include "Level2.h"
 #include "Level3.h"
+#include "Level4.h"
 
 
 SDL_Window* displayWindow;
@@ -32,7 +33,6 @@ Scene* sceneList[10];
 void SwitchToScene(Scene* prevScene, Scene* nextScene) {
     currentScene = nextScene;
     currentScene->Initialize();
-    nextScene->bgm = prevScene->bgm;
     prevScene->bgm = nullptr;
     currentScene->getPlayer()->copyProgress(prevScene->getPlayer());
     
@@ -78,7 +78,8 @@ void Initialize() {
     sceneList[1] = new Level1();
     sceneList[2] = new Level2();
     sceneList[3] = new Level3();
-    SwitchToScene(sceneList[3]);
+    sceneList[4] = new Level4();
+    SwitchToScene(sceneList[4]);
 
    
 }
@@ -119,6 +120,20 @@ void Update() {
     }
     accumulator = deltaTime;
 
+    viewMatrix = glm::mat4(1.0f);
+    if (currentScene->viewScrolls) {
+        if (currentScene->getPlayer()->getPosition().x > 52.5) {
+            viewMatrix = glm::translate(viewMatrix, glm::vec3(-52.5, 9, 0));
+        }
+        else if (currentScene->getPlayer()->getPosition().x > 16) {
+            viewMatrix = glm::translate(viewMatrix, glm::vec3(-currentScene->getPlayer()->getPosition().x, 9, 0));
+        }
+        else {
+            viewMatrix = glm::translate(viewMatrix, glm::vec3(-16, 9, 0));
+        }
+    }
+
+    
 
 }
 

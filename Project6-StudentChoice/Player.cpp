@@ -137,6 +137,10 @@ void Player::Update(float deltaTime, const std::vector<Entity*>& entitySets, Map
 
     // updates onWhat
     for (Entity* entity : lastCollided) {
+        if (entity->getType() == EntityType::MONSTER || entity->getType() == EntityType::CHASER) {
+            isDead = true;
+            break;
+        }
         if (entity->getType() == EntityType::MAGENTA) {
             onWhat = InteractionType::MAGENTA;
             break;

@@ -35,18 +35,27 @@ Player* Level::getPlayer() {
 
 void Level::displayUI(ShaderProgram* program, GLuint fontTextureID) const {
 
-    string x;
-    if (true) {
-        x = "";
+    float x = state.player->getPosition().x;
+
+    if (!viewScrolls) {
+        Util::DrawText(program, fontTextureID, "x: " + to_string(state.player->getPosition().x), 0.7, -0.17, glm::vec3(2, 2, 0));
+        Util::DrawText(program, fontTextureID, "y: " + to_string(state.player->getPosition().y), 0.7, -0.17, glm::vec3(2, 0, 0));
+        Util::DrawText(program, fontTextureID, "IsInteract: " + to_string(state.player->isInteracting), 1.0, -0.2, glm::vec3(20, 0, 0));
     }
     else {
-        x = "";
+        if (state.player->getPosition().x > 52.5) {
+            Util::DrawText(program, fontTextureID, "x: " + to_string(state.player->getPosition().x), 0.7, -0.17, glm::vec3(38.5, 2, 0));
+            Util::DrawText(program, fontTextureID, "y: " + to_string(state.player->getPosition().y), 0.7, -0.17, glm::vec3(38.5, 0, 0));
+        }
+        else if (state.player->getPosition().x > 16) {
+            Util::DrawText(program, fontTextureID, "x: " + to_string(state.player->getPosition().x), 0.7, -0.17, glm::vec3(x - 14, 2, 0));
+            Util::DrawText(program, fontTextureID, "y: " + to_string(state.player->getPosition().y), 0.7, -0.17, glm::vec3(x - 14, 0, 0));
+        }
+        else {
+            Util::DrawText(program, fontTextureID, "x: " + to_string(state.player->getPosition().x), 0.7, -0.17, glm::vec3(2, 2, 0));
+            Util::DrawText(program, fontTextureID, "y: " + to_string(state.player->getPosition().y), 0.7, -0.17, glm::vec3(2, 0, 0));
+        }
     }
-
-    Util::DrawText(program, fontTextureID, "Player x: " + to_string(state.player->getPosition().x), 1.0, -0.2, glm::vec3(2, 2, 0));
-    Util::DrawText(program, fontTextureID, "Player y: " + to_string(state.player->getPosition().y), 1.0, -0.2, glm::vec3(2, 0, 0));
-    Util::DrawText(program, fontTextureID, "IsInteract: " + to_string(state.player->isInteracting), 1.0, -0.2, glm::vec3(20, 0, 0));
-    Util::DrawText(program, fontTextureID, "" + x, 0.8, -0.2, glm::vec3(20, 2, 0));
 
 }
 

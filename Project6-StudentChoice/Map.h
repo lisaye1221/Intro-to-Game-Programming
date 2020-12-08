@@ -14,7 +14,10 @@
 #include "glm/gtc/matrix_transform.hpp"
 #include "ShaderProgram.h"
 
+enum MapType {WORLD, CAVE};
+
 class Map {
+	MapType mapType;
 	int width;
 	int height;
 	unsigned int* levelData;
@@ -27,7 +30,7 @@ class Map {
 	float left_bound, right_bound, top_bound, bottom_bound;
 public:
 	Map(int width, int height, unsigned int* levelData, GLuint textureID, float tile_size, int
-		tile_count_x, int tile_count_y);
+		tile_count_x, int tile_count_y, MapType type);
 	void Build();
 	void Render(ShaderProgram* program);
 	bool IsSolid(glm::vec3 position, float* penetration_x, float* penetration_y);

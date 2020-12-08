@@ -4,6 +4,7 @@
 #include "Level.h"
 
 class Level1 : public Level {
+	Mix_Chunk* popSfx;
 public:
 	virtual void Initialize();
 	virtual void Update(float deltaTime);

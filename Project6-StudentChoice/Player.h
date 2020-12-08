@@ -21,10 +21,10 @@ public:
 	InteractionType onWhat = InteractionType::NONE;
 	InteractionType interactionType = InteractionType::NONE;
 	bool hasOrb = false;
+	bool isDead = false;
 	bool isInteracting = false;
 	bool advanceStage = false;
 private:
-	int lives;
 	bool isInvincible = false;
 	int magentaTalks = 0;
 	

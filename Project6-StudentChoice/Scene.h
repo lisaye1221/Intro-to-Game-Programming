@@ -27,6 +27,7 @@ public:
 	Mix_Music* bgm;
 	GLuint fontTextureID;
 	int nextScene = -1;
+	bool viewScrolls = false;
 	void initSfx();
 	virtual Player* getPlayer() = 0;
 	virtual void Initialize() = 0;

@@ -13,7 +13,7 @@ void MainMenu::Initialize() {
     // Start Audio
     Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 4096);
     bgm = Mix_LoadMUS("assets/audio/Enchanted-Forest-Open.wav");
-    Mix_VolumeMusic(MIX_MAX_VOLUME / 5);
+    Mix_VolumeMusic(MIX_MAX_VOLUME / 8);
     // Check load
     if (bgm == NULL) {
         std::cout << "Fail to load music. " << Mix_GetError() << std::endl;

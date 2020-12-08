@@ -51,7 +51,8 @@ unsigned int level1_clear_data[] =
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 };
 vector<string> instructions = {
-    "Control: W,A,S,D - move      H-interact | J-confirm/next"
+    "Control: W,A,S,D - move     H-interact | J-confirm/next",
+    "To interact with things, walk up to them and press H"
 };
 vector<vector<string>> MAGENTA_LINES_LEVEL1 = {
     { 
@@ -75,14 +76,14 @@ vector<vector<string>> MAGENTA_LINES_LEVEL1 = {
     }
 };
 vector<vector<string>> LEVEL1_LINES = {
-    {"It is just a patch of grass"},
-    {"It is just some flowers"},
-    {"I think I can move on from here"}
+    {"(It is just a patch of grass)"},
+    {"(These are just some flowers)"},
+    {"(I think I can move on from here)"}
 };
 vector<string> orbObtainNotice = {
-    "It is just a patch of grass",
-    "Wait",
-    "There is something in the grass...", 
+    "(It is just a patch of grass)",
+    "(Wait)",
+    "(There is something in the grass...)", 
     "?", 
     "[You have obtained a mysterious orb]"
 };
@@ -101,10 +102,12 @@ void Level1::Initialize() {
     }
     // loop the bgm
     Mix_PlayMusic(bgm, -1);
+    popSfx = Mix_LoadWAV("assets/audio/pop.wav");
+    Mix_VolumeChunk(popSfx, MIX_MAX_VOLUME / 4);
 
     // initialize map
     GLuint mapTextureID = Util::LoadTexture("assets/world1.png");
-    state.map = new Map(LEVEL1_WIDTH, LEVEL1_HEIGHT, level1_data, mapTextureID, 1.0f, 8, 16);
+    state.map = new Map(LEVEL1_WIDTH, LEVEL1_HEIGHT, level1_data, mapTextureID, 1.0f, 8, 16, WORLD);
     state.currText = Text(instructions, "");
     nextStageAppear = false;
 
@@ -154,6 +157,7 @@ void Level1::Update(float deltaTime) {
 
     if (talkedToMagenta && !nextStageAppear) {
         state.map->updateMap(level1_clear_data);
+        Mix_PlayChannel(-1, popSfx, 0);
         nextStageAppear = true;
     }
 
