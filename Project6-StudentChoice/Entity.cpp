@@ -29,6 +29,9 @@ glm::vec3 Entity::getMovement() const { return movement; }
 glm::vec3 Entity::getVelocity() const { return velocity; }
 float Entity::getSpeed() const { return speed; }
 Direction Entity::getFacing() const { return facing; }
+bool Entity::didCollideWith(Entity* other) const {
+    return find(lastCollided.begin(), lastCollided.end(), other) != lastCollided.end();
+}
 
 // setters
 void Entity::resetMovement() { movement = glm::vec3(0); }
@@ -197,7 +200,7 @@ void Entity::Update(float deltaTime, const std::vector<Entity*>& entitySets, Map
     collidedRight = false;
 
     if (animIndices != NULL) {
-        if (entityType == EntityType::MAGENTA) {
+        if (entityType == EntityType::MAGENTA || entityType == EntityType::NPC) {
             animTime += deltaTime;
 
             if (animTime >= 0.2f)

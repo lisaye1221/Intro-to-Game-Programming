@@ -7,6 +7,11 @@ std::set<int> isSpecial = {4};
 
 std::set<int> isNotSolid_Cave = { 24, 25, 26, 27, 28, 29, 75, 67};
 std::set<int> isDoor_Cave = { 67, 75 };
+
+std::set<int> isNotSolid_Inside = { 1, 2, 3, 4, 5, 6, 7 };
+std::set<int> isDoor_Inside = { 1 };
+
+
  
 Map::Map(int width, int height, unsigned int* levelData, GLuint textureID, float tile_size, int
 	tile_count_x, int tile_count_y, MapType type)
@@ -91,6 +96,9 @@ bool Map::IsSolid(glm::vec3 position, float* penetration_x, float* penetration_y
 	else if (mapType == MapType::CAVE) {
 		if (isNotSolid_Cave.find(tile) != isNotSolid_Cave.end()) return false;
 	}
+	else if (mapType == MapType::INSIDE) {
+		if (isNotSolid_Inside.find(tile) != isNotSolid_Inside.end()) return false;
+	}
 
 	float tile_center_x = (tile_x * tile_size);
 	float tile_center_y = -(tile_y * tile_size);
@@ -115,6 +123,9 @@ bool Map::IsDoor(glm::vec3 position, float* penetration_x, float* penetration_y)
 	}
 	else if (mapType == MapType::CAVE) {
 		return (isDoor_Cave.find(tile) != isDoor_Cave.end());
+	}
+	else if (mapType == MapType::INSIDE) {
+		return (isDoor_Inside.find(tile) != isDoor_Inside.end());
 	}
 
 	

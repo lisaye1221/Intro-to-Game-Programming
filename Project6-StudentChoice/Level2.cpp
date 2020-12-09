@@ -68,7 +68,7 @@ void Level2::Initialize() {
 
     // initialize audio
     bgm = Mix_LoadMUS("assets/audio/Lost-Jungle.mp3");
-    Mix_VolumeMusic(MIX_MAX_VOLUME / 5);
+    Mix_VolumeMusic(MIX_MAX_VOLUME / 8);
     // Check load
     if (bgm == NULL) {
         std::cout << "Fail to load music. " << Mix_GetError() << std::endl;

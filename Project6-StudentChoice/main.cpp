@@ -20,6 +20,7 @@
 #include "Level2.h"
 #include "Level3.h"
 #include "Level4.h"
+#include "Level5.h"
 
 
 SDL_Window* displayWindow;
@@ -79,7 +80,8 @@ void Initialize() {
     sceneList[2] = new Level2();
     sceneList[3] = new Level3();
     sceneList[4] = new Level4();
-    SwitchToScene(sceneList[4]);
+    sceneList[5] = new Level5();
+    SwitchToScene(sceneList[5]);
 
    
 }
@@ -132,7 +134,10 @@ void Update() {
             viewMatrix = glm::translate(viewMatrix, glm::vec3(-16, 9, 0));
         }
     }
+    else {
+        viewMatrix = glm::translate(viewMatrix, glm::vec3(-16, 9, 0));
 
+    }
     
 
 }

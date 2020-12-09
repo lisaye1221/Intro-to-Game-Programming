@@ -1,0 +1,27 @@
+How to play and tips
+
+1. Use the W, S, A, D key to move up, down, left, right respectively.
+2. To interact with things, walk up to them and press H key. 
+   Dialogue and text will appear at the bottom of the screen.
+   To advance through them, press the J key.
+3. Try to interact with a bunch of things!
+4. You meet a helpful friend named Magenta, maybe it'll be helpful to talk to Magenta a bunch.
+
+
+
+
+Riddle Explanation(Spoiler Alert)
+
+1. First we see direct confliction between blue and red's statement. 
+   Notice that red must be lying, or else blue and red'statement will become a paradox.
+
+2. Knowing that red is lying automatically tells us that blue is telling the truth.
+
+3. Since red is lying, either yellow or blue has to be lying. Since we already found out blue
+   is telling the truth, we can conclude that yellow is lying. This matches yellow's statement. 
+
+4. Since we conclude yellow is lying, we can conclude that green is telling the truth.
+
+5. Since we conclude green is telling the truth, we can conclude purple is lying.
+
+6. The final answer is green and blue, they are the two slimes that are telling the truth.

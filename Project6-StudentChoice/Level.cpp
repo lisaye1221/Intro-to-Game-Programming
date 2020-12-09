@@ -17,9 +17,17 @@ void Level::ProcessInput(SDL_Event& event) {
             }
             break;
         case SDLK_j: // confirm/next
+            if (toMakeChoice) { 
+                buttonChoice = ButtonChoice::CONFIRM; 
+                toMakeChoice = false;
+            }
             state.currText.nextLine();
             break;
         case SDLK_k:
+            if (toMakeChoice) { 
+                buttonChoice = ButtonChoice::CANCEL; 
+                toMakeChoice = false;
+            }
             break;
         }
         break; // SDL_KEYDOWN

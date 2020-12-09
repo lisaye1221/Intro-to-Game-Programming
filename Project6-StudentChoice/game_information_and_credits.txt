@@ -7,19 +7,25 @@ The following titles are by Eric Matyas (www.soundimage.org):
 
 "Enchanted Forest Open" - Title
 
-"DISTANT MOUNTAINS"
-
 "A FLOCK OF BUBBLES" - Opening World in Forest
-
-"LOST JUNGLE" - Maze
 
 "LOST MEADOW" - [???] (where you get the orb)
 
-"MISTY BOG" - Walk Straight!
+"LOST JUNGLE" - Maze
 
-"Puzzle Game" - Riddle
+"Lost in a Labyrinth" - Monster World
+
+"Chilly Whispers" - Walk Straight
+
+"After the Forest Battle" - Riddle
 
 "Comrades Always" - Boss Fight
+
+"The Attic of Secret" - Connection Between Two Worlds
+
+"The Bog of Despair" - Bad End: Death/Betrayal
+
+"Distant Mountain" - Ending: Sacrifice
 
 "RPG THEME_V001" - True Ending
 

@@ -5,6 +5,10 @@
 
 class Level4 : public Level {
 	Mix_Chunk* popSfx;
+	bool readSign = false;
+	bool pathStart = false;
+	bool pathClear = false;
+	void die();
 public:
 	virtual void Initialize();
 	virtual void Update(float deltaTime);

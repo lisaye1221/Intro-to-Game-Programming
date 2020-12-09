@@ -3,6 +3,8 @@
 
 #include "Scene.h"
 
+enum class ButtonChoice {NONE, CONFIRM, CANCEL };
+
 struct GameState {
 	Map* map;
 	Player* player;
@@ -33,7 +35,8 @@ protected:
 	glm::mat4 backgroundMatrix;
 	GLuint backgroundID;
 	bool nextStageAppear = true;
-	
+	ButtonChoice buttonChoice = ButtonChoice::NONE;
+	bool toMakeChoice = false;
 
 };
 

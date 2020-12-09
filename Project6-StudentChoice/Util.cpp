@@ -65,18 +65,19 @@ void Util::DrawText(ShaderProgram* program, GLuint fontTexture, std::string text
 
 void Util::DisplayText(ShaderProgram* program, GLuint fontTextureID, const Text& text) {
 
-	if (text.isEnd) { return; }
+	
+	if (text.isEnd && !text.getIsQuestion()) { return; }
 
 	// display speaker
 	if (text.getSpeaker() != "") {
 		DrawText(program, fontTextureID, text.getSpeaker() + ": ", 0.8, -0.1, glm::vec3(1, -19, 0));
 	}
-
+	int x = text.getSpeaker() != "" ? 7 : 5;
 	// display line
 	string currLine = text.getCurLine();
 
 	if(currLine.size() < 35){
-		DrawText(program, fontTextureID, currLine, 0.8, -0.1, glm::vec3(7, -19, 0));
+		DrawText(program, fontTextureID, currLine, 0.8, -0.1, glm::vec3(x, -19, 0));
 		return;
 	}
 
@@ -96,7 +97,7 @@ void Util::DisplayText(ShaderProgram* program, GLuint fontTextureID, const Text&
 		}
 		
 	}
-	DrawText(program, fontTextureID, line, 0.8, -0.1, glm::vec3(7, -18,0));
+	DrawText(program, fontTextureID, line, 0.8, -0.1, glm::vec3(x, -18,0));
 	charCount = 0;
 	while (ss >> word) {
 		charCount += word.size() + 1;
@@ -108,7 +109,7 @@ void Util::DisplayText(ShaderProgram* program, GLuint fontTextureID, const Text&
 		}
 
 	}
-	DrawText(program, fontTextureID, line2, 0.8, -0.1, glm::vec3(7, -19.5, 0));
+	DrawText(program, fontTextureID, line2, 0.8, -0.1, glm::vec3(x, -19.5, 0));
 
 }
 
@@ -121,12 +122,13 @@ void Util::DisplayText(ShaderProgram* program, GLuint fontTextureID, const Text&
 	if (text.getSpeaker() != "") {
 		DrawText(program, fontTextureID, text.getSpeaker() + ": ", 0.8, -0.1, glm::vec3(1 + xOffset, -19, 0));
 	}
+	int x = text.getSpeaker() != "" ? 7 : 5;
 
 	// display line
 	string currLine = text.getCurLine();
 
 	if (currLine.size() < 35) {
-		DrawText(program, fontTextureID, currLine, 0.8, -0.1, glm::vec3(7 + xOffset, -19, 0));
+		DrawText(program, fontTextureID, currLine, 0.8, -0.1, glm::vec3(x + xOffset, -19, 0));
 		return;
 	}
 
@@ -146,7 +148,7 @@ void Util::DisplayText(ShaderProgram* program, GLuint fontTextureID, const Text&
 		}
 
 	}
-	DrawText(program, fontTextureID, line, 0.8, -0.1, glm::vec3(7 + xOffset, -18, 0));
+	DrawText(program, fontTextureID, line, 0.8, -0.1, glm::vec3(x + xOffset, -18, 0));
 	charCount = 0;
 	while (ss >> word) {
 		charCount += word.size() + 1;
@@ -158,6 +160,6 @@ void Util::DisplayText(ShaderProgram* program, GLuint fontTextureID, const Text&
 		}
 
 	}
-	DrawText(program, fontTextureID, line2, 0.8, -0.1, glm::vec3(7 + xOffset, -19.5, 0));
+	DrawText(program, fontTextureID, line2, 0.8, -0.1, glm::vec3(x + xOffset, -19.5, 0));
 
 }

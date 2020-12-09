@@ -18,8 +18,8 @@
 #include <algorithm>
 #include <vector>
 
-enum class InteractionType {NONE, MAGENTA, NEXTSTAGE, NPC, SPECIAL, SIGN};
-enum class EntityType {PLAYER, MAGENTA, MONSTER, CHASER, NPC, SIGN, FAKEMONSTER};
+enum class InteractionType {NONE, MAGENTA, NEXTSTAGE, NPC, SPECIAL, SIGN, CHOICE};
+enum class EntityType {PLAYER, MAGENTA, MONSTER, CHASER, NPC, SIGN, FAKEMONSTER, OBJECT};
 enum Direction {LEFT, RIGHT, UP, DOWN};
 
 class Entity {
@@ -37,8 +37,9 @@ protected:
     std::vector<Entity*> lastCollided;
 
     GLuint textureID;
-    glm::mat4 modelMatrix;
+
 public:
+    glm::mat4 modelMatrix;
     int* animRight = NULL;
     int* animLeft = NULL;
     int* animUp = NULL;
@@ -70,6 +71,7 @@ public:
     glm::vec3 getVelocity() const;
     float getSpeed() const;
     Direction getFacing() const;
+    bool didCollideWith(Entity*) const;
 
     // setters
     void resetMovement();

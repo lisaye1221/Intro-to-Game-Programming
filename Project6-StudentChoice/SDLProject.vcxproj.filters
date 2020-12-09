@@ -60,6 +60,9 @@
     <ClCompile Include="Level4.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Level5.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ShaderProgram.h">
@@ -102,6 +105,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Level4.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Level5.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

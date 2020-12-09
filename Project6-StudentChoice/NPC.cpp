@@ -142,7 +142,7 @@ void NPC::AI_CHASER(Entity* player) {
 }
 
 void NPC::AI_FAKEMONSTER(Entity* player) {
-
+    if (facing != LEFT) { facing = LEFT; }
 }
 
 void NPC::CheckCollisionsX(Map* map) {

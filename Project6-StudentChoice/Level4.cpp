@@ -6,7 +6,7 @@ int talkedToMagenta_4 = 0;
 
 using namespace std;
 
-int EM = 44; // empty
+unsigned int EM = 44; // empty
 
 unsigned int level4_data[] =
 {
@@ -16,11 +16,11 @@ unsigned int level4_data[] =
     72, 73, 73, 73, 73, 65, 65, 65, 65, 65, 51, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 0,
     29, 28, 29, 29, 29, 72, 73, 73, 73, 73, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 67, 65, 0,
     28, 29, 28, 29, 29, 29, 29, 29, 29, 29, 72, 73, 73, 73, 73, 73, 73, 73, 73, 73, 73, 73, 73, 73, 73, 73, 73, 73, 73, 73, 73, 73, 73, 73, 73, 73, 73, 73, 73, 73, 73, 73, 73, 73, 73, 73, 73, 73, 73, 73, 73, 73, 73, 73, 73, 73, 73, 73, 73, 73, 73, 73, 73, 73, 73, 73, 73, 75, 73, 0,
-    29, 28, 28, 29, 29, 29, 29, 29, 29, 29, 29, 30, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 0,
-    29, 29, 29, 29, 29, 28, 29, 29, 29, 29, 29, 31, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 0,
+    29, 28, 28, 29, 29, 29, 29, 29, 29, 29, 29, 30, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 31, 29, 29, 29, 29, 29, 29, 0,
+    29, 29, 29, 29, 29, 28, 29, 29, 29, 29, 29, 31, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 31, 29, 29, 29, 29, 29, 29, 0,
     29, 29, 29, 29, 28, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 0,
     29, 29, 29, 29, 29, 27, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 0,
-    29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 31, 29, 28, 25, 29, 29, 29, 29, 29, 29, 29, 29, 26, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 26, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 0,
+    29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 31, 29, 28, 25, 29, 29, 29, 29, 29, 29, 29, 29, 26, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 26, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 30, 29, 28, 29, 29, 29, 29, 0,
     29, 29, 29, 29, 29, 29, 29, 29, 28, 28, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 0,
     57, 57, 57, 49, 29, 28, 29, 29, 27, 26, 43, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, 0,
     EM, EM, EM, 56, 57, 57, 57, 57, 57, 57, 43, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, EM, 0,
@@ -48,15 +48,20 @@ vector<vector<string>> LEVEL4_LINES = {
         "To get through this world, you must walk straight",
         "Beyond those rocks is the path you must walk",
         "The exit is at the end of the path",
-        "Do not look away under ANY circumstance",
+        "Do not look away under any circumstance",
+        "And that is ANY circumstance",
         "Or else...",
         "You will die"
 
     },
     {
+        "This is the end of the path",
         "That was easy right?",
         "The next world is just pass the exit on the right",
         "Congrats, the end is near"
+    },
+    {
+        "(Something tells me I better go read the sign over there first...)"
     }
 };
 
@@ -95,6 +100,7 @@ void Level4::Initialize() {
     textID = Util::LoadTexture("assets/magenta.png");
     state.magenta = new NPC(textID, glm::vec3(25, -6, 0), 0, EntityType::MAGENTA);
     state.magenta->animIndices = NULL; // this magenta will not animate
+    state.magenta->animFrames = 0;
     state.allEntities.push_back(state.magenta);
     state.magenta->lines = MAGENTA_LINES_LEVEL4;
 
@@ -107,12 +113,45 @@ void Level4::Initialize() {
 
     // right sign
     sign = new Entity(EntityType::SIGN, textID, glm::vec3(64, -6, 0), 0);
+    sign->isActive = false;
     sign->lines.push_back(LEVEL4_LINES[2]); 
     state.objects.push_back(sign);
     state.allEntities.push_back(sign);
 
+    // fake things to trick player
+    textID = Util::LoadTexture("assets/sign_fake.png");
+    Entity* object = new Entity(EntityType::OBJECT, textID, glm::vec3(38, -6, 0), 0);
+    state.objects.push_back(object);
+    state.allEntities.push_back(object);
+
+    textID = Util::LoadTexture("assets/chest_inanimate.png");
+    object = new Entity(EntityType::OBJECT, textID, glm::vec3(59, -6, 0), 0);
+    state.objects.push_back(object);
+    state.allEntities.push_back(object);
+
+    // fake monsters
     textID = Util::LoadTexture("assets/skeleton_red.png");
-    NPC* enemy = new NPC(textID, glm::vec3(50, -1, 0), 3.0, EntityType::FAKEMONSTER);
+    NPC* enemy = new NPC(textID, glm::vec3(55, -6.5, 0), 8.7, EntityType::FAKEMONSTER);
+    enemy->isActive = false; // do not appear at first
+    state.allEntities.push_back(enemy);
+    state.enemies.push_back(enemy);
+
+    enemy = new NPC(textID, glm::vec3(60, -8.0, 0), 9.1, EntityType::FAKEMONSTER);
+    enemy->isActive = false; // do not appear at first
+    state.allEntities.push_back(enemy);
+    state.enemies.push_back(enemy);
+
+    enemy = new NPC(textID, glm::vec3(55, -9.5, 0), 8.8, EntityType::FAKEMONSTER);
+    enemy->isActive = false; // do not appear at first
+    state.allEntities.push_back(enemy);
+    state.enemies.push_back(enemy);
+
+    textID = Util::LoadTexture("assets/scary.png");
+    enemy = new NPC(textID, glm::vec3(60, -8.0, 0), 9.5, EntityType::FAKEMONSTER);
+    enemy->animIndices = NULL; 
+    enemy->animFrames = 0;
+    enemy->animCols = 1;
+    enemy->animRows = 1;
     enemy->isActive = false; // do not appear at first
     state.allEntities.push_back(enemy);
     state.enemies.push_back(enemy);
@@ -145,13 +184,16 @@ void Level4::Update(float deltaTime) {
         break;
     case InteractionType::NEXTSTAGE:
         if (state.currText.isEnd) {
-            // nextScene = 4;
+            nextScene = 5;
             state.player->interactionType = InteractionType::NONE;
         }
         break;
     case InteractionType::SIGN:
         if (state.currText.isEnd) {
             state.player->interactionType = InteractionType::NONE;
+            if (!readSign) {
+                state.player->setPosition(glm::vec3(state.player->getPosition().x - 1, state.player->getPosition().y, state.player->getPosition().z));
+            }
         }
         break;
     case InteractionType::NONE:
@@ -159,7 +201,36 @@ void Level4::Update(float deltaTime) {
         break;
     }
 
-    
+    // prevents player from moving forward if didn't read sign
+    if (state.player->getPosition().x > 10) {
+        if (!readSign) {
+            state.player->interactionType = InteractionType::SIGN;
+            state.player->isInteracting = true;
+            state.currText = Text(LEVEL4_LINES[3], "");
+        }
+        else {
+            pathStart = true;
+        }   
+    }
+
+    // spawn fake monster logic
+    if (state.player->getPosition().x > 28) {
+        state.enemies[0]->isActive = true;
+        state.enemies[1]->isActive = true;
+        state.enemies[2]->isActive = true;
+    }
+    if (state.player->getPosition().x > 40) {
+        state.enemies[3]->isActive = true;
+    }
+    state.enemies[3]->modelMatrix = glm::scale(state.enemies[3]->modelMatrix, glm::vec3(2.5, 2.5, 2.5));
+
+    // make right sign appear once player clear path
+    if (state.player->getPosition().x > 62 && !state.objects[1]->isActive) {
+        state.objects[1]->isActive = true;
+        Mix_PlayChannel(-1, popSfx, 0);
+        pathClear = true;
+    }
+
 
 }
 void Level4::Render(ShaderProgram* program) {
@@ -182,7 +253,42 @@ void Level4::Render(ShaderProgram* program) {
 
 }
 void Level4::ProcessInput(SDL_Event& event) {
-    Level::ProcessInput(event);
+    switch (event.type) {
+    case SDL_KEYDOWN:
+        switch (event.key.keysym.sym) {
+        case SDLK_h: // Interact
+            if (!state.player->isInteracting) { 
+                Interact();
+            }
+            break;
+        case SDLK_j: // confirm/next
+            state.currText.nextLine();
+            break;
+        case SDLK_k:
+            break;
+        case SDLK_w:
+            if (pathStart && !pathClear) {
+                state.player->animIndices = state.player->animUp;
+                die();
+                break;
+            }
+        case SDLK_a:
+            if (pathStart && !pathClear) {
+                state.player->animIndices = state.player->animLeft;
+                die();
+                break;
+            }
+        case SDLK_s:
+            if (pathStart && !pathClear) {
+                state.player->animIndices = state.player->animDown;
+                die();
+                break;
+            }
+        }
+        break; // SDL_KEYDOWN
+    default:
+        state.player->ProcessPlayerInput(event);
+    }
 }
 
 void Level4::Interact() {
@@ -202,6 +308,7 @@ void Level4::Interact() {
         state.player->interactionType = InteractionType::SIGN;
         if (state.player->getPosition().x < 20) { // left sign
             state.currText = Text(state.objects[0]->lines[0], "");
+            readSign = true;
         }
         else {
             state.currText = Text(state.objects[1]->lines[0], "");
@@ -211,4 +318,12 @@ void Level4::Interact() {
 
 
 
+}
+
+
+void Level4::die() {
+    state.player->isDead = true;
+    state.player->isInteracting = true;
+    state.player->interactionType = InteractionType::SIGN;
+    state.currText = Text({"!!!", "I was not supposed to look away"}, "");
 }
