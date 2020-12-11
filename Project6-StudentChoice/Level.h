@@ -19,9 +19,10 @@ class Level: public Scene {
 public:
 	GameState state;
 	Player* getPlayer() override;
+	int getWorldNum() const;
 	virtual void Initialize() = 0;
 	virtual void Update(float deltaTime) = 0;
-	virtual void Render(ShaderProgram* program) = 0;
+	virtual void Render(ShaderProgram* program, ShaderProgram* program_lit = nullptr) = 0;
 	virtual void ProcessInput(SDL_Event& event);
 
 	// looks at what object player is on to determine how interaction will proceed

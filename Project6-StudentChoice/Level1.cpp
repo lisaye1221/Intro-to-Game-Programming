@@ -90,7 +90,7 @@ vector<string> orbObtainNotice = {
 
 void Level1::Initialize() {
     Level::Initialize();
-
+    worldNum = 1;
     // initialize audio
     Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 4096);
     bgm = Mix_LoadMUS("assets/audio/A-Flock-of-Bubbles.mp3");
@@ -162,7 +162,7 @@ void Level1::Update(float deltaTime) {
     }
 
 }
-void Level1::Render(ShaderProgram* program) {
+void Level1::Render(ShaderProgram* program, ShaderProgram* program_lit) {
     Level::Render(program);
     Util::DisplayText(program, fontTextureID, state.currText);
 }

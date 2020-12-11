@@ -128,7 +128,7 @@ vector<vector<string>> HOST_LINES = {
 void Level5::Initialize() {
     Level::Initialize();
 
-    Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 4096);
+    // Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 4096);
 
     // initialize audio
     bgm = Mix_LoadMUS("assets/audio/Peaceful-Mind.mp3");
@@ -328,7 +328,7 @@ void Level5::Update(float deltaTime) {
 
 
 }
-void Level5::Render(ShaderProgram* program) {
+void Level5::Render(ShaderProgram* program, ShaderProgram* program_lit) {
     Level::Render(program);
     Util::DisplayText(program, fontTextureID, state.currText);
 

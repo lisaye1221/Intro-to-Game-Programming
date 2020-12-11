@@ -13,7 +13,7 @@ public:
 	Player* getPlayer() override;
 	void Initialize() override;
 	void Update(float deltaTime) override;
-	void Render(ShaderProgram* program) override;
+	void Render(ShaderProgram* program, ShaderProgram* program_lit = nullptr) override;
 	void ProcessInput(SDL_Event& event) override;
 };
 

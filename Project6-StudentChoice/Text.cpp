@@ -12,9 +12,6 @@ Text::Text(const vector<string>& epi, const string& who, bool isQuestion) : epis
 	Mix_VolumeChunk(textSfx, MIX_MAX_VOLUME / 3);
 }
 
-Text::~Text() {
-	Mix_FreeChunk(textSfx);
-}
 
 bool Text::getIsQuestion() const {
 	return isQuestion;

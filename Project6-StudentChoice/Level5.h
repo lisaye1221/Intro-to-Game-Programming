@@ -23,7 +23,7 @@ class Level5 : public Level {
 public:
 	virtual void Initialize();
 	virtual void Update(float deltaTime);
-	virtual void Render(ShaderProgram* program);
+	virtual void Render(ShaderProgram* program, ShaderProgram* program_lit = nullptr);
 	virtual void ProcessInput(SDL_Event& event);
 
 	virtual void Interact();

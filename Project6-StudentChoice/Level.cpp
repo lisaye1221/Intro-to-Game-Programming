@@ -41,6 +41,10 @@ Player* Level::getPlayer() {
 	return state.player;
 }
 
+int Level::getWorldNum() const {
+    return worldNum;
+}
+
 void Level::displayUI(ShaderProgram* program, GLuint fontTextureID) const {
 
     float x = state.player->getPosition().x;
@@ -67,7 +71,7 @@ void Level::displayUI(ShaderProgram* program, GLuint fontTextureID) const {
 
 }
 
-void Level::Render(ShaderProgram* program) {
+void Level::Render(ShaderProgram* program, ShaderProgram* program_lit) {
     state.map->Render(program);
     for (NPC* enemy : state.enemies) {
         enemy->Render(program);

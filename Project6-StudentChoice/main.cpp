@@ -12,6 +12,7 @@
 #include "ShaderProgram.h"
 
 #include "Util.h"
+#include "Effects.h"
 #include "Entity.h"
 #include "Map.h"
 #include "Scene.h"
@@ -27,11 +28,16 @@ SDL_Window* displayWindow;
 bool gameIsRunning = true;
 
 ShaderProgram program;
+ShaderProgram program_regular;
+ShaderProgram program_lit;
 glm::mat4 viewMatrix, modelMatrix, projectionMatrix;
+
+Effects* effects;
 
 Scene* currentScene;
 Scene* sceneList[10];
 void SwitchToScene(Scene* prevScene, Scene* nextScene) {
+    effects->Start(FADEIN, 0.7f);
     currentScene = nextScene;
     currentScene->Initialize();
     prevScene->bgm = nullptr;
@@ -40,9 +46,9 @@ void SwitchToScene(Scene* prevScene, Scene* nextScene) {
 }
 
 void SwitchToScene(Scene* nextScene) {
+    
     currentScene = nextScene;
     currentScene->Initialize();
-
 }
 
 void Initialize() {
@@ -57,15 +63,20 @@ void Initialize() {
 
     glViewport(0, 0, 640, 480);
 
-    program.Load("shaders/vertex_textured.glsl", "shaders/fragment_textured.glsl");
+    program_regular.Load("shaders/vertex_textured.glsl", "shaders/fragment_textured.glsl"); 
+    program_lit.Load("shaders/vertex_lit.glsl", "shaders/fragment_lit.glsl");
+    
 
     viewMatrix = glm::mat4(1.0f);
     modelMatrix = glm::mat4(1.0f);
     projectionMatrix = glm::ortho(-16.0f, 16.0f, -12.0f, 12.0f, -1.0f, 1.0f);
 
-    program.SetProjectionMatrix(projectionMatrix);
-    program.SetViewMatrix(viewMatrix);
+    program_regular.SetProjectionMatrix(projectionMatrix);
+    program_regular.SetViewMatrix(viewMatrix);
+    program_lit.SetProjectionMatrix(projectionMatrix);
+    program_lit.SetViewMatrix(viewMatrix);
 
+    program = program_regular;
     glUseProgram(program.programID);
 
     glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
@@ -75,14 +86,16 @@ void Initialize() {
 
     viewMatrix = glm::translate(viewMatrix, glm::vec3(-16, 9, 0));
 
+    effects = new Effects(projectionMatrix, viewMatrix);
+
     sceneList[0] = new MainMenu();
     sceneList[1] = new Level1();
     sceneList[2] = new Level2();
     sceneList[3] = new Level3();
     sceneList[4] = new Level4();
     sceneList[5] = new Level5();
-    SwitchToScene(sceneList[5]);
-
+    
+    SwitchToScene(sceneList[0]);
    
 }
 
@@ -117,7 +130,9 @@ void Update() {
     while (deltaTime >= FIXED_TIMESTEP) {
         currentScene->Update(FIXED_TIMESTEP);
         
+        if (currentScene->getWorldNum() == 4) { program.SetLightPosition(currentScene->getPlayer()->getPosition()); }
 
+        effects->Update(FIXED_TIMESTEP);
         deltaTime -= FIXED_TIMESTEP;
     }
     accumulator = deltaTime;
@@ -146,10 +161,13 @@ void Update() {
 void Render() {
     glClear(GL_COLOR_BUFFER_BIT);
 
-    program.SetViewMatrix(viewMatrix);
+    program_regular.SetViewMatrix(viewMatrix);
+    program_lit.SetViewMatrix(viewMatrix);
 
-    currentScene->Render(&program);
-
+    glUseProgram(program.programID);
+    currentScene->getWorldNum() == 4? currentScene->Render(&program_regular, &program_lit) : currentScene->Render(&program);
+    
+    effects->Render();
     SDL_GL_SwapWindow(displayWindow);
 }
 
@@ -165,10 +183,17 @@ int main(int argc, char* argv[]) {
         ProcessInput();
         Update();
         if (currentScene->nextScene == 1) {
+            effects->Start(FADEIN, 0.5f);
             SwitchToScene(sceneList[1]);
 
         }
         else if (currentScene->nextScene > 1) {
+            if (currentScene->nextScene == 4) {
+                program = program_lit;
+            }
+            if (currentScene->nextScene == 5) {
+                program = program_regular;
+            }
             SwitchToScene(currentScene, sceneList[currentScene->nextScene]);
         }
         Render();

@@ -1,6 +1,11 @@
 ﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(491,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (Project5-Platformer.vcxproj, SDLProject.vcxproj).  This can lead to incorrect clean and rebuild behavior.
-  Level5.cpp
-C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Intro-to-Game-Programming\Project6-StudentChoice\Level5.cpp(339,120): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Intro-to-Game-Programming\Project6-StudentChoice\Level5.cpp(340,122): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Intro-to-Game-Programming\Project6-StudentChoice\Level5.cpp(341,95): warning C4305: 'argument': truncation from 'double' to 'float'
+  Level4.cpp
+C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Intro-to-Game-Programming\Project6-StudentChoice\Level4.cpp(136,87): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Intro-to-Game-Programming\Project6-StudentChoice\Level4.cpp(141,82): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Intro-to-Game-Programming\Project6-StudentChoice\Level4.cpp(146,82): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Intro-to-Game-Programming\Project6-StudentChoice\Level4.cpp(242,133): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Intro-to-Game-Programming\Project6-StudentChoice\Level4.cpp(246,162): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Intro-to-Game-Programming\Project6-StudentChoice\Level4.cpp(250,131): warning C4305: 'argument': truncation from 'double' to 'float'
+  main.cpp
+  Generating Code...
   SDLProject.vcxproj -> C:\Users\lisay\Documents\Fall2020Class\[CS3113]Intro-to-Game\Intro-to-Game-Programming\Project6-StudentChoice\Debug\Project6-StudentChoice.exe

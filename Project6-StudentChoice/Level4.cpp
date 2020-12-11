@@ -68,7 +68,9 @@ vector<vector<string>> LEVEL4_LINES = {
 
 void Level4::Initialize() {
     Level::Initialize();
+    worldNum = 4;
     viewScrolls = true;
+
     Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 4096);
 
     // initialize audio
@@ -202,7 +204,7 @@ void Level4::Update(float deltaTime) {
     }
 
     // prevents player from moving forward if didn't read sign
-    if (state.player->getPosition().x > 10) {
+    if (state.player->getPosition().x > 11) {
         if (!readSign) {
             state.player->interactionType = InteractionType::SIGN;
             state.player->isInteracting = true;
@@ -233,21 +235,20 @@ void Level4::Update(float deltaTime) {
 
 
 }
-void Level4::Render(ShaderProgram* program) {
-    Level::Render(program);
-
+void Level4::Render(ShaderProgram* program_regular, ShaderProgram* program_lit) {
+    Level::Render(program_lit);
 
     if (state.player->getPosition().x > 52.5) {
-        Util::DrawText(program, fontTextureID, "Dead:" + to_string(state.player->isDead), 0.8, -0.2, glm::vec3(56.5, 2.5, 0));
-        Util::DisplayText(program, fontTextureID, state.currText, 37.5);
+        Util::DrawText(program_regular, fontTextureID, "Dead:" + to_string(state.player->isDead), 0.8, -0.2, glm::vec3(56.5, 2.5, 0));
+        Util::DisplayText(program_regular, fontTextureID, state.currText, 37.5);
     }
     else if (state.player->getPosition().x > 16) {
-        Util::DrawText(program, fontTextureID, "Dead:" + to_string(state.player->isDead), 0.8, -0.2, glm::vec3(state.player->getPosition().x + 4, 2.5, 0));
-        Util::DisplayText(program, fontTextureID, state.currText, state.player->getPosition().x - 15);
+        Util::DrawText(program_regular, fontTextureID, "Dead:" + to_string(state.player->isDead), 0.8, -0.2, glm::vec3(state.player->getPosition().x + 4, 2.5, 0));
+        Util::DisplayText(program_regular, fontTextureID, state.currText, state.player->getPosition().x - 15);
     }
     else {
-        Util::DrawText(program, fontTextureID, "Dead:" + to_string(state.player->isDead), 0.8, -0.2, glm::vec3(20, 2.5, 0));
-        Util::DisplayText(program, fontTextureID, state.currText);
+        Util::DrawText(program_regular, fontTextureID, "Dead:" + to_string(state.player->isDead), 0.8, -0.2, glm::vec3(20, 2.5, 0));
+        Util::DisplayText(program_regular, fontTextureID, state.currText);
 
     }
 

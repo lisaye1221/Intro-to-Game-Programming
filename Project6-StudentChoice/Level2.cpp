@@ -65,7 +65,7 @@ vector<vector<string>> LEVEL2_LINES = {
 
 void Level2::Initialize() {
     Level::Initialize();
-
+    worldNum = 2;
     // initialize audio
     bgm = Mix_LoadMUS("assets/audio/Lost-Jungle.mp3");
     Mix_VolumeMusic(MIX_MAX_VOLUME / 8);
@@ -124,7 +124,7 @@ void Level2::Update(float deltaTime) {
 
 
 }
-void Level2::Render(ShaderProgram* program) {
+void Level2::Render(ShaderProgram* program, ShaderProgram* program_lit) {
     Level::Render(program);
     Util::DisplayText(program, fontTextureID, state.currText);
     //Util::DrawText(program, fontTextureID, to_string(talkedToMagenta_2), 0.8, -0.2, glm::vec3(20, 2, 0));

@@ -15,7 +15,6 @@ class Text {
 	bool isQuestion;
 public:
 	bool isEnd = false;
-	~Text();
 	Text();
 	Text(const std::vector<std::string>& epi, const std::string&, bool isQuestion = false);
 

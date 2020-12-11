@@ -49,7 +49,7 @@ void MainMenu::Update(float deltaTime) {
     
 }
 
-void MainMenu::Render(ShaderProgram* program) {
+void MainMenu::Render(ShaderProgram* program, ShaderProgram* program_lit) {
 
     float vertices[] = { -16.0, -12.0, 16.0, -12, 16.0, 12.0, -16, -12.0, 16.0, 12, -16, 12 };
     float texCoords[] = { 0.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0 };

@@ -119,7 +119,7 @@ vector<vector<string>> LEVEL3_LINES = {
 
 void Level3::Initialize() {
     Level::Initialize();
-
+    worldNum = 3;
     //Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 4096);
 
     // initialize audio
@@ -336,7 +336,7 @@ void Level3::Update(float deltaTime) {
     }
 
 }
-void Level3::Render(ShaderProgram* program) {
+void Level3::Render(ShaderProgram* program, ShaderProgram* program_lit) {
     Level::Render(program);
     Util::DisplayText(program, fontTextureID, state.currText);
     Util::DrawText(program, fontTextureID, "Dead:"+to_string(state.player->isDead), 0.8, -0.2, glm::vec3(20, 2.5, 0));

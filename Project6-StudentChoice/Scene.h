@@ -30,15 +30,16 @@ public:
 	bool viewScrolls = false;
 	void initSfx();
 	virtual Player* getPlayer() = 0;
+	virtual int getWorldNum() const;
 	virtual void Initialize() = 0;
 	virtual void Update(float deltaTime) = 0;
-	virtual void Render(ShaderProgram* program) = 0;
+	virtual void Render(ShaderProgram* program, ShaderProgram* program_lit = nullptr) = 0;
 	virtual void ProcessInput(SDL_Event& event) = 0;
 
 protected:
 	glm::mat4 backgroundMatrix;
 	GLuint backgroundID;
-
+	int worldNum;
 
 };
 
