@@ -5,7 +5,7 @@ Effects::Effects(glm::mat4 projectionMatrix, glm::mat4 viewMatrix)
 	program.Load("shaders/vertex.glsl", "shaders/fragment.glsl");
 	program.SetProjectionMatrix(projectionMatrix);
 	program.SetViewMatrix(viewMatrix);
-	currentEffect = NONE;
+	currentEffect = EffectType::NONE;
 	alpha = 0;
 	speed = 1.0f;
 
@@ -26,22 +26,22 @@ void Effects::Start(EffectType effectType, float effectSpeed)
 	currentEffect = effectType;
 	speed = effectSpeed;
 	switch (currentEffect) {
-	case NONE:
+	case EffectType::NONE:
 		break;
-	case FADEIN:
+	case EffectType::FADEIN:
 		// start as full alpha, cover everything at the beginning
 		alpha = 1.0f;
 		break;
-	case FADEOUT:
+	case EffectType::FADEOUT:
 		alpha = 0.0f;
 		break;
-	case GROW:
+	case EffectType::GROW:
 		size = 0.0f;
 		break;
-	case SHRINK:
-		size = 10.0f;
+	case EffectType::SHRINK:
+		size = 32.0f;
 		break;
-	case SHAKE:
+	case EffectType::SHAKE:
 		timeLeft = 1.0f; // 1 second
 		break;
 	}
@@ -49,18 +49,18 @@ void Effects::Start(EffectType effectType, float effectSpeed)
 void Effects::Update(float deltaTime)
 {
 	switch (currentEffect) {
-	case NONE:
+	case EffectType::NONE:
 		break;
-	case FADEIN:
+	case EffectType::FADEIN:
 		// decrease the alpha over time so it looks like it's 
 		// fading away
 		alpha -= deltaTime * speed;
 		if (alpha <= 0) {
 			// once alpha is down to zero, we're done with this effect
-			currentEffect = NONE;
+			currentEffect = EffectType::NONE;
 		}
 		break;
-	case FADEOUT:
+	case EffectType::FADEOUT:
 		// decrease the alpha over time so it looks like it's 
 		// fading away
 		alpha += deltaTime * speed;
@@ -70,22 +70,22 @@ void Effects::Update(float deltaTime)
 		//	currentEffect = NONE;
 		//}
 		break;
-	case GROW:
+	case EffectType::GROW:
 		size += deltaTime * speed;
 		break;
-	case SHRINK:
+	case EffectType::SHRINK:
 		size -= deltaTime * speed;
 		if (size <= 0) {
 			// once alpha is down to zero, we're done with this effect
-			currentEffect = NONE;
+			currentEffect = EffectType::NONE;
 		}
 		break;
-	case SHAKE:
+	case EffectType::SHAKE:
 		timeLeft -= deltaTime * speed;
 		if (timeLeft <= 0) {
 			// reset the view back to normal
 			viewOffset = glm::vec3(0, 0, 0);
-			currentEffect = NONE;
+			currentEffect = EffectType::NONE;
 		}
 		else {
 			// max & min dictates how big the shake is 
@@ -102,11 +102,11 @@ void Effects::Render()
 	glm::mat4 modelMatrix = glm::mat4(1.0f);
 	modelMatrix = glm::translate(modelMatrix, glm::vec3(16, -9, 0));
 	switch (currentEffect) {
-	case NONE:
+	case EffectType::NONE:
 		return;
 		break;
-	case FADEOUT: // does the same thing as FADEIN here
-	case FADEIN:
+	case EffectType::FADEOUT: // does the same thing as FADEIN here
+	case EffectType::FADEIN:
 		// scale up so it covers the whole window
 		modelMatrix = glm::scale(modelMatrix, glm::vec3(32, 32, 1));
 		program.SetModelMatrix(modelMatrix);
@@ -114,15 +114,15 @@ void Effects::Render()
 		program.SetColor(0, 0, 0, alpha);
 		DrawOverlay();
 		break;
-	case GROW:
-	case SHRINK:
+	case EffectType::GROW:
+	case EffectType::SHRINK:
 		// scale up so it covers the whole window
 		modelMatrix = glm::scale(modelMatrix, glm::vec3(size, size * 0.75f, 1));
 		program.SetModelMatrix(modelMatrix);
 		program.SetColor(0, 0, 0, 1);
 		DrawOverlay();
 		break;
-	case SHAKE: // we actually don't draw anything
+	case EffectType::SHAKE: // we actually don't draw anything
 		break;
 	}
 }

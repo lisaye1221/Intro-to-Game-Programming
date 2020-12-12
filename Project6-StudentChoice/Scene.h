@@ -13,6 +13,7 @@
 #include "glm/gtc/matrix_transform.hpp"
 #include "ShaderProgram.h"
 #include "Util.h"
+#include "Effects.h"
 #include "Entity.h"
 #include "Map.h"
 #include "NPC.h"
@@ -26,9 +27,12 @@ class Scene {
 public:
 	Mix_Music* bgm;
 	GLuint fontTextureID;
+	EffectType effect = EffectType::NONE;
+	float effectSpd = 1.0f;
 	int nextScene = -1;
 	bool viewScrolls = false;
 	void initSfx();
+	
 	virtual Player* getPlayer() = 0;
 	virtual int getWorldNum() const;
 	virtual void Initialize() = 0;
@@ -40,7 +44,7 @@ protected:
 	glm::mat4 backgroundMatrix;
 	GLuint backgroundID;
 	int worldNum;
-
+	void playEffect(EffectType type, float spd);
 };
 
 

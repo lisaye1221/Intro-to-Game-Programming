@@ -17,6 +17,7 @@ struct GameState {
 
 class Level: public Scene {
 public:
+	
 	GameState state;
 	Player* getPlayer() override;
 	int getWorldNum() const;

@@ -39,7 +39,7 @@ Scene* currentScene;
 Scene* sceneList[10];
 Scene* endingSceneList[5];
 void SwitchToScene(Scene* prevScene, Scene* nextScene) {
-    effects->Start(FADEIN, 0.7f);
+    effects->Start(EffectType::FADEIN, 0.7f);
     currentScene = nextScene;
     currentScene->Initialize();
     prevScene->bgm = nullptr;
@@ -157,6 +157,10 @@ void Update() {
 
     }
     
+    if (currentScene->effect != EffectType::NONE) {
+        effects->Start(currentScene->effect, currentScene->effectSpd);
+        currentScene->effect = EffectType::NONE;
+    }
 
 }
 
@@ -186,7 +190,7 @@ int main(int argc, char* argv[]) {
         ProcessInput();
         Update();
         if (currentScene->nextScene == 1) {
-            effects->Start(FADEIN, 0.5f);
+            effects->Start(EffectType::FADEIN, 0.5f);
             SwitchToScene(sceneList[1]);
 
         }

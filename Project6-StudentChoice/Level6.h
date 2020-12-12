@@ -3,12 +3,12 @@
 
 #include "Level.h"
 
-enum class Ending {NONE, BETRAYAL, CYCLE, SACRIFICE, WELCOME_HOME};
+enum class Ending {NONE, BETRAYAL, CYCLE, SACRIFICE, WELCOME_HOME, BAD_END};
 
 class Level6 : public Level {
 	Mix_Chunk* popSfx;
-	//Ending ending = Ending::NONE;
-	Ending ending = Ending::SACRIFICE;
+	Mix_Chunk* stabSfx;
+	Ending ending = Ending::NONE;
 	void die();
 
 	void endingSacrifice();
@@ -22,8 +22,15 @@ class Level6 : public Level {
 	bool battleLostScene = false;
 
 	std::vector<Text> endingSacrificeLines;
+	std::vector<Text> welcomeHomeLines;
+	std::vector<Text> preBattleLines;
 
 	bool canAdvance = false;
+	bool magentaWalk = false;
+	bool battleStart = false;
+	bool battleWin = false;
+
+	float battleDuration = 10;
 
 public:
 	virtual void Initialize();

@@ -19,7 +19,7 @@
 #include <vector>
 
 enum class InteractionType {NONE, MAGENTA, NEXTSTAGE, NPC, SPECIAL, SIGN, CHOICE};
-enum class EntityType {PLAYER, MAGENTA, MONSTER, CHASER, NPC, SIGN, FAKEMONSTER, OBJECT};
+enum class EntityType {PLAYER, MAGENTA, MONSTER, CHASER, NPC, SIGN, FAKEMONSTER, OBJECT, MAGENTA_B};
 enum Direction {LEFT, RIGHT, UP, DOWN};
 
 class Entity {

@@ -9,3 +9,8 @@ void Scene::initSfx() {
 int Scene::getWorldNum() const {
 	return worldNum;
 }
+
+void Scene::playEffect(EffectType type, float spd) {
+	effect = type;
+	effectSpd = spd;
+}

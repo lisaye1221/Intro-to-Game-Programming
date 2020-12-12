@@ -54,6 +54,7 @@ NPC::NPC(GLuint textID, const glm::vec3& pos, float speed, EntityType type)
     
 }
 
+void NPC::setType(EntityType type) { entityType = type; }
 
 void NPC::Update(float deltaTime, Entity* player, const std::vector<Entity*>& entitySets, Map* map) {
     AI(player);
@@ -106,6 +107,8 @@ void NPC::AI(Entity* player) {
         break;
     case EntityType::FAKEMONSTER:
         AI_FAKEMONSTER(player);
+    case EntityType::MAGENTA_B:
+        AI_MAGENTA_B(player);
         break;
     }
 
@@ -164,6 +167,14 @@ void NPC::CheckCollisionsX(Map* map) {
     }
 
     
+
+}
+
+void NPC::AI_MAGENTA_B(Entity* player) {
+    facing = DOWN;
+    if (didCollideWith(player)) {
+        player->setPosition(glm::vec3(player->getPosition().x, player->getPosition().y - 1, player->getPosition().z));
+    }
 
 }
 

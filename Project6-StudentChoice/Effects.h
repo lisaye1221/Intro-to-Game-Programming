@@ -14,7 +14,7 @@
 #include "glm/gtc/matrix_transform.hpp"
 #include "ShaderProgram.h"
 
-enum EffectType { NONE, FADEIN, FADEOUT, GROW, SHRINK, SHAKE };
+enum class EffectType { NONE, FADEIN, FADEOUT, GROW, SHRINK, SHAKE };
 
 class Effects {
 	ShaderProgram program;
@@ -23,6 +23,7 @@ class Effects {
 	float size;
 	float timeLeft;
 	EffectType currentEffect;
+	float effectSpd = 1.0f;
 public:
 	glm::vec3 viewOffset;
 

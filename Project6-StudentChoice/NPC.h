@@ -15,11 +15,14 @@ public:
 	bool goLeftOrRight;
 	bool shouldStop = false;
 
+	void setType(EntityType type);
+
 private:
 	void AI(Entity*);
 	void AI_MONSTER(Entity*);
 	void AI_CHASER(Entity*);
 	void AI_FAKEMONSTER(Entity*);
+	void AI_MAGENTA_B(Entity*);
 	glm::vec3 initialPos;
 	
 };
