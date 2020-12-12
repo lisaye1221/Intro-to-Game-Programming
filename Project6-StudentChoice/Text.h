@@ -22,6 +22,7 @@ public:
 	const std::string& getSpeaker() const;
 	void nextLine();
 	std::string getCurLine() const ;
+	bool isAtEnd() const;
 	
 
 };

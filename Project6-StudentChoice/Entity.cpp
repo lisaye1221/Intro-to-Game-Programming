@@ -46,6 +46,8 @@ void Entity::setSpeed(float spd) {
 }
 void Entity::setFacing(Direction direction) { facing = direction; }
 
+void Entity::setTextureID(GLuint id) { textureID = id; }
+
 void Entity::clearLastCollided() {
     lastCollided.clear();
 }

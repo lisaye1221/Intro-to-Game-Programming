@@ -23,6 +23,9 @@ Player::Player(GLuint textID, glm::vec3 position):
 }
 
 void Player::talkedToMangeta() { magentaTalks++; }
+int Player::getMagentaTalks() const {
+    return magentaTalks;
+}
 
 void Player::copyProgress(Player* prevPlayer) {
     hasOrb = prevPlayer->hasOrb;

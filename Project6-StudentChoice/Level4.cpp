@@ -62,6 +62,10 @@ vector<vector<string>> LEVEL4_LINES = {
     },
     {
         "(Something tells me I better go read the sign over there first...)"
+    },
+    {
+        "?",
+        "(Something is blocking me from going back)"
     }
 };
 
@@ -149,7 +153,7 @@ void Level4::Initialize() {
     state.enemies.push_back(enemy);
 
     textID = Util::LoadTexture("assets/scary.png");
-    enemy = new NPC(textID, glm::vec3(60, -8.0, 0), 9.5, EntityType::FAKEMONSTER);
+    enemy = new NPC(textID, glm::vec3(60, -8.0, 0), 11.0, EntityType::FAKEMONSTER);
     enemy->animIndices = NULL; 
     enemy->animFrames = 0;
     enemy->animCols = 1;
@@ -231,6 +235,14 @@ void Level4::Update(float deltaTime) {
         state.objects[1]->isActive = true;
         Mix_PlayChannel(-1, popSfx, 0);
         pathClear = true;
+    }
+
+    // stops player from going backwards
+    if (pathClear && state.player->getPosition().x < 61.5) {
+        state.player->interactionType = InteractionType::SIGN;
+        state.player->isInteracting = true;
+        state.currText = Text(LEVEL4_LINES[4], "");
+        state.player->setPosition(glm::vec3(state.player->getPosition().x + 1, state.player->getPosition().y, state.player->getPosition().z));
     }
 
 

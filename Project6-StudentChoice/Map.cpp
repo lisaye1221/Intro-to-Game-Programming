@@ -11,6 +11,7 @@ std::set<int> isDoor_Cave = { 67, 75 };
 std::set<int> isNotSolid_Inside = { 1, 2, 3, 4, 5, 6, 7 };
 std::set<int> isDoor_Inside = { 1 };
 
+std::set<int> isSolid_Grass = { 0, 9, 10, 11, 12, 13, 48, 49, 56, 57, 50, 51, 52 };
 
  
 Map::Map(int width, int height, unsigned int* levelData, GLuint textureID, float tile_size, int

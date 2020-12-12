@@ -324,7 +324,7 @@ void Level3::Update(float deltaTime) {
     if (attackEnd) {
         if (state.magenta->getPosition().x < 24.5) {
             state.magenta->setFacing(RIGHT);
-            state.magenta->setSpeed(3.0);
+            state.magenta->setSpeed(4.5);
         }
         else if (state.magenta->getPosition().y > -5) {
             state.magenta->setFacing(DOWN);
@@ -361,7 +361,7 @@ void Level3::Interact() {
             talkedBefore = true;
         }
         else if(attackStart){
-            if (talkedToMagenta_3 >= MAGENTA_LINES_LEVEL3.size() || talkedToMagenta_3 == 0) { talkedToMagenta_3 = 1; }
+            if (talkedToMagenta_3 > 3 || talkedToMagenta_3 == 0) { talkedToMagenta_3 = 1; }
             talkedBefore = true;
             state.currText = Text(state.magenta->lines[talkedToMagenta_3], "Magenta");
         }

@@ -252,8 +252,7 @@ void Level5::Update(float deltaTime) {
             if (state.player->isDead) {
                 // play bad end scene
                 state.player->interactionType = InteractionType::NONE;
-                bgm = Mix_LoadMUS("assets/audio/The-Bog-of-Despair.mp3");
-                Mix_PlayMusic(bgm, -1);
+                
             } 
             else if (riddleSolved && whichNPC == host) {
                 state.player->interactionType = InteractionType::NONE;

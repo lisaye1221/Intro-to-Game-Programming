@@ -22,6 +22,7 @@
 #include "Level3.h"
 #include "Level4.h"
 #include "Level5.h"
+#include "Level6.h"
 
 
 SDL_Window* displayWindow;
@@ -36,6 +37,7 @@ Effects* effects;
 
 Scene* currentScene;
 Scene* sceneList[10];
+Scene* endingSceneList[5];
 void SwitchToScene(Scene* prevScene, Scene* nextScene) {
     effects->Start(FADEIN, 0.7f);
     currentScene = nextScene;
@@ -94,8 +96,9 @@ void Initialize() {
     sceneList[3] = new Level3();
     sceneList[4] = new Level4();
     sceneList[5] = new Level5();
+    sceneList[6] = new Level6();
     
-    SwitchToScene(sceneList[0]);
+    SwitchToScene(sceneList[6]);
    
 }
 

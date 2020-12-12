@@ -58,6 +58,8 @@ vector<vector<string>> MAGENTA_LINES_LEVEL1 = {
     { 
       "Hi, are you new around here?", 
       "My name is Magenta.", "?", 
+      "Let's be friends!",
+      "Hm?",
       "You don't know where you are and you want to go home?", 
       "I'll help you!",
       "Go to the blue flower patch and interact with it(press H).",

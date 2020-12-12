@@ -14,7 +14,7 @@
 #include "glm/gtc/matrix_transform.hpp"
 #include "ShaderProgram.h"
 
-enum MapType {WORLD, CAVE, INSIDE};
+enum MapType {WORLD, CAVE, INSIDE, GRASS};
 
 class Map {
 	MapType mapType;

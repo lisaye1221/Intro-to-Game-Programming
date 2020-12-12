@@ -20,6 +20,7 @@ public:
 	static void DrawText(ShaderProgram* program, GLuint fontTextureID, std::string
 		text, float size, float spacing, glm::vec3 position);
 	static void DisplayText(ShaderProgram* program, GLuint fontTextureID, const Text& text);
+	static void DisplayText(ShaderProgram* program, GLuint fontTextureID, const std::vector<Text>& texts);
 	static void DisplayText(ShaderProgram* program, GLuint fontTextureID, const Text& text, float xOffset);
 };
 

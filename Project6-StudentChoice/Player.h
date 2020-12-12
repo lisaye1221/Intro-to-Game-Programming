@@ -16,6 +16,7 @@ public:
 	void Update(float deltaTime, const std::vector<Entity*>& entitySets, Map* map);
 
 	void talkedToMangeta();
+	int getMagentaTalks() const;
 	
 	void copyProgress(Player* prevPlayer);
 	InteractionType onWhat = InteractionType::NONE;

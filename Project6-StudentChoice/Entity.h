@@ -80,6 +80,7 @@ public:
     void setSize(float w, float h);
     void setSpeed(float spd);
     void setFacing(Direction direction);
+    void setTextureID(GLuint id);
     void clearLastCollided();
 
     bool CheckCollision(Entity* other);
