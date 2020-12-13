@@ -112,7 +112,7 @@ void Initialize() {
     //sceneList[10] = new EndingSacrifice();
     //sceneList[11] = new EndingWelcomeHome();
     
-    SwitchToScene(sceneList[6]);
+    SwitchToScene(sceneList[0]);
    
 }
 
