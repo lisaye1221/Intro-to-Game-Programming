@@ -3,21 +3,19 @@
 
 #include "Level.h"
 
-
 class EndingCycle : public Level {
-	glm::mat4 titleMatrix;
-	GLuint backgroundID;
-	GLuint titleID;
-	bool showEnding = false;
+	Mix_Chunk* popSfx;
+	Mix_Chunk* stabSfx;
+
+	void ending();
+
 public:
-	Map* map;
-	NPC* magenta;
-	Player* getPlayer() override;
-	void Initialize() override;
-	void Update(float deltaTime) override;
-	void Render(ShaderProgram* program, ShaderProgram* program_lit = nullptr) override;
-	void ProcessInput(SDL_Event& event) override;
+	virtual void Initialize();
+	virtual void Update(float deltaTime);
+	virtual void Render(ShaderProgram* program_regular, ShaderProgram* program_lit);
+	virtual void ProcessInput(SDL_Event& event);
+
+	virtual void Interact();
 };
 
-
-#endif // !ENDINGCYCLE_H
+#endif // ! ENDINGCYCLE_H

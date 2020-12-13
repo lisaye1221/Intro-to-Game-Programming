@@ -6,7 +6,7 @@ std::set<int> isDoor = {34,35, 67};
 std::set<int> isSpecial = {4};
 
 std::set<int> isNotSolid_Cave = { 24, 25, 26, 27, 28, 29, 75, 67};
-std::set<int> isDoor_Cave = { 67, 75 };
+std::set<int> isDoor_Cave = { 19, 20, 21, 22, 67, 75 };
 
 std::set<int> isNotSolid_Inside = { 1, 2, 3, 4, 5, 6, 7 };
 std::set<int> isDoor_Inside = { 1 };
@@ -100,6 +100,9 @@ bool Map::IsSolid(glm::vec3 position, float* penetration_x, float* penetration_y
 	else if (mapType == MapType::INSIDE) {
 		if (isNotSolid_Inside.find(tile) != isNotSolid_Inside.end()) return false;
 	}
+	else if (mapType == MapType::GRASS) {
+		if (isSolid_Grass.find(tile) == isSolid_Grass.end()) return false;
+	}
 
 	float tile_center_x = (tile_x * tile_size);
 	float tile_center_y = -(tile_y * tile_size);
@@ -119,7 +122,7 @@ bool Map::IsDoor(glm::vec3 position, float* penetration_x, float* penetration_y)
 	if (tile_y < 0 || tile_y >= height) return false;
 	int tile = levelData[tile_y * width + tile_x];
 
-	if (mapType == MapType::WORLD) {
+	if (mapType == MapType::WORLD || mapType == MapType::GRASS) {
 		return (isDoor.find(tile) != isDoor.end());
 	}
 	else if (mapType == MapType::CAVE) {

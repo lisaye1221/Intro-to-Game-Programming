@@ -128,10 +128,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="BadEndDeath.cpp" />
     <ClCompile Include="Effects.cpp" />
-    <ClCompile Include="EndingBetrayal.cpp" />
     <ClCompile Include="EndingCycle.cpp" />
+    <ClCompile Include="EndingDisplay.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="Level1.cpp" />
@@ -151,9 +150,8 @@
     <ClCompile Include="Util.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BadEndDeath.h" />
     <ClInclude Include="Effects.h" />
-    <ClInclude Include="EndingBetrayal.h" />
+    <ClInclude Include="EndingDisplay.h" />
     <ClInclude Include="EndingCycle.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Level.h" />

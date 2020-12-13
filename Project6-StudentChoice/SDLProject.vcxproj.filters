@@ -66,16 +66,13 @@
     <ClCompile Include="Effects.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="BadEndDeath.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Level6.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="EndingBetrayal.cpp">
+    <ClCompile Include="EndingCycle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="EndingCycle.cpp">
+    <ClCompile Include="EndingDisplay.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -128,16 +125,13 @@
     <ClInclude Include="Effects.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BadEndDeath.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Level6.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="EndingBetrayal.h">
+    <ClInclude Include="EndingCycle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="EndingCycle.h">
+    <ClInclude Include="EndingDisplay.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

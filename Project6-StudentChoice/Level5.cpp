@@ -128,7 +128,7 @@ vector<vector<string>> HOST_LINES = {
 void Level5::Initialize() {
     Level::Initialize();
 
-     Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 4096);
+     //Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 4096);
 
     // initialize audio
     bgm = Mix_LoadMUS("assets/audio/Peaceful-Mind.mp3");

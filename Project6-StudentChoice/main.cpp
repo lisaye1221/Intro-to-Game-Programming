@@ -23,9 +23,8 @@
 #include "Level4.h"
 #include "Level5.h"
 #include "Level6.h"
-#include "BadEndDeath.h"
-#include "EndingBetrayal.h"
-
+#include "EndingDisplay.h"
+#include "EndingCycle.h"
 
 SDL_Window* displayWindow;
 bool gameIsRunning = true;
@@ -38,7 +37,7 @@ glm::mat4 viewMatrix, modelMatrix, projectionMatrix;
 Effects* effects;
 
 Scene* currentScene;
-Scene* sceneList[10];
+Scene* sceneList[15];
 Scene* endingSceneList[5];
 void SwitchToScene(Scene* prevScene, Scene* nextScene) {
     effects->Start(EffectType::FADEIN, 0.7f);
@@ -103,10 +102,17 @@ void Initialize() {
     sceneList[6] = new Level6();
 
     // endings
-    sceneList[7] = new BadEndDeath();
-    sceneList[8] = new EndingBetrayal();
+    sceneList[7] = new EndingDisplay(1); // bad end death
+    sceneList[8] = new EndingDisplay(2); // ending 1 betrayal
+    sceneList[9] = new EndingDisplay(3); // ending 2 cycle
+    sceneList[10] = new EndingDisplay(4); // ending 3 sacrifice
+    sceneList[11] = new EndingDisplay(5); // ending 4 welcome home
+
+    sceneList[12] = new EndingCycle();
+    //sceneList[10] = new EndingSacrifice();
+    //sceneList[11] = new EndingWelcomeHome();
     
-    SwitchToScene(sceneList[5]);
+    SwitchToScene(sceneList[6]);
    
 }
 

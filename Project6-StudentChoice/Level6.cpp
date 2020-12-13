@@ -201,7 +201,7 @@ vector<vector<string>> LEVEL6_LINES = {
 void Level6::Initialize() {
     Level::Initialize();
     worldNum = 6;
-    //Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 4096);
+    Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 4096);
 
     // initialize audio
     bgm = Mix_LoadMUS("assets/audio/wind.wav");
@@ -220,7 +220,7 @@ void Level6::Initialize() {
 
     // initialize map
     GLuint mapTextureID = Util::LoadTexture("assets/world.png");
-    state.map = new Map(LEVEL6_WIDTH, LEVEL6_HEIGHT, level6_data, mapTextureID, 1.0f, 8, 8, WORLD);
+    state.map = new Map(LEVEL6_WIDTH, LEVEL6_HEIGHT, level6_data, mapTextureID, 1.0f, 8, 8, GRASS);
     nextStageAppear = false;
 
     // Initialize Player
@@ -327,8 +327,17 @@ void Level6::Update(float deltaTime) {
         if (state.currText.isEnd) {
             // nextScene = 0;
             state.player->interactionType = InteractionType::NONE;
-            if (magentaWins && playEndingAnimation) {
+            if (ending == Ending::SACRIFICE) {
+                nextScene = 10; // sacrifice
+            }
+            else if (ending == Ending::WELCOME_HOME) {
+                nextScene = 11; // welcome home
+            }
+            else if (magentaWins && playEndingAnimation) {
                 nextScene = 8; // bad end - betrayal;
+            }
+            else if (battleWin) {
+                nextScene = 9; // cycle
             }
         }
         break;

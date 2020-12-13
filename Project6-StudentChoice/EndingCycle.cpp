@@ -1,40 +1,41 @@
 #include "EndingCycle.h"
-#include "Util.h"
 #define ENDINGCYCLE_WIDTH 33
 #define ENDINGCYCLE_HEIGHT 18
+
+using namespace std;
+
+unsigned int CR = 0; // clear
 
 unsigned int endingcycle_data[] =
 {
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    48, 49, 48, 49, 48, 49, 48, 49, 48, 49, 48, 49, 48, 49, 01, 34, 35, 34, 01, 48, 49, 48, 49, 48, 49, 48, 49, 48, 49, 48, 49, 48, 49,
-    56, 57, 56, 57, 56, 57, 56, 57, 56, 57, 56, 57, 56, 57, 01, 35, 34, 35, 01, 56, 57, 56, 57, 56, 57, 56, 57, 56, 57, 56, 57, 56, 57,
-    48, 49, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 34, 35, 34, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 48, 49,
-    56, 57, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 56, 57,
-    48, 49, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 48, 49,
-    56, 57, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 56, 57,
-    48, 49, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 48, 49,
-    56, 57, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 56, 57,
-    48, 49, 48, 49, 48, 49, 48, 49, 48, 49, 48, 49, 01, 01, 01, 01, 01, 01, 01, 01, 01, 48, 49, 48, 49, 48, 49, 48, 49, 48, 49, 48, 49,
-    56, 57, 56, 57, 56, 57, 56, 57, 56, 57, 56, 57, 01, 01, 01, 01, 01, 01, 01, 01, 01, 56, 57, 56, 57, 56, 57, 56, 57, 56, 57, 56, 57,
-    48, 49, 48, 49, 48, 49, 48, 49, 48, 49, 48, 49, 01, 01, 01, 01, 01, 01, 01, 01, 01, 48, 49, 48, 49, 48, 49, 48, 49, 48, 49, 48, 49,
-    56, 57, 56, 57, 56, 57, 56, 57, 56, 57, 56, 57, 01, 01, 01, 01, 01, 01, 01, 01, 01, 56, 57, 56, 57, 56, 57, 56, 57, 56, 57, 56, 57,
-    48, 49, 48, 49, 48, 49, 48, 49, 48, 49, 48, 49, 01, 01, 01, 01, 01, 01, 01, 01, 01, 48, 49, 48, 49, 48, 49, 48, 49, 48, 49, 48, 49,
-    56, 57, 56, 57, 56, 57, 56, 57, 56, 57, 56, 57, 01, 01, 01, 01, 01, 01, 01, 01, 01, 56, 57, 56, 57, 56, 57, 56, 57, 56, 57, 56, 57,
-    48, 49, 48, 49, 48, 49, 48, 49, 48, 49, 48, 49, 01, 01, 01, 01, 01, 01, 01, 01, 01, 48, 49, 48, 49, 48, 49, 48, 49, 48, 49, 48, 49,
-    56, 57, 56, 57, 56, 57, 56, 57, 56, 57, 56, 57, 01, 01, 01, 01, 01, 01, 01, 01, 01, 56, 57, 56, 57, 56, 57, 56, 57, 56, 57, 56, 57,
+    CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR,
+    CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR,
+    CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR,
+    CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR,
+    48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48,
+    48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48,
+    48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 66, 67, 66, 48, 48,
+    48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 67, 66, 67, 48, 48,
+    48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 66, 67, 66, 48, 48,
+    48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48,
+    48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48,
+    48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48,
+    CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR,
+    CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR,
+    CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR,
+    CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR, CR,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 };
 
+
 void EndingCycle::Initialize() {
-    nextScene = -1;
-    backgroundMatrix = glm::mat4(1.0f);
-    titleMatrix = glm::mat4(1.0f);
-    titleMatrix = glm::translate(titleMatrix, glm::vec3(0, 2, 0));
+    Level::Initialize();
+    worldNum = 6;
+    //Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 4096);
 
-    // add in music for main menu
-
-    // Start Audio
-    //bgm = Mix_LoadMUS("assets/audio/The-Bog-of-Despair.mp3");
+    // initialize audio
+    //bgm = Mix_LoadMUS("assets/audio/The-Attic-of-Secrets.mp3");
     //Mix_VolumeMusic(MIX_MAX_VOLUME / 7);
     //// Check load
     //if (bgm == NULL) {
@@ -43,69 +44,107 @@ void EndingCycle::Initialize() {
     //}
     //// loop the bgm
     //Mix_PlayMusic(bgm, -1);
+    popSfx = Mix_LoadWAV("assets/audio/pop.wav");
+    stabSfx = Mix_LoadWAV("assets/audio/stab.wav");
+    Mix_VolumeChunk(popSfx, MIX_MAX_VOLUME / 4);
+    Mix_VolumeChunk(stabSfx, MIX_MAX_VOLUME / 4);
 
-    GLuint mapTextureID = Util::LoadTexture("assets/world.png");
-    map = new Map(ENDINGCYCLE_WIDTH, ENDINGCYCLE_HEIGHT, endingcycle_data, mapTextureID, 1.0f, 8, 8, WORLD);
+    // initialize map
+    GLuint mapTextureID = Util::LoadTexture("assets/world1.png");
+    state.map = new Map(ENDINGCYCLE_WIDTH, ENDINGCYCLE_HEIGHT, endingcycle_data, mapTextureID, 1.0f, 8, 16, MapType::WORLD);
 
+    // Initialize Player
+    GLuint textID = Util::LoadTexture("assets/mc2.png");
 
-    fontTextureID = Util::LoadTexture("assets/font.png");
+    state.player = new Player(textID, glm::vec3(1, -7.5, 0));
+    state.player->animIndices = state.player->animUp;
+    state.allEntities.push_back(state.player);
+    state.player->setSize(0.8f, 1.0f);
 
-    backgroundMatrix = glm::translate(backgroundMatrix, glm::vec3(16, -9, 0));
+    // Initialize Magenta
+    textID = Util::LoadTexture("assets/friend.png");
+    state.magenta = new NPC(textID, glm::vec3(16, -6.5, 0), 0, EntityType::MAGENTA);
+    state.magenta->isActive = false;
+    state.allEntities.push_back(state.magenta);
 
-}
+    //// left sign
+    textID = Util::LoadTexture("assets/sign.png");
+    Entity* sign = new Entity(EntityType::SIGN, textID, glm::vec3(8.5, -6, 0), 0);
+    state.objects.push_back(sign);
+    state.allEntities.push_back(sign);
 
-void EndingCycle::ProcessInput(SDL_Event& event) {
-    switch (event.type) {
-    case SDL_KEYDOWN:
-        switch (event.key.keysym.sym) {
-        case SDLK_RETURN:
-            // move to level 1
-            if (showEnding) { nextScene = 0; }
-        }
-        break; // SDL_KEYDOWN
-    }
-}
-
-void EndingCycle::Update(float deltaTime) {
-    magenta->Update(deltaTime, nullptr, {}, map);
-
-
-}
-
-void EndingCycle::Render(ShaderProgram* program, ShaderProgram* program_lit) {
-
-    if (showEnding) {
-        float vertices[] = { -16.0, -12.0, 16.0, -12, 16.0, 12.0, -16, -12.0, 16.0, 12, -16, 12 };
-        float texCoords[] = { 0.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0 };
-        glVertexAttribPointer(program->positionAttribute, 2, GL_FLOAT, false, 0, vertices);
-        glEnableVertexAttribArray(program->positionAttribute);
-        glVertexAttribPointer(program->texCoordAttribute, 2, GL_FLOAT, false, 0, texCoords);
-        glEnableVertexAttribArray(program->texCoordAttribute);
-
-        // draw the background
-        program->SetModelMatrix(backgroundMatrix);
-        glBindTexture(GL_TEXTURE_2D, backgroundID);
-        glDrawArrays(GL_TRIANGLES, 0, 6);
-
-        Util::DrawText(program, fontTextureID, "Ending 1:Betrayal", 2.3, -0.18, glm::vec3(3, -6, 0));
-
-
-        // display text to prompt user to start game
-
-
-        Util::DrawText(program, fontTextureID, "Press Enter to Return to Main Menu", 1.0, -0.2, glm::vec3(3, -10, 0));
-
-        glDisableVertexAttribArray(program->positionAttribute);
-        glDisableVertexAttribArray(program->texCoordAttribute);
-    }
-    else {
-        map->Render(program);
-        magenta->Render(program);
-    }
+    // setting up the lines
 
     
 }
+void EndingCycle::Update(float deltaTime) {
 
-Player* EndingCycle::getPlayer() {
-    return nullptr;
+    // Entity updates
+    state.player->Update(deltaTime, state.allEntities, state.map);
+    state.magenta->Update(deltaTime, state.player, state.allEntities, state.map);
+    for (NPC* enemy : state.enemies) {
+        enemy->Update(deltaTime, state.player, state.allEntities, state.map);
+    }
+    for (Entity* object : state.objects) {
+        object->Update(deltaTime, state.allEntities, state.map);
+    }
+
+    // interaction control
+    switch (state.player->interactionType) {
+    case InteractionType::MAGENTA:
+        if (state.currText.isEnd) {
+            state.player->interactionType = InteractionType::NONE;
+
+        }
+        break;
+    case InteractionType::NEXTSTAGE:
+        if (state.currText.isEnd) {
+           
+        }
+        break;
+    case InteractionType::SIGN:
+        if (state.currText.isEnd) {
+            state.player->interactionType = InteractionType::NONE;
+        }
+        break;
+    case InteractionType::NONE:
+        state.player->isInteracting = false;
+        break;
+    }
+
+
+}
+void EndingCycle::Render(ShaderProgram* program, ShaderProgram* program_lit) {
+    Level::Render(program);
+    Util::DisplayText(program, fontTextureID, state.currText);
+}
+void EndingCycle::ProcessInput(SDL_Event& event) {
+    Level::ProcessInput(event);
+
+}
+
+void EndingCycle::Interact() {
+
+    state.player->isInteracting = true;
+
+    switch (state.player->onWhat) {
+    case InteractionType::MAGENTA:
+        state.player->interactionType = InteractionType::MAGENTA;
+        
+        break;
+    case InteractionType::NEXTSTAGE:
+        state.player->interactionType = InteractionType::NEXTSTAGE;
+        ending();
+        break;
+    case InteractionType::SIGN:
+        state.player->interactionType = InteractionType::SIGN;
+        state.currText = Text({ "The Path to the Outer World" }, "");
+    }
+
+
+
+}
+
+void EndingCycle::ending() {
+
 }
