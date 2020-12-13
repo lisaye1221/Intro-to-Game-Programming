@@ -32,6 +32,7 @@ public:
 	void Start(EffectType effectType, float effectSpeed = 1.0f);
 	void Update(float deltaTime);
 	void Render();
+	bool effectsEnd = true;
 };
 
 

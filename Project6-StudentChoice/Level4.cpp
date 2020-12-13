@@ -153,7 +153,7 @@ void Level4::Initialize() {
     state.enemies.push_back(enemy);
 
     textID = Util::LoadTexture("assets/scary.png");
-    enemy = new NPC(textID, glm::vec3(60, -8.0, 0), 11.0, EntityType::FAKEMONSTER);
+    enemy = new NPC(textID, glm::vec3(60, -8.0, 0), 12.0, EntityType::FAKEMONSTER);
     enemy->animIndices = NULL; 
     enemy->animFrames = 0;
     enemy->animCols = 1;
@@ -190,8 +190,14 @@ void Level4::Update(float deltaTime) {
         break;
     case InteractionType::NEXTSTAGE:
         if (state.currText.isEnd) {
-            nextScene = 5;
             state.player->interactionType = InteractionType::NONE;
+            if (state.player->isDead) {
+                nextScene = 7;
+            }
+            else {
+                nextScene = 5;
+            }
+            
         }
         break;
     case InteractionType::SIGN:
@@ -228,7 +234,8 @@ void Level4::Update(float deltaTime) {
     if (state.player->getPosition().x > 40) {
         state.enemies[3]->isActive = true;
     }
-    state.enemies[3]->modelMatrix = glm::scale(state.enemies[3]->modelMatrix, glm::vec3(2.5, 2.5, 2.5));
+    // make scary bigger
+    state.enemies[3]->modelMatrix = glm::scale(state.enemies[3]->modelMatrix, glm::vec3(3, 3, 3));
 
     // make right sign appear once player clear path
     if (state.player->getPosition().x > 62 && !state.objects[1]->isActive) {
@@ -337,6 +344,6 @@ void Level4::Interact() {
 void Level4::die() {
     state.player->isDead = true;
     state.player->isInteracting = true;
-    state.player->interactionType = InteractionType::SIGN;
+    state.player->interactionType = InteractionType::NEXTSTAGE;
     state.currText = Text({"!!!", "I was not supposed to look away"}, "");
 }

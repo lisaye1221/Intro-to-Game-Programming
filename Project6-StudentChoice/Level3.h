@@ -5,6 +5,7 @@
 
 class Level3 : public Level {
 	Mix_Chunk* popSfx;
+	Mix_Chunk* stabSfx;
 	bool attackStart = false;
 	bool attackEnd = false;
 	float countdownTime = 30;

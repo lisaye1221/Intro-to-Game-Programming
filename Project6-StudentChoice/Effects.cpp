@@ -25,6 +25,7 @@ void Effects::Start(EffectType effectType, float effectSpeed)
 {
 	currentEffect = effectType;
 	speed = effectSpeed;
+	effectsEnd = false;
 	switch (currentEffect) {
 	case EffectType::NONE:
 		break;
@@ -50,6 +51,7 @@ void Effects::Update(float deltaTime)
 {
 	switch (currentEffect) {
 	case EffectType::NONE:
+		effectsEnd = true;
 		break;
 	case EffectType::FADEIN:
 		// decrease the alpha over time so it looks like it's 
@@ -65,10 +67,11 @@ void Effects::Update(float deltaTime)
 		// fading away
 		alpha += deltaTime * speed;
 		// you might want to keep the black square so we want to keep drawing
-		//if (alpha >= 1) {
-		//	// once alpha is down to zero, we're done with this effect
-		//	currentEffect = NONE;
-		//}
+		if (alpha >= 1) {
+			// once alpha is down to zero, we're done with this effect
+			//currentEffect = NONE;
+			effectsEnd = true;
+		}
 		break;
 	case EffectType::GROW:
 		size += deltaTime * speed;

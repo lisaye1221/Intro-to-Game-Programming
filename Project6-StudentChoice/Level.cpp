@@ -4,6 +4,7 @@ using namespace std;
 
 
 void Level::Initialize() {
+    nextScene = -1;
     fontTextureID = Util::LoadTexture("assets/font.png");
 }
 

@@ -201,7 +201,7 @@ vector<vector<string>> LEVEL6_LINES = {
 void Level6::Initialize() {
     Level::Initialize();
     worldNum = 6;
-    Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 4096);
+    //Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 4096);
 
     // initialize audio
     bgm = Mix_LoadMUS("assets/audio/wind.wav");
@@ -325,8 +325,11 @@ void Level6::Update(float deltaTime) {
         break;
     case InteractionType::NEXTSTAGE:
         if (state.currText.isEnd) {
-            nextScene = 1;
+            // nextScene = 0;
             state.player->interactionType = InteractionType::NONE;
+            if (magentaWins && playEndingAnimation) {
+                nextScene = 8; // bad end - betrayal;
+            }
         }
         break;
     case InteractionType::SIGN:
@@ -418,7 +421,12 @@ void Level6::Update(float deltaTime) {
             state.magenta->setFacing(UP);
         }
         else {
-            if (magentaWins) { playEndingAnimation = true; }
+            if (magentaWins) { 
+                playEndingAnimation = true; 
+                state.currText = Text({ "...." }, "Magenta");
+                state.player->interactionType = InteractionType::NEXTSTAGE;
+
+            }
             state.magenta->setFacing(DOWN);
             state.magenta->setSpeed(0);
             magentaWalk = false;

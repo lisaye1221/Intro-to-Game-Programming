@@ -23,6 +23,8 @@
 #include "Level4.h"
 #include "Level5.h"
 #include "Level6.h"
+#include "BadEndDeath.h"
+#include "EndingBetrayal.h"
 
 
 SDL_Window* displayWindow;
@@ -43,7 +45,9 @@ void SwitchToScene(Scene* prevScene, Scene* nextScene) {
     currentScene = nextScene;
     currentScene->Initialize();
     prevScene->bgm = nullptr;
-    currentScene->getPlayer()->copyProgress(prevScene->getPlayer());
+    if (prevScene->getPlayer() && currentScene->getPlayer()) {
+        currentScene->getPlayer()->copyProgress(prevScene->getPlayer());
+    }
     
 }
 
@@ -97,8 +101,12 @@ void Initialize() {
     sceneList[4] = new Level4();
     sceneList[5] = new Level5();
     sceneList[6] = new Level6();
+
+    // endings
+    sceneList[7] = new BadEndDeath();
+    sceneList[8] = new EndingBetrayal();
     
-    SwitchToScene(sceneList[6]);
+    SwitchToScene(sceneList[5]);
    
 }
 
@@ -189,6 +197,10 @@ int main(int argc, char* argv[]) {
     while (gameIsRunning) {
         ProcessInput();
         Update();
+        if (currentScene->nextScene == 0) {
+            effects->Start(EffectType::FADEIN, 0.5f);
+            SwitchToScene(sceneList[0]);
+        }
         if (currentScene->nextScene == 1) {
             effects->Start(EffectType::FADEIN, 0.5f);
             SwitchToScene(sceneList[1]);
@@ -198,10 +210,14 @@ int main(int argc, char* argv[]) {
             if (currentScene->nextScene == 4) {
                 program = program_lit;
             }
-            if (currentScene->nextScene == 5) {
+            if (currentScene->nextScene != 4) {
                 program = program_regular;
             }
             SwitchToScene(currentScene, sceneList[currentScene->nextScene]);
+        }
+        // fade out into ending
+        if (currentScene->nextScene > 6) {
+            effects->Start(EffectType::FADEOUT, 1.0f);
         }
         Render();
     }

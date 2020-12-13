@@ -133,7 +133,9 @@ void Level3::Initialize() {
     // loop the bgm
     Mix_PlayMusic(bgm, -1);
     popSfx = Mix_LoadWAV("assets/audio/pop.wav");
+    stabSfx = Mix_LoadWAV("assets/audio/stab.wav");
     Mix_VolumeChunk(popSfx, MIX_MAX_VOLUME / 4);
+    Mix_VolumeChunk(stabSfx, MIX_MAX_VOLUME / 4);
 
     // initialize map
     GLuint mapTextureID = Util::LoadTexture("assets/world1.png");
@@ -235,8 +237,14 @@ void Level3::Update(float deltaTime) {
         break;
     case InteractionType::NEXTSTAGE:
         if (state.currText.isEnd) {
-            nextScene = 4;
             state.player->interactionType = InteractionType::NONE;
+            if (state.player->isDead) {
+                nextScene = 7; // bad end-death
+            }
+            else {
+                nextScene = 4;
+                
+            }
         }
         break;
     case InteractionType::SIGN:
@@ -333,6 +341,17 @@ void Level3::Update(float deltaTime) {
             state.magenta->setFacing(DOWN);
             state.magenta->setSpeed(0);
         }
+    }
+
+    // check if player is dead
+    if (state.player->isDead) {
+        state.currText = Text({"Ugh"}, "");
+        if (!state.player->isInteracting) {
+            Mix_PlayChannel(-1, stabSfx, 0);
+            state.player->isInteracting = true;
+        }
+        state.player->interactionType = InteractionType::NEXTSTAGE;
+        
     }
 
 }

@@ -92,6 +92,7 @@ vector<string> orbObtainNotice = {
 
 void Level1::Initialize() {
     Level::Initialize();
+    
     worldNum = 1;
     // initialize audio
     Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 4096);

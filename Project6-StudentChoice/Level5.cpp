@@ -128,7 +128,7 @@ vector<vector<string>> HOST_LINES = {
 void Level5::Initialize() {
     Level::Initialize();
 
-    // Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 4096);
+     Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 4096);
 
     // initialize audio
     bgm = Mix_LoadMUS("assets/audio/Peaceful-Mind.mp3");
@@ -242,7 +242,7 @@ void Level5::Update(float deltaTime) {
         break;
     case InteractionType::NEXTSTAGE:
         if (state.currText.isEnd) {
-            //nextScene = 6;
+            nextScene = 6;
             state.player->interactionType = InteractionType::NONE;
         }
         break;
@@ -251,6 +251,7 @@ void Level5::Update(float deltaTime) {
             // when player fail to solve
             if (state.player->isDead) {
                 // play bad end scene
+                nextScene = 7;
                 state.player->interactionType = InteractionType::NONE;
                 
             } 
@@ -316,6 +317,7 @@ void Level5::Update(float deltaTime) {
             state.currText = Text(); // clear text
             killSlime = true;
             state.player->interactionType = InteractionType::NPC;
+            state.player->isInteracting = true;
             state.currText = Text(LEVEL5_LINES[5], "");
         }
     }

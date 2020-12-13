@@ -35,8 +35,6 @@ void BadEndDeath::ProcessInput(SDL_Event& event) {
         case SDLK_RETURN:
             // move to level 1
             nextScene = 0;
-            // get rid of music
-            Mix_FreeMusic(bgm);
         }
         break; // SDL_KEYDOWN
     }
@@ -70,13 +68,13 @@ void BadEndDeath::Render(ShaderProgram* program, ShaderProgram* program_lit) {
     glBindTexture(GL_TEXTURE_2D, titleID);
     glDrawArrays(GL_TRIANGLES, 0, 6);*/
 
-    Util::DrawText(program, fontTextureID, "Bad End: Death", 2.4, -0.18, glm::vec3(7, -4, 0));
+    Util::DrawText(program, fontTextureID, "Bad End:Death", 2.3, -0.18, glm::vec3(3, -6, 0));
 
 
     // display text to prompt user to start game
 
 
-    Util::DrawText(program, fontTextureID, "Press Enter to Return to Main Menu", 1.0, -0.2, glm::vec3(9, -8, 0));
+    Util::DrawText(program, fontTextureID, "Press Enter to Return to Main Menu", 1.0, -0.2, glm::vec3(3, -10, 0));
 
     glDisableVertexAttribArray(program->positionAttribute);
     glDisableVertexAttribArray(program->texCoordAttribute);

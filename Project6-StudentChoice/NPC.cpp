@@ -107,6 +107,7 @@ void NPC::AI(Entity* player) {
         break;
     case EntityType::FAKEMONSTER:
         AI_FAKEMONSTER(player);
+        break;
     case EntityType::MAGENTA_B:
         AI_MAGENTA_B(player);
         break;
