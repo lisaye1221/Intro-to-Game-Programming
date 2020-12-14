@@ -25,6 +25,8 @@
 #include "Level6.h"
 #include "EndingDisplay.h"
 #include "EndingCycle.h"
+#include "EndingSacrifice.h"
+#include "EndingWelcomeHome.h"
 
 SDL_Window* displayWindow;
 bool gameIsRunning = true;
@@ -109,8 +111,8 @@ void Initialize() {
     sceneList[11] = new EndingDisplay(5); // ending 4 welcome home
 
     sceneList[12] = new EndingCycle();
-    //sceneList[10] = new EndingSacrifice();
-    //sceneList[11] = new EndingWelcomeHome();
+    sceneList[13] = new EndingSacrifice();
+    sceneList[14] = new EndingWelcomeHome();
     
     SwitchToScene(sceneList[0]);
    
@@ -146,7 +148,7 @@ void Update() {
     }
     while (deltaTime >= FIXED_TIMESTEP) {
         currentScene->Update(FIXED_TIMESTEP);
-        
+
         if (currentScene->getWorldNum() == 4) { program.SetLightPosition(currentScene->getPlayer()->getPosition()); }
 
         effects->Update(FIXED_TIMESTEP);
@@ -170,7 +172,7 @@ void Update() {
         viewMatrix = glm::translate(viewMatrix, glm::vec3(-16, 9, 0));
 
     }
-    
+
     if (currentScene->effect != EffectType::NONE) {
         effects->Start(currentScene->effect, currentScene->effectSpd);
         currentScene->effect = EffectType::NONE;
@@ -180,6 +182,7 @@ void Update() {
         effects->Start(EffectType::FADEIN, 0.7f);
         currentScene->shouldFadeIn = false;
     }
+   
 
 }
 
@@ -225,10 +228,6 @@ int main(int argc, char* argv[]) {
                 program = program_regular;
             }
             SwitchToScene(currentScene, sceneList[currentScene->nextScene]);
-        }
-        // fade out into ending
-        if (currentScene->nextScene > 6) {
-            effects->Start(EffectType::FADEOUT, 1.0f);
         }
         Render();
     }

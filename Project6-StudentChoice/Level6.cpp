@@ -22,11 +22,11 @@ unsigned int level6_data[] =
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     48, 49, 48, 49, 48, 49, 48, 49, 48, 49, 48, 49, 48, 49, GS, 34, 35, 34, GS, 48, 49, 48, 49, 48, 49, 48, 49, 48, 49, 48, 49, 48, 49,
     56, 57, 56, 57, 56, 57, 56, 57, 56, 57, 56, 57, 56, 57, GS, 35, 34, 35, GS, 56, 57, 56, 57, 56, 57, 56, 57, 56, 57, 56, 57, 56, 57,
-    48, 49, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, 34, 35, 34, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, 48, 49,
-    56, 57, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, 56, 57,
+    48, 49, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, 34, 35, 34, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, 16, GS, 48, 49,
+    56, 57, GS, GS, GS, 50, 51, 23, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, 56, 57,
     48, 49, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, 48, 49,
     56, 57, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, 56, 57,
-    48, 49, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, 48, 49,
+    48, 49, GS, GS, 16, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, 22, 50, 51, GS, GS, 48, 49,
     56, 57, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, 56, 57,
     48, 49, 48, 49, 48, 49, 48, 49, 48, 49, 48, 49, GS, GS, GS, GS, GS, GS, GS, GS, GS, 48, 49, 48, 49, 48, 49, 48, 49, 48, 49, 48, 49,
     56, 57, 56, 57, 56, 57, 56, 57, 56, 57, 56, 57, GS, GS, GS, GS, GS, GS, GS, GS, GS, 56, 57, 56, 57, 56, 57, 56, 57, 56, 57, 56, 57,
@@ -43,11 +43,11 @@ unsigned int level6_grave_data[] =
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     48, 49, 48, 49, 48, 49, 48, 49, 48, 49, 48, 49, 48, 49, GS, 34, 35, 34, GS, 48, 49, 48, 49, 48, 49, 48, 49, 48, 49, 48, 49, 48, 49,
     56, 57, 56, 57, 56, 57, 56, 57, 56, 57, 56, 57, 56, 57, GS, 35, 34, 35, GS, 56, 57, 56, 57, 56, 57, 56, 57, 56, 57, 56, 57, 56, 57,
-    48, 49, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, 34, 35, 34, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, 48, 49,
-    56, 57, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, 52, 52, GS, GS, GS, GS, GS, 52, 52, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, 56, 57,
+    48, 49, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, 34, 35, 34, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, 16, GS, 48, 49,
+    56, 57, GS, GS, GS, 50, 51, 23, GS, GS, GS, GS, 52, 52, GS, GS, GS, GS, GS, 52, 52, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, 56, 57,
     48, 49, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, 60, 60, GS, GS, GS, GS, GS, 60, 60, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, 48, 49,
     56, 57, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, 52, 52, GS, GS, GS, GS, GS, 52, 52, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, 56, 57,
-    48, 49, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, 60, 60, GS, GS, GS, GS, GS, 60, 60, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, 48, 49,
+    48, 49, GS, GS, 16, GS, GS, GS, GS, GS, GS, GS, 60, 60, GS, GS, GS, GS, GS, 60, 60, GS, GS, GS, GS, GS, 22, 50, 51, GS, GS, 48, 49,
     56, 57, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, 52, 52, GS, GS, GS, GS, GS, 52, 52, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, 56, 57,
     48, 49, 48, 49, 48, 49, 48, 49, 48, 49, 48, 49, 60, 60, GS, GS, GS, GS, GS, 60, 60, 48, 49, 48, 49, 48, 49, 48, 49, 48, 49, 48, 49,
     56, 57, 56, 57, 56, 57, 56, 57, 56, 57, 56, 57, 52, 52, GS, GS, GS, GS, GS, 52, 52, 56, 57, 56, 57, 56, 57, 56, 57, 56, 57, 56, 57,
@@ -65,11 +65,11 @@ unsigned int level6_grave2_data[] =
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     48, 49, 48, 49, 48, 49, 48, 49, 48, 49, 48, 49, 48, 49, GS, 34, 35, 34, GS, 48, 49, 48, 49, 48, 49, 48, 49, 48, 49, 48, 49, 48, 49,
     56, 57, 56, 57, 56, 57, 56, 57, 56, 57, 56, 57, 56, 57, GS, 35, 34, 35, GS, 56, 57, 56, 57, 56, 57, 56, 57, 56, 57, 56, 57, 56, 57,
-    48, 49, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, 34, 35, 34, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, 48, 49,
-    56, 57, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, 52, 52, 52, 52, 52, 52, 52, 52, 52, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, 56, 57,
+    48, 49, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, 34, 35, 34, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, 16, GS, 48, 49,
+    56, 57, GS, GS, GS, 50, 51, 23, GS, GS, GS, GS, 52, 52, 52, 52, 52, 52, 52, 52, 52, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, 56, 57,
     48, 49, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, 60, 60, 60, 60, 60, 60, 60, 60, 60, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, 48, 49,
     56, 57, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, 52, 52, GS, GS, GS, GS, GS, 52, 52, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, 56, 57,
-    48, 49, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, 60, 60, GS, GS, GS, GS, GS, 60, 60, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, 48, 49,
+    48, 49, GS, GS, 16, GS, GS, GS, GS, GS, GS, GS, 60, 60, GS, GS, GS, GS, GS, 60, 60, GS, GS, GS, GS, GS, 22, 50, 51, GS, GS, 48, 49,
     56, 57, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, 52, 52, GS, GS, GS, GS, GS, 52, 52, GS, GS, GS, GS, GS, GS, GS, GS, GS, GS, 56, 57,
     48, 49, 48, 49, 48, 49, 48, 49, 48, 49, 48, 49, 60, 60, GS, GS, GS, GS, GS, 60, 60, 48, 49, 48, 49, 48, 49, 48, 49, 48, 49, 48, 49,
     56, 57, 56, 57, 56, 57, 56, 57, 56, 57, 56, 57, 52, 52, GS, GS, GS, GS, GS, 52, 52, 56, 57, 56, 57, 56, 57, 56, 57, 56, 57, 56, 57,
@@ -328,10 +328,10 @@ void Level6::Update(float deltaTime) {
             // nextScene = 0;
             state.player->interactionType = InteractionType::NONE;
             if (ending == Ending::SACRIFICE) {
-                nextScene = 10; // sacrifice
+                nextScene = 13; // sacrifice
             }
             else if (ending == Ending::WELCOME_HOME) {
-                nextScene = 11; // welcome home
+                nextScene = 14; // welcome home
             }
             else if (magentaWins && playEndingAnimation) {
                 nextScene = 8; // bad end - betrayal;

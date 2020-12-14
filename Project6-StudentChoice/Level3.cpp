@@ -120,7 +120,7 @@ vector<vector<string>> LEVEL3_LINES = {
 void Level3::Initialize() {
     Level::Initialize();
     worldNum = 3;
-    //Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 4096);
+    Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 4096);
 
     // initialize audio
     bgm = Mix_LoadMUS("assets/audio/Lost-in-a-Labyrinth.mp3");
@@ -359,7 +359,7 @@ void Level3::Render(ShaderProgram* program, ShaderProgram* program_lit) {
     Level::Render(program);
     Util::DisplayText(program, fontTextureID, state.currText);
     // Util::DrawText(program, fontTextureID, "Dead:"+to_string(state.player->isDead), 0.8, -0.2, glm::vec3(20, 2.5, 0));
-    Util::DrawText(program, fontTextureID, "Time: " + to_string(int(countdownTime)), 0.8, -0.2, glm::vec3(20, 1, 0));
+    Util::DrawText(program, fontTextureID, "Time: " + to_string(int(countdownTime)), 0.8, -0.2, glm::vec3(13, 1, 0));
 }
 void Level3::ProcessInput(SDL_Event& event) {
     Level::ProcessInput(event);

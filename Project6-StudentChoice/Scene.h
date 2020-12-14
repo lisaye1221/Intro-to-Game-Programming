@@ -41,6 +41,7 @@ public:
 	virtual void ProcessInput(SDL_Event& event) = 0;
 
 	bool shouldFadeIn = false;
+	bool shouldFadeOut = false;
 protected:
 	glm::mat4 backgroundMatrix;
 	GLuint backgroundID;

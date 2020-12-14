@@ -167,11 +167,6 @@ void EndingCycle::Initialize() {
     lines.emplace_back(ENDINGCYCLE_LINES[2], "Magenta");
     lines.emplace_back(ENDINGCYCLE_LINES[3], "Magenta");
 
-    linesScene2.emplace_back();
-
-   /* if (state.player->getPosition().x > 15) {
-        if (!startEnding) { startEnding = true; }
-    }*/
 
     
 }
@@ -280,9 +275,9 @@ void EndingCycle::Update(float deltaTime) {
 }
 void EndingCycle::Render(ShaderProgram* program, ShaderProgram* program_lit) {
     Level::Render(program);
-    Level::displayUI(program, fontTextureID);
+    //Level::displayUI(program, fontTextureID);
     Util::DisplayText(program, fontTextureID, state.currText);
-    Util::DrawText(program, fontTextureID, "startAnimation: " + to_string(startAnimation), 1.0, -0.2, glm::vec3(16, 1, 0));
+    //Util::DrawText(program, fontTextureID, "startAnimation: " + to_string(startAnimation), 1.0, -0.2, glm::vec3(16, 1, 0));
 
 }
 void EndingCycle::ProcessInput(SDL_Event& event) {
