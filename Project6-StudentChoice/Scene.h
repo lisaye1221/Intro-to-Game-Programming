@@ -40,6 +40,7 @@ public:
 	virtual void Render(ShaderProgram* program, ShaderProgram* program_lit = nullptr) = 0;
 	virtual void ProcessInput(SDL_Event& event) = 0;
 
+	bool shouldFadeIn = false;
 protected:
 	glm::mat4 backgroundMatrix;
 	GLuint backgroundID;

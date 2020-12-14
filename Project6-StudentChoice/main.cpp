@@ -176,6 +176,11 @@ void Update() {
         currentScene->effect = EffectType::NONE;
     }
 
+    if (currentScene->shouldFadeIn) {
+        effects->Start(EffectType::FADEIN, 0.7f);
+        currentScene->shouldFadeIn = false;
+    }
+
 }
 
 

@@ -337,7 +337,7 @@ void Level6::Update(float deltaTime) {
                 nextScene = 8; // bad end - betrayal;
             }
             else if (battleWin) {
-                nextScene = 9; // cycle
+                nextScene = 12; // cycle
             }
         }
         break;
@@ -451,7 +451,7 @@ void Level6::Update(float deltaTime) {
 void Level6::Render(ShaderProgram* program, ShaderProgram* program_lit) {
     Level::Render(program);
     Util::DisplayText(program, fontTextureID, state.currText);
-    Util::DrawText(program, fontTextureID, "playanim:" + to_string(playEndingAnimation), 0.8, -0.2, glm::vec3(20, 2.5, 0));
+    //Util::DrawText(program, fontTextureID, "playanim:" + to_string(playEndingAnimation), 0.8, -0.2, glm::vec3(20, 2.5, 0));
 }
 void Level6::ProcessInput(SDL_Event& event) {
     switch (event.type) {
@@ -644,7 +644,7 @@ void Level6::preBattle() {
         preBattleScene = false;
         canAdvance = true;
         battleStart = true;
-        state.currText = Text({"PRESS SPACE BAR TO FIGHT BACK"}, "");
+        state.currText = Text({"PRESS SPACE BAR TO FIGHT BACK"}, "", true);
     }
     if (linesIndex < preBattleLines.size() - 1 && state.currText.isAtEnd()) {
         shouldStart = true;

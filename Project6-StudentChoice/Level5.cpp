@@ -333,13 +333,13 @@ void Level5::Render(ShaderProgram* program, ShaderProgram* program_lit) {
     Level::Render(program);
     Util::DisplayText(program, fontTextureID, state.currText);
 
-    string button = "None";
+    /*string button = "None";
     if (buttonChoice == ButtonChoice::CONFIRM) { button = "confirm"; }
     else if(buttonChoice == ButtonChoice::CANCEL) { button = "cancel"; }
 
     Util::DrawText(program, fontTextureID, "Make Choice: " + to_string(toMakeChoice), 0.8, -0.18, glm::vec3(10, 1.5, 0));
     Util::DrawText(program, fontTextureID, "isEnd: " + to_string(state.currText.isEnd), 0.8, -0.18, glm::vec3(10, 0.5, 0));
-    Util::DrawText(program, fontTextureID, "Button: " + button, 1.0, -0.2, glm::vec3(20, 2, 0));
+    Util::DrawText(program, fontTextureID, "Button: " + button, 1.0, -0.2, glm::vec3(20, 2, 0));*/
 
 }
 void Level5::ProcessInput(SDL_Event& event) {

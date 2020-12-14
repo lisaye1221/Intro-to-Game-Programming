@@ -82,5 +82,5 @@ void Level::Render(ShaderProgram* program, ShaderProgram* program_lit) {
     }
     state.magenta->Render(program);
     state.player->Render(program);
-    Level::displayUI(program, fontTextureID);
+    //Level::displayUI(program, fontTextureID);
 }

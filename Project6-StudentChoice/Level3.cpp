@@ -358,7 +358,7 @@ void Level3::Update(float deltaTime) {
 void Level3::Render(ShaderProgram* program, ShaderProgram* program_lit) {
     Level::Render(program);
     Util::DisplayText(program, fontTextureID, state.currText);
-    Util::DrawText(program, fontTextureID, "Dead:"+to_string(state.player->isDead), 0.8, -0.2, glm::vec3(20, 2.5, 0));
+    // Util::DrawText(program, fontTextureID, "Dead:"+to_string(state.player->isDead), 0.8, -0.2, glm::vec3(20, 2.5, 0));
     Util::DrawText(program, fontTextureID, "Time: " + to_string(int(countdownTime)), 0.8, -0.2, glm::vec3(20, 1, 0));
 }
 void Level3::ProcessInput(SDL_Event& event) {

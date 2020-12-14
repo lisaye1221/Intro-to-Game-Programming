@@ -2,7 +2,7 @@
 #include <set>
 
 std::set<int> isSolid = { 0, 9, 10, 11, 12, 13, 56, 57, 58, 59, 60, 61, 62, 63 };
-std::set<int> isDoor = {34,35, 67};
+std::set<int> isDoor = {34,35, 66, 67};
 std::set<int> isSpecial = {4};
 
 std::set<int> isNotSolid_Cave = { 24, 25, 26, 27, 28, 29, 75, 67};
