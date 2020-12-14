@@ -1,33 +1,40 @@
 
+Visual Assets Credit:
 
+Time Fantasy Website
+ timefantasy.net
+
+FANTASY RPG by Franuka (https://franuka.itch.io/)
+
+Audio Assets Credit:
 
 Sound effects from ZapSplat.com
 
 The following titles are by Eric Matyas (www.soundimage.org):
 
-"Enchanted Forest Open" - Title
+"Enchanted Forest Open"
 
-"A FLOCK OF BUBBLES" - Opening World in Forest
+"A FLOCK OF BUBBLES" 
 
-"LOST MEADOW" - [???] (where you get the orb)
+"LOST JUNGLE"
 
-"LOST JUNGLE" - Maze
+"Lost in a Labyrinth" 
 
-"Lost in a Labyrinth" - Monster World
+"Chilly Whispers" 
 
-"Chilly Whispers" - Walk Straight
+"Peaceful Mind" 
 
-"After the Forest Battle" - Riddle
+"Urban Assault" 
 
-"Comrades Always" - Boss Fight
+"The Bog of Despair" 
 
-"The Attic of Secret" - Connection Between Two Worlds
+"Distant Mountain" 
 
-"The Bog of Despair" - Bad End: Death/Betrayal
+"RPG THEME_V001" 
 
-"Distant Mountain" - Ending: Sacrifice
+"92nd Floor"
 
-"RPG THEME_V001" - True Ending
+"Going Different Ways"
 
 
 
